@@ -1,4 +1,4 @@
-@extends('base')
+@extends('media')
 @section('content')
     <div class="ui grid stackable padded">
         <div

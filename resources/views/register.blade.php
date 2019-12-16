@@ -1,46 +1,56 @@
 @extends('base')
-@section('content')
-    <!-- Main Section -->
-    <section class="main-section">
-        <!-- Add Your Content Inside -->
-        <div class="content">
-            <!-- Remove This Before You Start -->
-            <h1>Anak IT - Register</h1>
-            <hr>
-            @if ($errors->any())
-                <div class="alert alert-danger">
-                    <ul>
+@section('register')
+
+    <div class="ui centered stackable grid">
+        <div class="six wide column">
+            <h2 class="ui image header">
+                <div class="content" style="margin-top: 3rem">
+                    Register APO Account
+                </div>
+            </h2>
+
+            @if($errors->any())
+                <div class="ui icon warning message">
+                    <i class="lock icon"></i>
+                    <div class="content">
+                        <div class="header">
+                            Login failed!
+                        </div>
                         @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
+                            <p>{{ $error }}</p>
                         @endforeach
-                    </ul>
+                    </div>
                 </div>
             @endif
-            <form action="{{ url('/registerPost') }}" method="post">
-                {{ csrf_field() }}
-                <div class="form-group">
-                    <label for="email">Email:</label>
-                    <input type="email" class="form-control" id="email" name="email">
+            <div class="ui fluid card">
+                <div class="content">
+                    <form class="ui form" method="POST" action="{{ url('/registerPost') }}">
+                        {{ csrf_field() }}
+                        <div class="field">
+                            <label>Fullname</label>
+                            <input type="text" name="nama" placeholder="Fullname">
+                        </div>
+                        <div class="field">
+                            <label>Email</label>
+                            <input type="email" name="email" placeholder="Email">
+                        </div>
+                        <div class="field">
+                            <label>Password</label>
+                            <input type="password" name="password" placeholder="Password">
+                        </div>
+                        <div class="field">
+                            <label>Confirmation password</label>
+                            <input type="password" name="confirmation" placeholder="Confirmation password">
+                        </div>
+                        <button class="ui teal labeled icon button large fluid" type="submit">
+                            <i class="unlock alternate icon"></i>
+                            Register
+                        </button>
+                    </form>
                 </div>
-                <div class="form-group">
-                    <label for="alamat">Password:</label>
-                    <input type="password" class="form-control" id="password" name="password">
-                </div>
-                <div class="form-group">
-                    <label for="alamat">Password Confirmation:</label>
-                    <input type="password" class="form-control" id="confirmation" name="confirmation">
-                </div>
-                <div class="form-group">
-                    <label for="alamat">Name:</label>
-                    <input type="text" class="form-control" id="name" name="nama">
-                </div>
-                <div class="form-group">
-                    <button type="submit" class="btn btn-md btn-primary">Submit</button>
-                    <button type="reset" class="btn btn-md btn-danger">Cancel</button>
-                </div>
-            </form>
+            </div>
+
         </div>
-        <!-- /.content -->
-    </section>
-    <!-- /.main-section -->
+    </div>
+
 @endsection

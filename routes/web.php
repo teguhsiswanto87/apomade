@@ -12,14 +12,14 @@
 */
 
 Route::get('/', function () {
-    return view('index');
+    return view('login');
 });
 
 Route::get('/halaman-kedua', function () {
     return view('halamandua');
 });
 
-Route::get('/home', 'UserController@index');
+Route::get('/dashboard', 'UserController@index');
 Route::get('/login', 'UserController@login');
 Route::post('/loginPost', 'UserController@loginPost');
 Route::get('/register', 'UserController@register');

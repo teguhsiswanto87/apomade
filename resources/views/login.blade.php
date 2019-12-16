@@ -1,39 +1,58 @@
 @extends('base')
-@section('content')
-    <!-- Main Section -->
-    <section class="main-section">
-        <!-- Add Your Content Inside -->
-        <div class="content">
-            <!-- Remove This Before You Start -->
-            <h1>Anak IT - Login</h1>
-            <hr>
+@section('login')
+
+    <div class="ui centered stackable grid">
+        <div class="six wide column">
+            <h2 class="ui image header">
+                <div class="content" style="margin-top: 3rem">
+                    Log-in to your account
+                </div>
+            </h2>
             @if(\Session::has('alert'))
-                <div class="alert alert-danger">
-                    <div>{{Session::get('alert')}}</div>
+                <div class="ui icon warning message">
+                    <i class="lock icon"></i>
+                    <div class="content">
+                        <div class="header">
+                            Login failed!
+                        </div>
+                        <p>{{Session::get('alert')}}</p>
+                    </div>
                 </div>
             @endif
             @if(\Session::has('alert-success'))
-                <div class="alert alert-success">
-                    <div>{{Session::get('alert-success')}}</div>
+                <div class="ui icon success message">
+                    <i class="lock icon"></i>
+                    <div class="content">
+                        <div class="header">
+                            Login success
+                        </div>
+                        <p>{{Session::get('alert-success')}}</p>
+                    </div>
                 </div>
             @endif
-            <form action="{{ url('/loginPost') }}" method="post">
-                {{ csrf_field() }}
-                <div class="form-group">
-                    <label for="email">Email:</label>
-                    <input type="email" class="form-control" id="email" name="email">
+            <div class="ui fluid card">
+                <div class="content">
+                    <form class="ui form" method="POST" action="{{ url('/loginPost') }}">
+                        {{ csrf_field() }}
+                        <div class="field">
+                            <label>Email</label>
+                            <input type="email" name="email" placeholder="Email">
+                        </div>
+                        <div class="field">
+                            <label>Password</label>
+                            <input type="password" name="password" placeholder="Password">
+                        </div>
+                        <button class="ui primary labeled icon large button fluid" type="submit">
+                            <i class="unlock alternate icon"></i>
+                            Login
+                        </button>
+                    </form>
                 </div>
-                <div class="form-group">
-                    <label for="password">Password:</label>
-                    <input type="password" class="form-control" id="password" name="password"></input>
-                </div>
-                <div class="form-group">
-                    <button type="submit" class="btn btn-md btn-primary">Login</button>
-                    <a href="{{url('register')}}" class="btn btn-md btn-warning">Register</a>
-                </div>
-            </form>
+            </div>
+            <div class="ui message center aligned">
+                New to us? <a href="{{url('register')}}">Register</a>
+            </div>
         </div>
-        <!-- /.content -->
-    </section>
-    <!-- /.main-section -->
+    </div>
+
 @endsection

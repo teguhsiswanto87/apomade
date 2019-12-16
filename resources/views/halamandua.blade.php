@@ -1,4 +1,4 @@
-@extends('base') {{-- mengambil file base.blade.php --}}
+@extends('media') {{-- mengambil file base.blade.php --}}
 @section('content') {{-- Mengisi di bagian content --}}
 <!-- Main Section -->
 <section class="main-section">

@@ -14,7 +14,7 @@ class UserController extends Controller
         if (!Session::get('login')) {
             return redirect('login')->with('alert', 'Kamu Harus Login');
         } else {
-            return view('index');
+            return view('dashboard');
         }
     }
 
@@ -35,7 +35,7 @@ class UserController extends Controller
                 Session::put('email', $data->email);
                 Session::put('jabatan', $data->jabatan);
                 Session::put('login', TRUE);
-                return redirect('home');
+                return redirect('dashboard');
             } else {
                 return redirect('login')->with('alert', 'Password atau email salah !');
             }

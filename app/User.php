@@ -18,25 +18,26 @@ class User extends Model
      *
      * @var array
      */
-    protected $fillable = [
-        'nama', 'jabatan', 'email', 'password'
-    ];
+    protected $fillable = ['nama', 'jabatan', 'email', 'password'];
 
     /**
      * The attributes that should be hidden for arrays.
      *
      * @var array
      */
-    protected $hidden = [
-        'password', 'remember_token',
-    ];
+    protected $hidden = ['password', 'remember_token'];
 
     /**
      * The attributes that should be cast to native types.
      *
      * @var array
      */
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-    ];
+    protected $casts = ['email_verified_at' => 'datetime'];
+
+    // relation
+    public function shoppings()
+    {
+        return $this->hasMany(Shopping::class);
+    }
+
 }
