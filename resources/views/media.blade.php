@@ -11,7 +11,7 @@
                         Dashboard
                     </div>
                 </a>
-                <a class="item {{ (request()->is('produk')) ? 'active' : ''  }}" href="">
+                <a class="item {{ (request()->is('product')) ? 'active' : ''  }}" href="/product">
                     <div>
                         <i class="icon list ul"></i>
                         Produk

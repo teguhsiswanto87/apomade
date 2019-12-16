@@ -19,11 +19,15 @@ Route::get('/halaman-kedua', function () {
     return view('halamandua');
 });
 
+// login
 Route::get('/dashboard', 'UserController@index');
 Route::get('/login', 'UserController@login');
 Route::post('/loginPost', 'UserController@loginPost');
 Route::get('/register', 'UserController@register');
 Route::post('/registerPost', 'UserController@registerPost');
 Route::get('/logout', 'UserController@logout');
+
+// product
+Route::get('/product', 'ProductController@index');
 
 
