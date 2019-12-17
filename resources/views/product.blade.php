@@ -11,7 +11,17 @@
                 <div class="ui positive small message">
                     <i class="close icon"></i>
                     <div class="header">
+                        <i class="check icon"></i>
                         {{ Session::get('alert-success') }}
+                    </div>
+                </div>
+            @endif
+            @if(Session::has('alert-warning'))
+                <div class="ui warning small message">
+                    <i class="close icon"></i>
+                    <div class="header">
+                        <i class="info circle icon"></i>
+                        {{ Session::get('alert-warning') }}
                     </div>
                 </div>
             @endif
@@ -37,7 +47,11 @@
                         <td class="right aligned">{{ number_format($product->capital, 0, ',','.') }}</td>
                         <td class="right aligned">{{ number_format($product->selling_price,0,',','.') }}</td>
                         <td class="right aligned">{{ number_format($product->gross_profit,0,',','.') }}</td>
-                        <td class="collapsing">Edit | Hapus</td>
+                        <td class="collapsing">
+                            <a href="product/edit/{{ $product->id  }}">Edit</a> |
+                            <a href="productDelete/{{ $product->id  }}"
+                               onclick="return confirm(' Hapus {{ $product->name }} ?');">Hapus</a>
+                        </td>
                     </tr>
                 @endforeach
 

@@ -45,5 +45,37 @@ class ProductController extends Controller
 
     }
 
+    public function edit($id)
+    {
+        if (!Session::get('login')) {
+            return redirect('login')->with('alert', 'Kamu Harus Login');
+        } else {
+            $product = DB::table('products')->where('id', $id)->get();
+            return view('product_edit', ['products' => $product]);
+        }
+    }
+
+    public function productUpdate(ProductStoreRequest $request)
+    {
+
+        $data = Product::find($request->id);
+        $data->name = $request->name;
+        $data->stock = $request->stock;
+        $data->capital = $request->capital;
+        $data->selling_price = $request->selling_price;
+        $data->gross_profit = $request->gross_profit;
+        $data->save();
+
+        return redirect('product')->with('alert-success', 'Berhasil memperbarui data');
+
+    }
+
+    public function productDelete($id)
+    {
+        $data = DB::table('products')->where('id', $id);
+        $data->delete();
+
+        return redirect('product')->with('alert-warning', 'Berhasil menghapus data');
+    }
 
 }
