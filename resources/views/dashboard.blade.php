@@ -1,9 +1,22 @@
 @extends('media')
 @section('content')
     <div class="ui grid stackable padded">
-        <div
-            class="four wide computer eight wide tablet sixteen wide mobile column"
-        >
+
+        @if(Session::has('alert-success'))
+            <div class="sixteen wide computer sixteen wide tablet sixteen wide mobile column">
+                <div class="ui icon success message padded">
+                    <i class="close icon"></i>
+                    <i class="heart icon"></i>
+                    <div class="content">
+                        <div class="header">
+                            {{Session::get('alert-success')}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        @endif
+
+        <div class="four wide computer eight wide tablet sixteen wide mobile column">
             <div class="ui fluid card">
                 <div class="content">
                     <div class="ui right floated header red">
@@ -29,8 +42,7 @@
             </div>
         </div>
         <div
-            class="four wide computer eight wide tablet sixteen wide mobile column"
-        >
+            class="four wide computer eight wide tablet sixteen wide mobile column">
             <div class="ui fluid card">
                 <div class="content">
                     <div class="ui right floated header green">
@@ -54,8 +66,7 @@
             </div>
         </div>
         <div
-            class="four wide computer eight wide tablet sixteen wide mobile column"
-        >
+            class="four wide computer eight wide tablet sixteen wide mobile column">
             <div class="ui fluid card">
                 <div class="content">
                     <div class="ui right floated header teal">
@@ -79,8 +90,7 @@
             </div>
         </div>
         <div
-            class="four wide computer eight wide tablet sixteen wide mobile column"
-        >
+            class="four wide computer eight wide tablet sixteen wide mobile column">
             <div class="ui fluid card">
                 <div class="content">
                     <div class="ui right floated header purple">
@@ -148,8 +158,7 @@
     </div>
     <div class="ui grid stackable padded">
         <div
-            class="four wide computer eight wide tablet sixteen wide mobile  center aligned column"
-        >
+            class="four wide computer eight wide tablet sixteen wide mobile  center aligned column">
             <div class="ui teal statistic">
                 <div class="value">
                     5,550
@@ -160,8 +169,7 @@
             </div>
         </div>
         <div
-            class="four wide computer eight wide tablet sixteen wide mobile  center aligned column"
-        >
+            class="four wide computer eight wide tablet sixteen wide mobile  center aligned column">
             <div class="ui purple statistic">
                 <div class="value">
                     50+
@@ -172,8 +180,7 @@
             </div>
         </div>
         <div
-            class="four wide computer eight wide tablet sixteen wide mobile  center aligned column"
-        >
+            class="four wide computer eight wide tablet sixteen wide mobile  center aligned column">
             <div class="ui green statistic">
                 <div class="value">
                     800+
@@ -184,8 +191,7 @@
             </div>
         </div>
         <div
-            class="four wide computer eight wide tablet sixteen wide mobile  center aligned column"
-        >
+            class="four wide computer eight wide tablet sixteen wide mobile  center aligned column">
             <div class="ui purple statistic">
                 <div class="value">
                     1000+

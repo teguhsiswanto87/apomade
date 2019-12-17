@@ -29,5 +29,7 @@ Route::get('/logout', 'UserController@logout');
 
 // product
 Route::get('/product', 'ProductController@index');
+Route::get('/product/insert', 'ProductController@insert');
+Route::post('/productPost', 'ProductController@productPost');
 
 

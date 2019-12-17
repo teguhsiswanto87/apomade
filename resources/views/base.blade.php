@@ -19,7 +19,7 @@
         integrity="sha256-+N4/V/SbAFiW1MPBCXnfnP9QSN3+Keu+NlB+0ev/YKQ="
         crossorigin="anonymous"
     />
-    <link rel="stylesheet" href="assets/css/style.css"/>
+    <link rel="stylesheet" href="{{ asset('assets')  }}/css/style.css"/>
 </head>
 
 <body>
@@ -39,6 +39,6 @@
     integrity="sha256-t8GepnyPmw9t+foMh3mKNvcorqNHamSKtKRxxpUEgFI="
     crossorigin="anonymous"
 ></script>
-<script src="assets/js/script.js"></script>
+<script src="{{ asset('assets')  }}/js/script.js"></script>
 </body>
 </html>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\RegisterStoreRequest;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -31,16 +32,16 @@ class UserController extends Controller
         $data = User::where('email', $email)->first();
         if ($data) { //apakah email ada
             if (Hash::check($password, $data->password)) {
-                Session::put('nama', $data->nama);
+                Session::put('name', $data->name);
                 Session::put('email', $data->email);
-                Session::put('jabatan', $data->jabatan);
+                Session::put('position', $data->position);
                 Session::put('login', TRUE);
-                return redirect('dashboard');
+                return redirect('dashboard')->with('alert-success', 'Selamat datang ' . $data->name);
             } else {
                 return redirect('login')->with('alert', 'Password atau email salah !');
             }
         } else {
-            return redirect('login')->with('alert','Email Tidak terdaftar');
+            return redirect('login')->with('alert', 'Email Tidak terdaftar');
         }
     }
 
@@ -55,22 +56,15 @@ class UserController extends Controller
         return view('register');
     }
 
-    public function registerPost(Request $request)
+    public function registerPost(RegisterStoreRequest $request)
     {
-
-        $this->validate($request, [
-            'nama' => 'required|min:4',
-            'email' => 'required|email|unique:users',
-            'password' => 'required',
-            'confirmation' => 'required|same:password'
-        ]);
-
         $data = new User();
-        $data->nama = $request->nama;
+        $data->name = $request->name;
         $data->email = $request->email;
         $data->password = bcrypt($request->password);
         $data->save();
         return redirect('login')->with('alert-success', 'Kamu berhasil mendaftar');
+
     }
 
 }

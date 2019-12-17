@@ -10,6 +10,7 @@
             </h2>
             @if(\Session::has('alert'))
                 <div class="ui icon warning message">
+                    <i class="close icon"></i>
                     <i class="lock icon"></i>
                     <div class="content">
                         <div class="header">
@@ -21,10 +22,11 @@
             @endif
             @if(\Session::has('alert-success'))
                 <div class="ui icon success message">
+                    <i class="close icon"></i>
                     <i class="lock icon"></i>
                     <div class="content">
                         <div class="header">
-                            Login success
+                            Register success
                         </div>
                         <p>{{Session::get('alert-success')}}</p>
                     </div>

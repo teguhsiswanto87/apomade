@@ -8,10 +8,10 @@
                 <a class="item {{ (request()->is('dashboard')) ? 'active' : ''  }}" href="/dashboard">
                     <div>
                         <i class="icon tachometer alternate"></i>
-                        Dashboard
+                        Beranda
                     </div>
                 </a>
-                <a class="item {{ (request()->is('product')) ? 'active' : ''  }}" href="/product">
+                <a class="item {{ (request()->is('product*')) ? 'active' : ''  }}" href="/product">
                     <div>
                         <i class="icon list ul"></i>
                         Produk
@@ -137,7 +137,7 @@
                 <i class="user cirlce icon"></i>
                 <div class="menu">
                     <a href="#" class="item">
-                        {{ Session::get('nama') }}</a>
+                        {{ Session::get('name') }}</a>
                     <a href="#" class="item">
                         <i class="info circle icon"></i> Profile</a>
                     <a href="/logout" class="item">
