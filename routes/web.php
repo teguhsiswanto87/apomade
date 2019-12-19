@@ -35,5 +35,15 @@ Route::get('/product/edit/{id}', 'ProductController@edit');
 Route::post('/productUpdate', 'ProductController@productUpdate');
 Route::get('/productDelete/{id}', 'ProductController@productDelete');
 
+// Selling
+Route::get('/selling/insert', 'SellingController@insert');
+
+// Courier
+Route::get('/courier', 'CourierController@index');
+Route::get('/courier/insert', 'CourierController@insert');
+Route::post('/courierPost', 'CourierController@courierPost');
+Route::get('/courier/edit/{id}', 'CourierController@edit');
+Route::post('/courierUpdate', 'CourierController@courierUpdate');
+Route::get('/courierDelete/{id}', 'CourierController@courierDelete');
 
 

@@ -3,7 +3,7 @@
 
     <div class="ui grid stackable padded">
         <div class="six wide computer eight wide tablet sixteen wide mobile column">
-            <a href="{{ url()->previous() }}" class="ui labeled icon basic button">
+            <a href="/product" class="ui labeled icon basic button">
                 <i class="left chevron icon"></i>
                 Batal
             </a>

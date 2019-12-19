@@ -3,14 +3,14 @@
 
     <div class="ui grid stackable padded">
         <div class="six wide computer eight wide tablet sixteen wide mobile column">
-            <a href="/product" class="ui labeled icon basic button">
-                <i class="left chevron icon"></i>
-                Kembali
-            </a>
+            {{--            <a href="{{ url()->previous() }}" class="ui labeled icon basic button">--}}
+            {{--                <i class="left chevron icon"></i>--}}
+            {{--                Kembali--}}
+            {{--            </a>--}}
             <div class="ui fluid segment">
                 {{--        Title Header        --}}
                 <h1 class="ui header">
-                    Tambah Produk
+                    Tambah Penjualan
                 </h1>
                 {{--        Form        --}}
                 <form class="ui form" method="POST" action="{{ url('/productPost')  }}">
@@ -74,4 +74,6 @@
             </div>
         </div>
     </div>
+
+
 @endsection

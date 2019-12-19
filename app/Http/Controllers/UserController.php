@@ -63,7 +63,7 @@ class UserController extends Controller
         $data->email = $request->email;
         $data->password = bcrypt($request->password);
         $data->save();
-        return redirect('login')->with('alert-success', 'Kamu berhasil mendaftar');
+        return redirect('login')->with('alert-success', 'Kamu berhasil mendaftar, silakan login');
 
     }
 

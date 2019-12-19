@@ -3,21 +3,21 @@
 
     <div class="ui grid stackable padded">
         <div class="six wide computer eight wide tablet sixteen wide mobile column">
-            <a href="/product" class="ui labeled icon basic button">
+            <a href="/courier" class="ui labeled icon basic button">
                 <i class="left chevron icon"></i>
                 Kembali
             </a>
             <div class="ui fluid segment">
                 {{--        Title Header        --}}
                 <h1 class="ui header">
-                    Tambah Produk
+                    Tambah Jasa Pengiriman
                 </h1>
                 {{--        Form        --}}
-                <form class="ui form" method="POST" action="{{ url('/productPost')  }}">
+                <form class="ui form" method="POST" action="{{ url('/courierPost')  }}">
                     {{ csrf_field()  }}
                     <div class="field">
-                        <label>Nama Produk
-                            <input type="text" name="name" placeholder="Nama Produk">
+                        <label>Nama
+                            <input type="text" name="name" placeholder="Nama">
                             @if($errors->has('name'))
                                 <div class="ui pointing orange label">
                                     {{ $errors->first('name') }}
@@ -25,37 +25,25 @@
                             @endif
                         </label>
                     </div>
-                    <div class="field six wide column">
-                        <label>Stock
-                            <input type="number" name="stock" placeholder="Stock">
-                            @if($errors->has('stock'))
+                    <div class="field">
+                        <label>Link Gambar
+                            <input type="text" name="image_link" placeholder="image_link">
+                            @if($errors->has('image_link'))
                                 <div class="ui pointing orange label">
-                                    {{ $errors->first('stock') }}
+                                    {{ $errors->first('image_link') }}
                                 </div>
                             @endif
                         </label>
                     </div>
-                    <div class="field ten wide column">
-                        <label>Modal
-                            <input type="number" name="capital" placeholder="Modal">
-                            @if($errors->has('capital'))
-                                <div class="ui pointing orange label">
-                                    {{ $errors->first('capital') }}
-                                </div>
-                            @endif
-                        </label>
+                    <div class="field">
+                        <label>Aktif</label>
+                        <div class="ui toggle checkbox">
+                            <input type="checkbox" name="active" value="Y" checked>
+                            <label>Tampil di input penjualan</label>
+                        </div>
                     </div>
-                    <div class="field ten wide column">
-                        <label>Harga Jual
-                            <input type="number" name="selling_price" placeholder="Harga Jual">
-                        </label>
-                    </div>
-                    <div class="field ten wide column">
-                        <label>Laba Kotor
-                            <input type="number" name="gross_profit" placeholder="Laba Kotor">
-                        </label>
-                    </div>
-
+                    <br>
+                    <br>
                     <button class="ui button primary fluid" type="submit">Tambahkan</button>
                 </form>
 
@@ -74,4 +62,5 @@
             </div>
         </div>
     </div>
+
 @endsection

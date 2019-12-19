@@ -18,4 +18,9 @@ class Product extends Model
         return $this->hasMany(ShoppingDetail::class);
     }
 
+    public function sellingDetails()
+    {
+        return $this->hasMany(SellingDetail::class);
+    }
+
 }

@@ -50,7 +50,7 @@
                 <a class="item">
                     <div><i class="chart line icon"></i>Transaksi</div>
                 </a>
-                <a class="item">
+                <a href="/selling/insert" class="item {{  (request()->is('selling*')? 'active':'') }}">
                     <div><i class="shopping cart icon"></i>Input Penjualan</div>
                 </a>
             </div>
@@ -74,17 +74,17 @@
         <div class="item">
             <div class="header">Other</div>
             <div class="menu">
-                <a href="#" class="item">
+                <a href="/courier" class="item {{ (request()->is('courier*')?'active':'') }}">
                     <div>
-                        <i class="icon envelope"></i>
-                        Messages
+                        <i class="icon shipping fast"></i>
+                        Jasa Pengiriman
                     </div>
                 </a>
 
                 <a href="#" class="item">
                     <div>
-                        <i class="icon calendar alternate"></i>
-                        Calendar
+                        <i class="icon building"></i>
+                        Market Place
                     </div>
                 </a>
             </div>
@@ -119,7 +119,7 @@
 
     <!-- top nav -->
 
-    <nav class="ui top fixed inverted menu">
+    <nav class="ui top fixed  menu">
         <div class="left menu">
             <a href="#" class="sidebar-menu-toggler item" data-target="#sidebar">
                 <i class="sidebar icon"></i>
