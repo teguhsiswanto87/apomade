@@ -81,7 +81,7 @@
                     </div>
                 </a>
 
-                <a href="#" class="item">
+                <a href="/marketplace" class="item {{ (request()->is('marketplace*')? 'active':'') }}">
                     <div>
                         <i class="icon building"></i>
                         Market Place

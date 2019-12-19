@@ -27,7 +27,7 @@ Route::get('/register', 'UserController@register');
 Route::post('/registerPost', 'UserController@registerPost');
 Route::get('/logout', 'UserController@logout');
 
-// product
+// Product
 Route::get('/product', 'ProductController@index');
 Route::get('/product/insert', 'ProductController@insert');
 Route::post('/productPost', 'ProductController@productPost');
@@ -46,4 +46,10 @@ Route::get('/courier/edit/{id}', 'CourierController@edit');
 Route::post('/courierUpdate', 'CourierController@courierUpdate');
 Route::get('/courierDelete/{id}', 'CourierController@courierDelete');
 
-
+// Market Place
+Route::get('/marketplace', 'MarketPlaceController@index');
+Route::get('/marketplace/insert', 'MarketPlaceController@insert');
+Route::post('/marketplacePost', 'MarketPlaceController@marketplacePost');
+Route::get('/marketplace/edit/{id}', 'MarketPlaceController@edit');
+Route::post('/marketplaceUpdate', 'MarketPlaceController@marketplaceUpdate');
+Route::get('/marketplaceDelete/{id}', 'MarketPlaceController@marketplaceDelete');
