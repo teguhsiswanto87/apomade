@@ -24,7 +24,8 @@ class SellingController
         if (!Session::get('login')) {
             return redirect('login')->with('alert', 'Kamu Harus Login');
         } else {
-            return view('selling_insert');
+            $products = DB::table('products')->get();
+            return view('selling_insert', ['products' => $products]);
         }
 
     }

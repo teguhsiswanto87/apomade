@@ -35,9 +35,6 @@ Route::get('/product/edit/{id}', 'ProductController@edit');
 Route::post('/productUpdate', 'ProductController@productUpdate');
 Route::get('/productDelete/{id}', 'ProductController@productDelete');
 
-// Selling
-Route::get('/selling/insert', 'SellingController@insert');
-
 // Courier
 Route::get('/courier', 'CourierController@index');
 Route::get('/courier/insert', 'CourierController@insert');
@@ -53,3 +50,6 @@ Route::post('/marketplacePost', 'MarketPlaceController@marketplacePost');
 Route::get('/marketplace/edit/{id}', 'MarketPlaceController@edit');
 Route::post('/marketplaceUpdate', 'MarketPlaceController@marketplaceUpdate');
 Route::get('/marketplaceDelete/{id}', 'MarketPlaceController@marketplaceDelete');
+
+// Selling
+Route::get('/selling/insert', 'SellingController@insert');

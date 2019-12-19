@@ -41,7 +41,7 @@ class ProductController extends Controller
         $data->gross_profit = $request->gross_profit;
         $data->save();
 
-        return redirect('product')->with('alert-success', 'Berhasil menambahkan data');
+        return redirect('product')->with('alert-success', $data->name . ' berhasil ditambahkan');
 
     }
 

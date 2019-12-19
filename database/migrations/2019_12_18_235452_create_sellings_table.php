@@ -23,11 +23,11 @@ class CreateSellingsTable extends Migration
 
             $table->date('purchase_date');
             $table->string('buyers_name');
-            $table->integer('shopping_tax');
-            $table->integer('voucher_discount');
+            $table->integer('shopping_tax')->nullable(true);
+            $table->integer('voucher_discount')->nullable(true);
             $table->integer('turnover');
             $table->integer('profit');
-            $table->integer('selling_status');
+            $table->string('selling_status');
             $table->timestamps();
         });
     }
