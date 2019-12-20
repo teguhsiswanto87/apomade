@@ -1,9 +1,11 @@
 <?php
 
-
 namespace App\Http\Controllers;
 
-
+use App\Http\Requests\SellingStoreRequest;
+use App\Selling;
+use App\SellingDetail;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 
@@ -14,8 +16,23 @@ class SellingController
         if (!Session::get('login')) {
             return redirect('login')->with('alert', 'Kamu Harus Login');
         } else {
-            $sellings = DB::table('sellings')->get();
-            return view('selling', ['sellings' => $sellings]);
+            $products_sold = DB::table('products')
+                ->join('selling_details', 'selling_details.products_id', '=', 'products.id')
+                ->join('sellings', 'sellings.id', '=', 'selling_details.sellings_id')
+                ->select('products.*',
+                    'sellings.id as s_id',
+                    'selling_details.qty as sd_qty')
+                ->get();
+
+            $sellings = DB::table('sellings')
+                ->join('market_places', 'sellings.market_places_id', '=', 'market_places.id')
+                ->join('couriers', 'sellings.couriers_id', '=', 'couriers.id')
+                ->select('sellings.*',
+                    'market_places.name as mp_name',
+                    'market_places.image_link as mp_image_link',
+                    'couriers.name as c_name')
+                ->get();
+            return view('selling', ['sellings' => $sellings, 'products' => $products_sold]);
         }
     }
 
@@ -25,9 +42,96 @@ class SellingController
             return redirect('login')->with('alert', 'Kamu Harus Login');
         } else {
             $products = DB::table('products')->get();
-            return view('selling_insert', ['products' => $products]);
+            $couriers = DB::table('couriers')->get()->where('active', 'Y');
+            $market_places = DB::table('market_places')->get()->where('active', 'Y');
+            return view('selling_insert',
+                ['products' => $products,
+                    'couriers' => $couriers,
+                    'marketplaces' => $market_places]);
         }
 
     }
+
+    // insert with detail products
+    public function sellingPost(SellingStoreRequest $request)
+    {
+        $data = new Selling();
+        $data->market_places_id = $request->market_places_id;
+        $data->couriers_id = $request->couriers_id;
+        $data->purchase_date = $request->purchase_date;
+        $data->buyers_name = $request->buyers_name;
+        $data->shopping_tax = $request->shopping_tax;
+        $data->voucher_discount = $request->voucher_discount;
+        $data->turnover = $request->turnover;
+        $data->profit = $request->profit;
+        $data->selling_status = $request->selling_status;
+        $data->save();
+
+        $lastId = $data->id;
+        if (count($request->products_id) > 0) {
+            foreach ($request->products_id as $item => $value) {
+                $data2 = array(
+                    'sellings_id' => $lastId,
+                    'products_id' => $request->products_id[$item],
+                    'capital' => $request->capital[$item],
+                    'selling_price' => $request->selling_price[$item],
+                    'qty' => $request->qty[$item]
+                );
+                DB::table('selling_details')->insert($data2);
+            }
+        }
+
+
+        return redirect('selling')->with('alert-success', 'Data Penjualan berhasil ditambahakan');
+
+    }
+
+    // only testing
+    public function sellingPostTest(Request $request)
+    {
+        if (count($request->products_id) > 0) {
+            foreach ($request->products_id as $item => $value) {
+                $data2 = array(
+                    'sellings_id' => $request->sellings_id[$item],
+                    'products_id' => $request->products_id[$item],
+                    'capital' => $request->capital[$item],
+                    'selling_price' => $request->selling_price[$item],
+                    'qty' => $request->qty[$item]
+                );
+                DB::table('selling_details')->insert($data2);
+            }
+        }
+        return redirect('selling')->with('alert-success', 'Data Penjualan berhasil ditambahakan');
+    }
+
+    public function detail($id)
+    {
+        if (!Session::get('login')) {
+            return redirect('login')->with('alert', 'Kamu Harus Login');
+        } else {
+            $selling_details = DB::table('selling_details')
+                ->join('products', 'selling_details.products_id', '=', 'products.id')
+                ->join('sellings', 'selling_details.sellings_id', '=', 'sellings.id')
+                ->select('selling_details.*',
+                    'products.name as p_name',
+                    'sellings.purchase_date',
+                    'sellings.buyers_name',
+                    'sellings.turnover',
+                    'sellings.selling_status')
+                ->where('selling_details.sellings_id', $id)
+                ->get();
+            return view('selling_detail', ['sellingdetails' => $selling_details]);
+        }
+    }
+
+    public function sellingDelete($id)
+    {
+        $data = DB::table('selling_details')->where('sellings_id', $id);
+        $data->delete();
+        Selling::query('delete from sellings')->where('id', $id)->delete();
+
+        return redirect('selling')->with('alert-warning', 'Berhasil menghapus data');
+    }
+
 
 }

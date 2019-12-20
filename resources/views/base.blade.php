@@ -20,6 +20,8 @@
         crossorigin="anonymous"
     />
     <link rel="stylesheet" href="{{ asset('assets')  }}/css/style.css"/>
+    <link rel="stylesheet" href="{{ asset('assets')  }}/css/calendar.min.css"/>
+
 </head>
 
 <body>
@@ -39,6 +41,7 @@
     integrity="sha256-t8GepnyPmw9t+foMh3mKNvcorqNHamSKtKRxxpUEgFI="
     crossorigin="anonymous"
 ></script>
+<script type="text/javascript" src="{{ asset('assets')  }}/js/calendar.min.js"></script>
 <script src="{{ asset('assets')  }}/js/script.js"></script>
 </body>
 </html>

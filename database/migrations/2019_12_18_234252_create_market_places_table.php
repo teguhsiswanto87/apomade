@@ -16,8 +16,8 @@ class CreateMarketPlacesTable extends Migration
         Schema::create('market_places', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->string('image_link');
-            $table->string('store_link');
+            $table->string('image_link')->nullable(true);
+            $table->string('store_link')->nullable(true);
             $table->string('active');
         });
     }

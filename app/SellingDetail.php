@@ -12,6 +12,8 @@ class SellingDetail extends Model
 
     protected $hidden = [];
 
+    public $timestamps = false;
+
     // relation
     public function sellings()
     {

@@ -47,10 +47,10 @@
                 Income
             </div>
             <div class="menu">
-                <a class="item">
+                <a href="/selling" class="item {{ (request()->is('selling')?'active':'') }}">
                     <div><i class="chart line icon"></i>Transaksi</div>
                 </a>
-                <a href="/selling/insert" class="item {{  (request()->is('selling*')? 'active':'') }}">
+                <a href="/selling/insert" class="item {{  (request()->is('selling/insert')? 'active':'') }}">
                     <div><i class="shopping cart icon"></i>Input Penjualan</div>
                 </a>
             </div>

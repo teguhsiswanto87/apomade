@@ -52,4 +52,11 @@ Route::post('/marketplaceUpdate', 'MarketPlaceController@marketplaceUpdate');
 Route::get('/marketplaceDelete/{id}', 'MarketPlaceController@marketplaceDelete');
 
 // Selling
+Route::get('/selling', 'SellingController@index');
 Route::get('/selling/insert', 'SellingController@insert');
+Route::get('/selling/detail/{id}', 'SellingController@detail');
+Route::post('/sellingPost', 'SellingController@sellingPost'); //with detail product
+Route::get('/sellingDelete/{id}', 'SellingController@sellingDelete');
+
+// Selling Detail
+Route::get('/sellingdetail', 'SellingDetailController@index');

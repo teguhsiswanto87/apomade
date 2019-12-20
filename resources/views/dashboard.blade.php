@@ -65,8 +65,7 @@
                 </div>
             </div>
         </div>
-        <div
-            class="four wide computer eight wide tablet sixteen wide mobile column">
+        <div class="four wide computer eight wide tablet sixteen wide mobile column">
             <div class="ui fluid card">
                 <div class="content">
                     <div class="ui right floated header teal">

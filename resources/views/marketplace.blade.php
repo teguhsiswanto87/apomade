@@ -42,7 +42,9 @@
                     <tr>
                         <td class="collapsing">{{ $marketplace->id }}</td>
                         <td>{{ $marketplace->name  }}</td>
-                        <td class="right aligned collapsing">{{ $marketplace->image_link }}</td>
+                        <td class="right aligned collapsing">
+                            <img src="{{ $marketplace->image_link }}" class="ui mini image">
+                        </td>
                         <td class="right aligned collapsing">{{ $marketplace->store_link }}</td>
                         <td class="collapsing center aligned">{{ $marketplace->active }}</td>
                         <td class="collapsing">
