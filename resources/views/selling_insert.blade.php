@@ -16,7 +16,8 @@
                     <div class="ui divided relaxed items" id="si_products">
                         <?php $index = 0; ?>
                         @foreach($products as $product)
-                            <input type="hidden" name="capital[]" value="{{ $product->capital }}">
+                            <input type="hidden" name="capital[]" value="{{ $product->capital }}"
+                                   id="capital<?php echo $index;?>">
                             <input type="hidden" name="selling_price[]" value="{{ $product->selling_price }}"
                                    id="selling_price<?php echo $index;?>">
 
@@ -136,23 +137,33 @@
                         </div>
                         <div class="field ten wide column">
                             <label>Omzet
-                                <input type="text" name="turnover" placeholder="Omzet" id="inp_si_omzet"
-                                       style="font-size: 1.2rem">
-                                @if($errors->has('turnover'))
-                                    <div class="ui pointing orange label">
-                                        {{ $errors->first('turnover') }}
-                                    </div>
-                                @endif
+                                {{-- Fake Turnover  --}}
+                                <div class="ui huge labeled input">
+                                    <div class="ui label">Rp</div>
+                                    <input type="text" placeholder="Omzet" id="inp_si_omzet_fake" readonly>
+                                    @if($errors->has('turnover'))
+                                        <div class="ui pointing orange label">
+                                            {{ $errors->first('turnover') }}
+                                        </div>
+                                    @endif
+                                </div>
+                                {{-- Real Turnover  --}}
+                                <input type="hidden" name="turnover" placeholder="Omzet" id="inp_si_omzet">
+
                             </label>
                         </div>
                         <div class="field ten wide column">
                             <label>Untung
-                                <input type="number" name="profit" placeholder="Untung">
-                                @if($errors->has('profit'))
-                                    <div class="ui pointing orange label">
-                                        {{ $errors->first('profit') }}
-                                    </div>
-                                @endif
+                                <div class="ui labeled input">
+                                    <div class="ui green label">Rp</div>
+                                    <input type="text" name="profit" placeholder="Untung" id="profit" readonly>
+                                    @if($errors->has('profit'))
+                                        <div class="ui pointing orange label">
+                                            {{ $errors->first('profit') }}
+                                        </div>
+                                    @endif
+                                </div>
+
                             </label>
                         </div>
                         <div class="field">

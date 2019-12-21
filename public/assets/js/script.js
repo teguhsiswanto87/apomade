@@ -60,30 +60,6 @@ $('#btn_si_note').on('click', function () {
     $('#inp_si_note').css('display', 'inline-block');
 });
 // 3. Omzet
-$('#si_products').on('input', function () {
-    var total = 0;
-    $("#si_products input[name='selling_price[]']").each(function () {
-        var values = $(this).val();
-        if ($.isNumeric(values)) {
-            total += parseFloat(values);
-        }
-    });
-    // $("#inp_si_omzet").val(total);
-});
-
-// Only For Testing
-// $(function () {
-//     index = 0;
-//     $('#si_products').on('change', ':checkbox', function () {
-//         if (this.checked) {
-//             var wiw = $('#index0').val();
-//             alert("Wakwaw" + index);
-//         } else {
-// alert("salah");
-// }
-// index++;
-// });
-// });
 $('#si_products').on('change', function () {
     var index = 0;
     var indexsChecked = [];
@@ -106,20 +82,31 @@ $('#si_products').on('change', function () {
     });
     // For Checked
     var total = 0;
+    var modal = 0;
     $("#inp_si_omzet").val(total);
+    $("#inp_si_omzet_fake").val(total);
     $.each(indexsChecked, function (idx, value) {
 
-        // set Visible QTY
+        // set visible QTY
         $('#layout_si_qty' + value).css('display', 'flex');
 
-        //value of selling price
+
+        //value of SELLING_PRICE, CAPITAL
+        var capital_string = $('#capital' + value).val();
         var selling_price_string = $('#selling_price' + value).val();
         var qty_string = $('#inp_si_qty' + value).val();
         var selling_price = parseInt(selling_price_string);
+        var capital = parseInt(capital_string);
         var qty = parseInt((qty_string == '') ? 0 : qty_string);
 
+        //total capital (modal)
+        modal += (capital * ((qty < 0) ? 0 : qty));
         //total selling price (omzet)
         total += (selling_price * ((qty < 0) ? 0 : qty));
+
+        $("#profit").val(total - modal);
         $("#inp_si_omzet").val(total);
+        $("#inp_si_omzet_fake").val(total);
+
     });
 });
