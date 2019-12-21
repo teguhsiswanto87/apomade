@@ -61,7 +61,7 @@ class SellingController
         $data->couriers_id = $request->couriers_id;
         $data->purchase_date = $request->purchase_date;
         $data->buyers_name = $request->buyers_name;
-        $data->shopping_tax = $request->shopping_tax;
+        $data->shipping_tax = $request->shipping_tax;
         $data->voucher_discount = $request->voucher_discount;
         $data->turnover = $request->turnover;
         $data->profit = $request->profit;
@@ -71,18 +71,21 @@ class SellingController
         $lastId = $data->id;
         if (count($request->products_id) > 0) {
             $filterQty = array_filter($request->qty, "strlen");
+            $filteredQty = array_splice($filterQty, 0);
             foreach ($request->products_id as $item => $value) {
                 $data2 = [
                     'sellings_id' => $lastId,
                     'products_id' => $request->products_id[$item],
-                    'capital' => $request->capital[$item],
-                    'selling_price' => $request->selling_price[$item],
-                    'qty' => $filterQty[$item]
+//                    'capital' => $request->capital[$item],
+//                    'selling_price' => $request->selling_price[$item],
+                    'qty' => $filteredQty[$item]
                 ];
                 DB::table('selling_details')->insert($data2);
             }
         }
         return redirect('selling')->with('alert-success', 'Data Penjualan berhasil ditambahakan');
+//        return print_r($request->products_id);
+//        return print_r();
     }
 
     // only testing

@@ -95,7 +95,7 @@
                                         class="four wide computer twelve wide tablet sixteen wide mobile column right aligned">
                                         <label style="font-size: .9rem">Pajak Ongkir
                                             <h5>
-                                                {{ $selling->shopping_tax }}%
+                                                {{ $selling->shipping_tax }}%
                                                 {{--                                                Rp {{ ($selling->turnover*$selling->shopping_tax) }}--}}
                                             </h5>
                                         </label>

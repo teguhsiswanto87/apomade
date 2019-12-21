@@ -25,6 +25,7 @@ class Selling extends Model
         'turnover',
         'profit',
         'selling_status',
+        'note',
         'created_at',
         'updated_at',
     ];

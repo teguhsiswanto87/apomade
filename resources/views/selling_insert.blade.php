@@ -100,25 +100,25 @@
                             <div class="inline fields">
                                 <div class="field">
                                     <div class="ui radio checkbox">
-                                        <input type="radio" name="shopping_tax" value="1">
+                                        <input type="radio" name="shipping_tax" value="1">
                                         <label>1%</label>
                                     </div>
                                 </div>
                                 <div class="field">
                                     <div class="ui radio checkbox">
-                                        <input type="radio" name="shopping_tax" value="2">
+                                        <input type="radio" name="shipping_tax" value="2">
                                         <label>2%</label>
                                     </div>
                                 </div>
                                 <div class="field">
                                     <div class="ui radio checkbox">
-                                        <input type="radio" name="shopping_tax" value="3">
+                                        <input type="radio" name="shipping_tax" value="3">
                                         <label>3%</label>
                                     </div>
                                 </div>
                                 <div class="field">
                                     <div class="ui radio checkbox">
-                                        <input type="radio" name="shopping_tax" value="0" checked>
+                                        <input type="radio" name="shipping_tax" value="0" checked>
                                         <label>Tidak Ada</label>
                                     </div>
                                 </div>
