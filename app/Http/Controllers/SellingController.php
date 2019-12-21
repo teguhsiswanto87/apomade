@@ -31,6 +31,7 @@ class SellingController
                     'market_places.name as mp_name',
                     'market_places.image_link as mp_image_link',
                     'couriers.name as c_name')
+                ->orderBy('sellings.created_at', 'desc')
                 ->get();
             return view('selling', ['sellings' => $sellings, 'products' => $products_sold]);
         }
@@ -69,21 +70,19 @@ class SellingController
 
         $lastId = $data->id;
         if (count($request->products_id) > 0) {
+            $filterQty = array_filter($request->qty, "strlen");
             foreach ($request->products_id as $item => $value) {
-                $data2 = array(
+                $data2 = [
                     'sellings_id' => $lastId,
                     'products_id' => $request->products_id[$item],
                     'capital' => $request->capital[$item],
                     'selling_price' => $request->selling_price[$item],
-                    'qty' => $request->qty[$item]
-                );
+                    'qty' => $filterQty[$item]
+                ];
                 DB::table('selling_details')->insert($data2);
             }
         }
-
-
         return redirect('selling')->with('alert-success', 'Data Penjualan berhasil ditambahakan');
-
     }
 
     // only testing

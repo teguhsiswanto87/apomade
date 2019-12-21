@@ -37,3 +37,89 @@ $('#example2').calendar({
         }
     }
 });
+
+// Selling Insert :: Behavior Customize
+// 1. Button tambahkan
+var countChecked = function () {
+    var n = $('input[type=checkbox]:checked').length;
+    $('#btn_si_ok').text(function () {
+        if (n >= 1) {
+            $('#btn_si_ok').removeClass('disabled');
+            return 'Tambahkan (' + n + ')';
+        } else {
+            $('#btn_si_ok').addClass('disabled');
+            return 'Tambahkan';
+        }
+    });
+};
+countChecked();
+$('input[type=checkbox]').on('click', countChecked);
+// 2. Tambah Catatan
+$('#btn_si_note').on('click', function () {
+    $('#btn_si_note').css('display', 'none');
+    $('#inp_si_note').css('display', 'inline-block');
+});
+// 3. Omzet
+$('#si_products').on('input', function () {
+    var total = 0;
+    $("#si_products input[name='selling_price[]']").each(function () {
+        var values = $(this).val();
+        if ($.isNumeric(values)) {
+            total += parseFloat(values);
+        }
+    });
+    // $("#inp_si_omzet").val(total);
+});
+
+// Only For Testing
+// $(function () {
+//     index = 0;
+//     $('#si_products').on('change', ':checkbox', function () {
+//         if (this.checked) {
+//             var wiw = $('#index0').val();
+//             alert("Wakwaw" + index);
+//         } else {
+// alert("salah");
+// }
+// index++;
+// });
+// });
+$('#si_products').on('change', function () {
+    var index = 0;
+    var indexsChecked = [];
+    var indexsUnChecked = [];
+    //put array of index checked
+    $('#si_products input[type=checkbox]').each(function () {
+        if (this.checked) {
+            indexsChecked.push(index);
+        } else {
+            indexsUnChecked.push(index);
+        }
+        index++;
+    });
+    // For UnChecked
+    $.each(indexsUnChecked, function (i, v) {
+        // set Invisible QTY
+        $('#layout_si_qty' + v).css('display', 'none');
+        // set QTY null or ''
+        $('#inp_si_qty' + v).val('');
+    });
+    // For Checked
+    var total = 0;
+    $("#inp_si_omzet").val(total);
+    $.each(indexsChecked, function (idx, value) {
+
+        // set Visible QTY
+        $('#layout_si_qty' + value).css('display', 'flex');
+
+        //value of selling price
+        var selling_price_string = $('#selling_price' + value).val();
+        var qty_string = $('#inp_si_qty' + value).val();
+        var selling_price = parseInt(selling_price_string);
+        var qty = parseInt((qty_string == '') ? 0 : qty_string);
+
+        //total selling price (omzet)
+        total += (selling_price * ((qty < 0) ? 0 : qty));
+        $("#inp_si_omzet").val(total);
+    });
+});

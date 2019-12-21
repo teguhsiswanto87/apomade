@@ -28,7 +28,7 @@ class CreateSellingsTable extends Migration
             $table->integer('turnover');
             $table->integer('profit');
             $table->string('selling_status');
-            $table->string('note');
+            $table->string('note')->nullable(true);
             $table->timestamps();
             $table->softDeletes();
         });

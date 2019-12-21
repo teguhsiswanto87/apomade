@@ -44,12 +44,11 @@
 
                                 <div class="row">
                                     <div class="five wide computer four wide tablet sixteen wide mobile column">
-                                        <h5 style="color: #2185d0">{{ $selling->buyers_name }}</h5>
+                                        <h3 style="color: #2185d0">{{ $selling->buyers_name }}</h3>
                                     </div>
                                     <div class="five wide computer six wide tablet sixteen wide mobile column">
-                                        <label style="font-size: .9rem">Status
-                                            <h5>{{ (($selling->selling_status == 'process')? 'Diproses' : 'Penjualan Selesai') }}</h5>
-                                        </label>
+                                        Status
+                                        <h2>{{ (($selling->selling_status == 'process')? 'Diproses' : 'Penjualan Selesai') }}</h2>
                                     </div>
                                     <div
                                         class="five wide computer six wide tablet sixteen wide mobile column center aligned">

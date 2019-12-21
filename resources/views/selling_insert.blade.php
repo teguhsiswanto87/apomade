@@ -9,38 +9,48 @@
                 <h1>
                     Tambah Penjualan
                 </h1>
+                <small>Pilih Produk yang Terjual</small>
                 {{--                <form class="ui form" method="POST" action="{{ url('/sellingPostTest')  }}">--}}
                 {{--                    {{ csrf_field()  }}--}}
                 <div class="ui form">
-                    <div class="ui divided relaxed items">
+                    <div class="ui divided relaxed items" id="si_products">
+                        <?php $index = 0; ?>
                         @foreach($products as $product)
-                            <input type="hidden" name="sellings_id[]" value="1">
                             <input type="hidden" name="capital[]" value="{{ $product->capital }}">
-                            <input type="hidden" name="selling_price[]" value="{{ $product->selling_price }}">
-                            <input type="hidden" name="qty[]" value="9">
+                            <input type="hidden" name="selling_price[]" value="{{ $product->selling_price }}"
+                                   id="selling_price<?php echo $index;?>">
 
                             <div class="item">
                                 <div class="ui tiny image">
-                                    <img src="https://semantic-ui.com/images/wireframe/image.png">
+                                    <img src="{{ asset('assets') }}/images/image.png">
                                 </div>
                                 <div class="content">
                                     <a class="header">{{ $product->name }}</a>
                                     <div class="meta">
-                                <span class="price" style="color: #db2828; font-weight: bold">
-                                    Rp{{ number_format($product->selling_price,0,',','.') }}</span>
+                                        <span class="price" style="color: #db2828; font-weight: bold">
+                                            Rp{{ number_format($product->selling_price,0,',','.') }}</span>
                                         <span class="stay">| Stok: {{ $product->stock }}</span>
                                         <span class="right floated">
-                                    <div class="ui checkbox header">
-                                        <input type="checkbox" name="products_id[]" value="{{ $product->id }}">
-                                        <label></label>
-                                    </div>
-                                </span>
+                                            <div class="ui checkbox header">
+                                                <input type="checkbox" name="products_id[]" value="{{ $product->id }}"
+                                                       id="index<?php echo $index;?>">
+                                                <label></label>
+                                            </div>
+                                        </span>
                                     </div>
                                     <div class="extra">
-
+                                        <div class="ui mini right labeled input" style="width: 5rem; display: none"
+                                             id="layout_si_qty<?php echo $index;?>">
+                                            <input type="text" name="qty[]" value="" placeholder="QTY"
+                                                   id="inp_si_qty<?php echo $index;?>">
+                                            <div class="ui basic label">
+                                                Produk
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
+                            <?php $index++;?>
                         @endforeach
                         {{--                    <button class="ui button fluid teal" type="submit">Test</button>--}}
                     </div>
@@ -126,7 +136,8 @@
                         </div>
                         <div class="field ten wide column">
                             <label>Omzet
-                                <input type="number" name="turnover" placeholder="Omzet">
+                                <input type="text" name="turnover" placeholder="Omzet" id="inp_si_omzet"
+                                       style="font-size: 1.2rem">
                                 @if($errors->has('turnover'))
                                     <div class="ui pointing orange label">
                                         {{ $errors->first('turnover') }}
@@ -187,8 +198,14 @@
                                 @endforeach
                             </div>
                         </div>
+                        <div class="field">
+                            <a id="btn_si_note" style="cursor: pointer; font-weight: bold">Tambah Catatan</a>
+                            <div class="ui hidden large transparent input" id="inp_si_note" style="display: none">
+                                <input type="text" name="note" placeholder="Catatan Dari Pembeli...">
+                            </div>
+                        </div>
                         <br>
-                        <button class="ui button primary fluid" type="submit">Tambahkan</button>
+                        <button class="ui button primary fluid disabled" type="submit" id="btn_si_ok">Tambahkan</button>
                     </div>
 
                     {{--        warning        --}}
