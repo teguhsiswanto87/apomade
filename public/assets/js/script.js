@@ -90,6 +90,8 @@ $('#si_products').on('change', function () {
         // set visible QTY
         $('#layout_si_qty' + value).css('display', 'flex');
 
+        // add required
+        $('#inp_si_qty' + value).prop('required', true);
 
         //value of SELLING_PRICE, CAPITAL
         var capital_string = $('#capital' + value).val();

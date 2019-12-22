@@ -56,6 +56,7 @@ Route::get('/selling', 'SellingController@index');
 Route::get('/selling/insert', 'SellingController@insert');
 Route::get('/selling/detail/{id}', 'SellingController@detail');
 Route::post('/sellingPost', 'SellingController@sellingPost'); //with detail product
+Route::get('/selling/changeToDone/{id}&{info}', 'SellingController@sellingChangeToDone');
 Route::get('/sellingDelete/{id}', 'SellingController@sellingDelete');
 
 // Selling Detail

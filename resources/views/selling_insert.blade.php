@@ -127,7 +127,7 @@
                         </div>
                         <div class="field six wide column">
                             <label>Diskon Voucher
-                                <input type="number" name="voucher_discount" placeholder="Diskon Voucher">
+                                <input type="number" name="voucher_discount" placeholder="Diskon Voucher" min="0">
                                 @if($errors->has('voucher_discount'))
                                     <div class="ui pointing orange label">
                                         {{ $errors->first('voucher_discount') }}

@@ -33,7 +33,9 @@
                     <div class="ui card fluid">
                         <div class="content">
                             <div class="right floated meta">
-                                <b>{{ \Carbon\Carbon::parse($selling->purchase_date)->format('d M Y') }}</b>
+                                <a class="ui right ribbon label {{ ($selling->selling_status == 'done')?'green':'orange' }}">
+                                    <b>{{ \Carbon\Carbon::parse($selling->purchase_date)->format('D, d M Y') }}</b>
+                                </a>
                             </div>
                             <img class="ui avatar image"
                                  src="{{ $selling->mp_image_link }}">
@@ -124,8 +126,15 @@
                         <div class="extra content">
                             <div class="ui large transparent left icon input">
                                 <i class="sticky note outline icon"></i>
-                                <input type="text" placeholder="Catatan Dari Pembeli...">
+                                <input type="text" placeholder="Catatan Dari Pembeli..." value="{{ $selling->note }}"
+                                       readonly>
                             </div>
+                            @if($selling->selling_status == 'process')
+                                <a href="selling/changeToDone/{{ $selling->id }}&{{ $selling->buyers_name }}"
+                                   onclick="return confirm('Konfirmasi pesanan ini selesai ?')"
+                                   class="ui mini primary circular button right floated">Ubah Selesai
+                                </a>
+                            @endif
                         </div>
                     </div>
                 </div>

@@ -66,6 +66,7 @@ class SellingController
         $data->turnover = $request->turnover;
         $data->profit = $request->profit;
         $data->selling_status = $request->selling_status;
+        $data->note = $request->note;
         $data->save();
 
         $lastId = $data->id;
@@ -133,6 +134,14 @@ class SellingController
         Selling::query('delete from sellings')->where('id', $id)->delete();
 
         return redirect('selling')->with('alert-warning', 'Berhasil menghapus data');
+    }
+
+    public function sellingChangeToDone($id, $info)
+    {
+        $data = DB::table('sellings')->where('id', $id);
+        $data->update(['selling_status' => 'done']);
+
+        return redirect('selling')->with('alert-success', 'Pesanan dari "' . $info . '" telah selesai');
     }
 
 
