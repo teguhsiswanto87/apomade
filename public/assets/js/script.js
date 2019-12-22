@@ -1,3 +1,4 @@
+// Template
 $(document).ready(function () {
     $('.ui.dropdown').dropdown();
     $('.sidebar-menu-toggler').on('click', function () {
@@ -59,11 +60,15 @@ $('#btn_si_note').on('click', function () {
     $('#btn_si_note').css('display', 'none');
     $('#inp_si_note').css('display', 'inline-block');
 });
-// 3. Omzet
-$('#si_products').on('change', function () {
+// 3. Omzet | Tax
+$('#si_products, #si_sellings').on('change', function () {
     var index = 0;
     var indexsChecked = [];
     var indexsUnChecked = [];
+
+    var shipping_tax_percent = parseFloat($('input[name=shipping_tax]:checked').val() / 100);
+    var voucher_discount = $('input[name=voucher_discount]').val();
+
     //put array of index checked
     $('#si_products input[type=checkbox]').each(function () {
         if (this.checked) {
@@ -101,14 +106,30 @@ $('#si_products').on('change', function () {
         var capital = parseInt(capital_string);
         var qty = parseInt((qty_string == '') ? 0 : qty_string);
 
-        //total capital (modal)
+        //total capital/modal (Harga Beli X Jumlah Jual)
         modal += (capital * ((qty < 0) ? 0 : qty));
-        //total selling price (omzet)
+        //total selling price => (Harga Jual X Jumlah Jual)
         total += (selling_price * ((qty < 0) ? 0 : qty));
+        // tax
+        var shipping_tax = (shipping_tax_percent * total);
 
-        $("#profit").val(total - modal);
-        $("#inp_si_omzet").val(total);
-        $("#inp_si_omzet_fake").val(total);
+        // (Omzet) = (Harga Jual X Jumlah Jual) - (Pajak Ongkir X (Harga Jual X Jumlah Jual)) - Diskon Voucher
+        var turnover = total - shipping_tax - voucher_discount;
+        // (Profit) = (Omzet - (Harga Beli X Jumlah Jual) - Diskon Voucher)
+        var profit = turnover - modal - voucher_discount;
+
+        $("#profit").val(profit);
+        $("#inp_si_omzet").val(turnover);
+        $("#inp_si_omzet_fake").val(turnover);
 
     });
+});
+
+// Product :: Insert
+$('#pi_insert').on('input', function () {
+    var capital = $('#inp_pi_capital').val();
+    var selling_price = $('#inp_pi_sellingprice').val();
+    var gross_profit = selling_price - capital;
+
+    $('#inp_pi_grossprofit').val(gross_profit);
 });

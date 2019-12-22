@@ -40,9 +40,10 @@
                                         </span>
                                     </div>
                                     <div class="extra">
-                                        <div class="ui mini right labeled input" style="width: 5rem; display: none"
+                                        <div class="ui mini right labeled input" style="width: 6rem; display: none"
                                              id="layout_si_qty<?php echo $index;?>">
-                                            <input type="text" name="qty[]" value="" placeholder="QTY"
+                                            <input type="number" name="qty[]" value="" placeholder="QTY"
+                                                   max="{{ $product->stock }}"
                                                    id="inp_si_qty<?php echo $index;?>">
                                             <div class="ui basic label">
                                                 Produk
@@ -63,7 +64,7 @@
             <div class="seven wide computer eight wide tablet sixteen wide mobile column">
                 <div class="ui fluid">
                     {{--        Form        --}}
-                    <div class="ui form">
+                    <div class="ui form" id="si_sellings">
                         <input type="hidden" name="sd_capital" value="111">
                         <input type="hidden" name="sd_selling_price" value="222">
                         <input type="hidden" name="sd_qty" value="333">
@@ -127,16 +128,24 @@
                         </div>
                         <div class="field six wide column">
                             <label>Diskon Voucher
-                                <input type="number" name="voucher_discount" placeholder="Diskon Voucher" min="0">
-                                @if($errors->has('voucher_discount'))
-                                    <div class="ui pointing orange label">
-                                        {{ $errors->first('voucher_discount') }}
-                                    </div>
-                                @endif
+                                <div class="ui labeled input">
+                                    <div class="ui orange label">Rp</div>
+                                    <input type="number" name="voucher_discount" placeholder="Diskon Voucher" min="0">
+                                    @if($errors->has('voucher_discount'))
+                                        <div class="ui pointing orange label">
+                                            {{ $errors->first('voucher_discount') }}
+                                        </div>
+                                    @endif
+                                </div>
                             </label>
                         </div>
                         <div class="field ten wide column">
                             <label>Omzet
+                                {{-- info  --}}
+                                <small
+                                    data-tooltip="Omzet = (Harga Jual X Jumlah Jual) - (Pajak Ongkir X (Harga Jual X Jumlah Jual)) - Diskon Voucher">
+                                    <i class="ui info blue circle icon"></i>
+                                </small>
                                 {{-- Fake Turnover  --}}
                                 <div class="ui huge labeled input">
                                     <div class="ui label">Rp</div>
@@ -154,6 +163,11 @@
                         </div>
                         <div class="field ten wide column">
                             <label>Untung
+                                {{-- info  --}}
+                                <small data-tooltip="Profit = (Omzet - (Harga Beli X Jumlah Jual) - Diskon Voucher)">
+                                    <i class="ui info blue circle icon"></i>
+                                </small>
+
                                 <div class="ui labeled input">
                                     <div class="ui green label">Rp</div>
                                     <input type="text" name="profit" placeholder="Untung" id="profit" readonly>

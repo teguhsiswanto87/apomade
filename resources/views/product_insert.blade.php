@@ -13,7 +13,7 @@
                     Tambah Produk
                 </h1>
                 {{--        Form        --}}
-                <form class="ui form" method="POST" action="{{ url('/productPost')  }}">
+                <form class="ui form" method="POST" action="{{ url('/productPost')  }}" id="pi_insert">
                     {{ csrf_field()  }}
                     <div class="field">
                         <label>Nama Produk
@@ -37,7 +37,7 @@
                     </div>
                     <div class="field ten wide column">
                         <label>Modal
-                            <input type="number" name="capital" placeholder="Modal">
+                            <input type="number" name="capital" placeholder="Modal" id="inp_pi_capital" required>
                             @if($errors->has('capital'))
                                 <div class="ui pointing orange label">
                                     {{ $errors->first('capital') }}
@@ -47,12 +47,13 @@
                     </div>
                     <div class="field ten wide column">
                         <label>Harga Jual
-                            <input type="number" name="selling_price" placeholder="Harga Jual">
+                            <input type="number" name="selling_price" placeholder="Harga Jual" id="inp_pi_sellingprice">
                         </label>
                     </div>
                     <div class="field ten wide column">
                         <label>Laba Kotor
-                            <input type="number" name="gross_profit" placeholder="Laba Kotor">
+                            <input type="number" name="gross_profit" placeholder="Laba Kotor" id="inp_pi_grossprofit"
+                                   readonly>
                         </label>
                     </div>
 
