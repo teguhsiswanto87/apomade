@@ -46,7 +46,7 @@
                         <td class="right aligned collapsing">{{ $product->stock }}</td>
                         <td class="right aligned">{{ number_format($product->capital, 0, ',','.') }}</td>
                         <td class="right aligned">{{ number_format($product->selling_price,0,',','.') }}</td>
-                        <td class="right aligned">{{ number_format($product->gross_profit,0,',','.') }}</td>
+                        <td class="right aligned">{{ number_format(($product->selling_price-$product->capital),0,',','.') }}</td>
                         <td class="collapsing">
                             <a href="product/edit/{{ $product->id  }}">Edit</a> |
                             <a href="productDelete/{{ $product->id  }}" style="color:red"

@@ -11,6 +11,10 @@ $(document).ready(function () {
             })
             .sidebar('toggle');
     });
+
+    //data tables
+    $('#transaction').DataTable();
+
 });
 
 // message box
@@ -126,7 +130,7 @@ $('#si_products, #si_sellings').on('change', function () {
 });
 
 // Product :: Insert
-$('#pi_insert').on('input', function () {
+$('#pi_insert, #pi_edit').on('input', function () {
     var capital = $('#inp_pi_capital').val();
     var selling_price = $('#inp_pi_sellingprice').val();
     var gross_profit = selling_price - capital;

@@ -19,7 +19,7 @@ class CreateProductsTable extends Migration
             $table->integer('stock');
             $table->bigInteger('capital');
             $table->bigInteger('selling_price')->nullable(true);
-            $table->bigInteger('gross_profit')->nullable(true);
+//            $table->bigInteger('gross_profit')->nullable(true);
             $table->timestamps();
         });
     }

@@ -7,6 +7,16 @@
                 <i class="icon plus"></i>
                 Tambah
             </a>
+            {{-- mode --}}
+            <div class="ui icon buttons right floated">
+                <a href="selling_table/all" class="ui {{ (request()->is('selling_table')?'grey':'') }} button">
+                    <i class="table icon"></i>
+                </a>
+                <a href="selling" class="ui {{ (request()->is('selling')?'grey':'') }} button">
+                    <i class="list alternate outline icon"></i>
+                </a>
+            </div>
+
             @if(Session::has('alert-success'))
                 <div class="ui positive small message">
                     <i class="close icon"></i>
@@ -56,7 +66,14 @@
                                         class="five wide computer six wide tablet sixteen wide mobile column center aligned">
                                         <label style="font-size: .9rem">Total Belanja
                                             <h3 style="color: #f2711c">
-                                                Rp {{ number_format($selling->turnover,0,',','.') }}</h3>
+                                                Rp {{ number_format($products->where('s_id', $selling->id)->sum('turnover'),0,',','.') }}
+                                                <i class="chevron right icon"></i>
+                                                <span style="color: #2185d0" data-tooltip="Omzet Anda" data-inverted="">
+                                                    Rp {{ number_format(($products->where('s_id', $selling->id)->sum('turnover')-
+                                                    $selling->voucher_discount-
+                                                    ($products->where('s_id', $selling->id)->sum('turnover')*($selling->shipping_tax/100))),0,',','.') }}
+                                                </span>
+                                            </h3>
                                         </label>
                                     </div>
                                 </div>
@@ -75,7 +92,7 @@
                                                         <span class="meta right floated">
                                                                 <label style="font-size: .9rem">Total Harga Produk
                                                                     <h5 style="color: #f2711c">
-                                                                        Rp {{ number_format($product->selling_price*$product->sd_qty,0,',','.') }}
+                                                                        Rp {{ number_format($product->sd_selling_price*$product->sd_qty,0,',','.') }}
                                                                     </h5>
                                                                 </label>
                                                             </span>
@@ -96,10 +113,10 @@
                                     <div
                                         class="four wide computer twelve wide tablet sixteen wide mobile column right aligned">
                                         <label style="font-size: .9rem">Pajak Ongkir
-                                            <h5>
-                                                {{ $selling->shipping_tax }}%
-                                                {{--                                                Rp {{ ($selling->turnover*$selling->shopping_tax) }}--}}
-                                            </h5>
+                                            <b>{{ $selling->shipping_tax }}%</b>
+                                            <label class="ui label">
+                                                Rp {{ number_format($products->where('s_id', $selling->id)->sum('turnover')*($selling->shipping_tax/100),0,',','.') }}
+                                            </label>
                                         </label>
                                         <div class="ui divider"></div>
                                         <label style="font-size: .9rem">Diskon Voucher
@@ -132,7 +149,7 @@
                             @if($selling->selling_status == 'process')
                                 <a href="selling/changeToDone/{{ $selling->id }}&{{ $selling->buyers_name }}"
                                    onclick="return confirm('Konfirmasi pesanan ini selesai ?')"
-                                   class="ui mini primary circular button right floated">Ubah Selesai
+                                   class="ui mini primary circular button right floated">Ubah ke Selesai
                                 </a>
                             @endif
                         </div>
@@ -143,49 +160,6 @@
             <div class="seven wide computer eight wide tablet sixteen wide mobile column">
 
             </div>
-            {{--            <table class="ui celled striped selectable table">--}}
-            {{--                <thead>--}}
-            {{--                <tr>--}}
-            {{--                    <th>ID</th>--}}
-            {{--                    <th>Tanggal Pembelian</th>--}}
-            {{--                    <th>Pembeli</th>--}}
-            {{--                    <th>Pajak Ongkir</th>--}}
-            {{--                    <th>Diskon Voucher</th>--}}
-            {{--                    <th>Omzet</th>--}}
-            {{--                    <th>Status</th>--}}
-            {{--                    <th>MP</th>--}}
-            {{--                    <th>Kurir</th>--}}
-            {{--                    <th>Aksi</th>--}}
-            {{--                </tr>--}}
-            {{--                </thead>--}}
-            {{--                <tbody>--}}
-            {{--                @foreach($sellings as $selling)--}}
-            {{--                    <tr>--}}
-            {{--                        <td class="collapsing">{{ $selling->id }}</td>--}}
-            {{--                        <td class="collapsing">{{ $selling->purchase_date  }}</td>--}}
-            {{--                        <td class="">{{ $selling->buyers_name }}</td>--}}
-            {{--                        <td class="right aligned collapsing">{{ $selling->shopping_tax }}%</td>--}}
-            {{--                        <td class="right aligned collapsing">{{ $selling->voucher_discount }}</td>--}}
-            {{--                        <td class="right aligned ">{{ number_format($selling->turnover, 0,',','.') }}</td>--}}
-            {{--                        <td class="collapsing">{{ $selling->selling_status }}</td>--}}
-            {{--                        <td class="collapsing">--}}
-            {{--                            {{ $selling->mp_name }}--}}
-            {{--                        </td>--}}
-            {{--                        <td class="collapsing">{{ $selling->c_name }}</td>--}}
-            {{--                        <td class="collapsing">--}}
-            {{--                            <a href="selling/edit/{{ $selling->id  }}" style="color: #f2711c;">Edit</a> |--}}
-            {{--                            <a href="selling/detail/{{ $selling->id  }}">Detail</a>--}}
-
-            {{--                            --}}{{--                            <a href="sellingDelete/{{ $selling->id  }}" style="color:red"--}}
-            {{--                            --}}{{--                               onclick="return confirm(' Hapus {{ $selling->buyers_name }} ?');">Hapus</a>--}}
-            {{--                        </td>--}}
-            {{--                    </tr>--}}
-            {{--                @endforeach--}}
-
-            {{--                </tbody>--}}
-            {{--            </table>--}}
-
-
         </div>
     </div>
 

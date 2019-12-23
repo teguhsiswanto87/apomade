@@ -20,8 +20,8 @@ class CreateSellingDetailsTable extends Migration
             $table->integer('products_id')->unsigned()->index()->nullable();
             $table->foreign('products_id')->references('id')->on('products');
 
-//            $table->bigInteger('capital');
-//            $table->bigInteger('selling_price');
+            $table->bigInteger('capital');
+            $table->bigInteger('selling_price');
             $table->integer('qty');
 
             // multiple primary key

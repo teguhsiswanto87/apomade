@@ -1,12 +1,12 @@
-insert into products(id, name , stock, capital, selling_price, gross_profit) values
-(null, 'pomade reguler', 19, 35000, 65000, 30000),
-(null, 'pomade platinum', 11, 40000, 70000, 30000),
-(null, 'pomade Extrem', 20, 45000, 75000, 30000),
-(null, 'pomade Hard', 7, 25000, 40000, 15000),
-(null, 'pomade Medium', 10, 30000, 43000, 13000),
-(null, 'pomade Easy', 50, 27000, 41000, 14000),
-(null, 'kaos polos', 5, 25000, 35000, 10000),
-(null, 'Jersey GO Timnas', 11, 45000, 60000, 15000);
+insert into products(id, name , stock, capital, selling_price) values
+(null, 'pomade reguler', 19, 35000, 65000),
+(null, 'pomade platinum', 11, 40000, 70000),
+(null, 'pomade Extrem', 20, 45000, 75000),
+(null, 'pomade Hard', 7, 25000, 40000),
+(null, 'pomade Medium', 10, 30000, 43000),
+(null, 'pomade Easy', 50, 27000, 41000),
+(null, 'kaos polos', 5, 25000, 35000),
+(null, 'Jersey GO Timnas', 11, 45000, 60000);
 
 insert into couriers(id, name, active)values
 (null, 'JNE', 'Y'),

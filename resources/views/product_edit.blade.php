@@ -14,7 +14,7 @@
                 </h1>
                 {{--        Form        --}}
                 @foreach($products as $p)
-                    <form class="ui form" method="POST" action="{{ url('/productUpdate')  }}">
+                    <form class="ui form" method="POST" action="{{ url('/productUpdate')  }}" id="pi_edit">
                         {{ csrf_field()  }}
                         <input type="hidden" name="id" value="{{ $p->id }}">
                         <div class="field">
@@ -41,7 +41,7 @@
                         <div class="field ten wide column">
                             <label>Modal
                                 <input type="number" name="capital" placeholder="{{ $p->capital }}"
-                                       value="{{ $p->capital  }}">
+                                       value="{{ $p->capital  }}" id="inp_pi_capital">
                                 @if($errors->has('capital'))
                                     <div class="ui pointing orange label">
                                         {{ $errors->first('capital') }}
@@ -52,13 +52,14 @@
                         <div class="field ten wide column">
                             <label>Harga Jual
                                 <input type="number" name="selling_price" placeholder="{{ $p->selling_price }}"
-                                       value="{{ $p->selling_price  }}">
+                                       id="inp_pi_sellingprice" value="{{ $p->selling_price  }}">
                             </label>
                         </div>
                         <div class="field ten wide column">
                             <label>Laba Kotor
-                                <input type="number" name="gross_profit" placeholder="{{ $p->gross_profit }}"
-                                       value="{{ $p->gross_profit  }}">
+                                <input type="number" name="gross_profit" id="inp_pi_grossprofit"
+                                       placeholder="{{ $p->selling_price-$p->capital }}"
+                                       value="{{ $p->selling_price-$p->capital  }}">
                             </label>
                         </div>
 

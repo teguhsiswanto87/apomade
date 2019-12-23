@@ -27,6 +27,10 @@ Route::get('/register', 'UserController@register');
 Route::post('/registerPost', 'UserController@registerPost');
 Route::get('/logout', 'UserController@logout');
 
+// Profile
+Route::get('/profile', 'UserController@profile');
+Route::post('/profileUpdate', 'UserController@profileUpdate');
+
 // Product
 Route::get('/product', 'ProductController@index');
 Route::get('/product/insert', 'ProductController@insert');
@@ -53,6 +57,8 @@ Route::get('/marketplaceDelete/{id}', 'MarketPlaceController@marketplaceDelete')
 
 // Selling
 Route::get('/selling', 'SellingController@index');
+Route::get('/selling_table/{marketplace}', 'SellingController@index_table');
+
 Route::get('/selling/insert', 'SellingController@insert');
 Route::get('/selling/detail/{id}', 'SellingController@detail');
 Route::post('/sellingPost', 'SellingController@sellingPost'); //with detail product

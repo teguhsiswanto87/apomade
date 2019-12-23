@@ -13,6 +13,10 @@
         crossorigin="anonymous"
     />
 
+    {{--  data tables with semantic ui  --}}
+    {{--    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css"/>--}}
+    {{--    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/dataTables.semanticui.min.css"/>--}}
+
     {{--    <link--}}
     {{--        rel="stylesheet"--}}
     {{--        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css"--}}
@@ -42,7 +46,13 @@
     integrity="sha256-t8GepnyPmw9t+foMh3mKNvcorqNHamSKtKRxxpUEgFI="
     crossorigin="anonymous"
 ></script>
+
+{{-- data tables --}}
+{{--<script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>--}}
+
+{{-- calendar for semantic ui --}}
 <script type="text/javascript" src="{{ asset('assets')  }}/js/calendar.min.js"></script>
+
 <script src="{{ asset('assets')  }}/js/script.js"></script>
 </body>
 </html>

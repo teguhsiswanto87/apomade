@@ -8,7 +8,7 @@ class SellingDetail extends Model
 {
     protected $table = 'selling_details';
 
-    protected $fillable = ['sellings_id', 'products_id', 'qty'];
+    protected $fillable = ['sellings_id', 'products_id', 'capital', 'selling_price', 'qty'];
 
     protected $hidden = [];
 

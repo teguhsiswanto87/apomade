@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\RegisterStoreRequest;
+use App\Http\Requests\UserStoreRequest;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
 
@@ -64,6 +66,30 @@ class UserController extends Controller
         $data->password = bcrypt($request->password);
         $data->save();
         return redirect('login')->with('alert-success', 'Kamu berhasil mendaftar, silakan login');
+
+    }
+
+    public function profile()
+    {
+        if (!Session::get('login')) {
+            return redirect('login')->with('alert', 'Kamu Harus Login');
+        } else {
+            $user = DB::table('users')->where('email', Session::get('email'))->get();
+            return view('profile', ['user' => $user]);
+        }
+    }
+
+    public function profileUpdate(UserStoreRequest $request)
+    {
+        $data = User::find($request->id);
+        $data->name = $request->name;
+        $data->position = $request->position;
+        $data->email = $request->email;
+        $data->gender = $request->gender;
+        $data->gender = $request->gender;
+        $data->save();
+
+        return redirect('profile')->with('alert-success', 'Profil berhasil diperbarui');
 
     }
 

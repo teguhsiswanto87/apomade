@@ -21,7 +21,10 @@ class SellingController
                 ->join('sellings', 'sellings.id', '=', 'selling_details.sellings_id')
                 ->select('products.*',
                     'sellings.id as s_id',
-                    'selling_details.qty as sd_qty')
+                    'selling_details.qty as sd_qty',
+                    'selling_details.capital as sd_capital',
+                    'selling_details.selling_price as sd_selling_price')
+                ->addSelect(DB::raw('(selling_details.qty*selling_details.selling_price) as turnover'))
                 ->get();
 
             $sellings = DB::table('sellings')
@@ -34,6 +37,38 @@ class SellingController
                 ->orderBy('sellings.created_at', 'desc')
                 ->get();
             return view('selling', ['sellings' => $sellings, 'products' => $products_sold]);
+        }
+    }
+
+    public function index_table($marketplace)
+    {
+        if (!Session::get('login')) {
+            return redirect('login')->with('alert', 'Kamu Harus Login');
+        } else {
+            $products_sold = DB::table('products')
+                ->join('selling_details', 'selling_details.products_id', '=', 'products.id')
+                ->join('sellings', 'sellings.id', '=', 'selling_details.sellings_id')
+                ->select('products.*',
+                    'sellings.id as s_id',
+                    'selling_details.qty as sd_qty',
+                    'selling_details.capital as sd_capital',
+                    'selling_details.selling_price as sd_selling_price')
+                ->addSelect(DB::raw('(selling_details.qty*selling_details.selling_price) as turnover'))
+                ->addSelect(DB::raw('(selling_details.qty*selling_details.capital) as capitals'))
+                ->get();
+
+            $sellings = DB::table('sellings')
+                ->join('market_places', 'sellings.market_places_id', '=', 'market_places.id')
+                ->join('couriers', 'sellings.couriers_id', '=', 'couriers.id')
+                ->select('sellings.*',
+                    'market_places.name as mp_name',
+                    'market_places.image_link as mp_image_link',
+                    'couriers.name as c_name')
+                ->orderBy('sellings.created_at', 'desc')
+                ->get();
+
+            return view('selling_table' . '_' . $marketplace, ['sellings' => $sellings, 'products' => $products_sold]);
+
         }
     }
 
@@ -63,8 +98,8 @@ class SellingController
         $data->buyers_name = $request->buyers_name;
         $data->shipping_tax = $request->shipping_tax;
         $data->voucher_discount = $request->voucher_discount;
-        $data->turnover = $request->turnover;
-        $data->profit = $request->profit;
+//        $data->turnover = $request->turnover;
+//        $data->profit = $request->profit;
         $data->selling_status = $request->selling_status;
         $data->note = $request->note;
         $data->save();
@@ -74,14 +109,21 @@ class SellingController
             $filterQty = array_filter($request->qty, "strlen");
             $filteredQty = array_splice($filterQty, 0);
             foreach ($request->products_id as $item => $value) {
+                // direct put from products table / not from selling_insert form
+                $singleRowProduct = DB::table('products')->where('id', $value)->first();
                 $data2 = [
                     'sellings_id' => $lastId,
                     'products_id' => $request->products_id[$item],
-//                    'capital' => $request->capital[$item],
-//                    'selling_price' => $request->selling_price[$item],
+                    'capital' => $singleRowProduct->capital,
+                    'selling_price' => $singleRowProduct->selling_price,
                     'qty' => $filteredQty[$item]
                 ];
+                //insert to selling_details
                 DB::table('selling_details')->insert($data2);
+                //decrease stock products by qty
+                DB::table('products')
+                    ->where('id', $value)
+                    ->update(['stock' => $singleRowProduct->stock - $filteredQty[$item]]);
             }
         }
         return redirect('selling')->with('alert-success', 'Data Penjualan berhasil ditambahakan');

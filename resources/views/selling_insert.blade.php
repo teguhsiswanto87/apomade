@@ -43,7 +43,7 @@
                                         <div class="ui mini right labeled input" style="width: 6rem; display: none"
                                              id="layout_si_qty<?php echo $index;?>">
                                             <input type="number" name="qty[]" value="" placeholder="QTY"
-                                                   max="{{ $product->stock }}"
+                                                   max="{{ $product->stock }}" min="1"
                                                    id="inp_si_qty<?php echo $index;?>">
                                             <div class="ui basic label">
                                                 Produk

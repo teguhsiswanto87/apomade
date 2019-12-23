@@ -25,8 +25,8 @@ class CreateSellingsTable extends Migration
             $table->string('buyers_name');
             $table->integer('shipping_tax')->nullable(true);
             $table->integer('voucher_discount')->nullable(true);
-            $table->integer('turnover');
-            $table->integer('profit');
+//            $table->integer('turnover');
+//            $table->integer('profit');
             $table->string('selling_status');
             $table->string('note')->nullable(true);
             $table->timestamps();

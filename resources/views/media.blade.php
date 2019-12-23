@@ -47,7 +47,8 @@
                 Income
             </div>
             <div class="menu">
-                <a href="/selling" class="item {{ (request()->is('selling')?'active':'') }}">
+                <a href="/selling"
+                   class="item {{ (request()->is('selling')?'active':'') }} {{ (request()->is('selling_table/*')?'active':' ') }}">
                     <div><i class="chart line icon"></i>Transaksi</div>
                 </a>
                 <a href="/selling/insert" class="item {{  (request()->is('selling/insert')? 'active':'') }}">
@@ -136,10 +137,10 @@
             <div class="ui dropdown item">
                 <i class="user cirlce icon"></i>
                 <div class="menu">
-                    <a href="#" class="item">
-                        {{ Session::get('name') }}</a>
-                    <a href="#" class="item">
-                        <i class="info circle icon"></i> Profile</a>
+                    <label class="item" style="cursor: default">
+                        {{ Session::get('name') }}</label>
+                    <a href="profile" class="item">
+                        <i class="user icon"></i> Profile</a>
                     <a href="/logout" class="item">
                         <i class="sign-out icon"></i>
                         Logout

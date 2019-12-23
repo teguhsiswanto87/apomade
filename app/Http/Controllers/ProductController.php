@@ -38,7 +38,7 @@ class ProductController extends Controller
         $data->stock = $request->stock;
         $data->capital = $request->capital;
         $data->selling_price = $request->selling_price;
-        $data->gross_profit = $request->gross_profit;
+//        $data->gross_profit = $request->gross_profit;
         $data->save();
 
         return redirect('product')->with('alert-success', $data->name . ' berhasil ditambahkan');
@@ -63,7 +63,7 @@ class ProductController extends Controller
         $data->stock = $request->stock;
         $data->capital = $request->capital;
         $data->selling_price = $request->selling_price;
-        $data->gross_profit = $request->gross_profit;
+//        $data->gross_profit = $request->gross_profit;
         $data->save();
 
         return redirect('product')->with('alert-success', 'Berhasil memperbarui data');
