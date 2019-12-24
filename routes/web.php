@@ -58,6 +58,7 @@ Route::get('/marketplaceDelete/{id}', 'MarketPlaceController@marketplaceDelete')
 // Selling
 Route::get('/selling', 'SellingController@index');
 Route::get('/selling_table/{marketplace}', 'SellingController@index_table');
+Route::get('selling_table/sellingDelete/{id}', 'SellingController@sellingDelete');
 
 Route::get('/selling/insert', 'SellingController@insert');
 Route::get('/selling/detail/{id}', 'SellingController@detail');

@@ -13,7 +13,8 @@ $(document).ready(function () {
     });
 
     //data tables
-    $('#transaction').DataTable();
+    // $('#transaction').DataTable();
+
 
 });
 

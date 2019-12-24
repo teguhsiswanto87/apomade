@@ -105,9 +105,8 @@
                         {{--  Selling Status  --}}
                         <td class="collapsing">{{ $selling->selling_status }}</td>
                         <td class="collapsing">
-                            <a href="selling/edit/{{ $selling->id  }}" style="color: #f2711c;">Edit</a> <br>
-                            <a href="selling/detail/{{ $selling->id  }}">Detail</a> <br>
-
+                            <a href="edit/{{ $selling->id  }}" style="color: #f2711c;">Edit</a> <br>
+                            <a>Detail</a><br>
                             <a href="sellingDelete/{{ $selling->id  }}" style="color:red"
                                onclick="return confirm(' Hapus penjualan ini ?');">Hapus</a>
                         </td>
@@ -118,4 +117,5 @@
             </table>
         </div>
     </div>
+
 @endsection
