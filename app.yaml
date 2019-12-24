@@ -6,7 +6,7 @@ runtime_config:
 env_variables:
   LOG_CHANNEL: stackdriver
   ## Put production environment variables here.
-  APP_KEY: base64:nluWQHejOcdhkeAN1bY9x9deqOLxHMcN2qNci5qVr7c=
+  APP_KEY: base64:bNvZo3lcRnbMJ0ms0E3M3I/bLa7bfLF5QTe0GTALohs=
   APP_STORAGE: /tmp
   VIEW_COMPILED_PATH: /tmp
   CACHE_DRIVER: database
