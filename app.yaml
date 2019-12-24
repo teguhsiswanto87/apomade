@@ -6,13 +6,13 @@ runtime: php72
 env_variables:
   #  LOG_CHANNEL: stackdriver
   ## Put production environment variables here.
-  APP_KEY: base64:bNvZo3lcRnbMJ0ms0E3M3I/bLa7bfLF5QTe0GTALohs=
+  APP_KEY: base64:hvB8kB4JhTxm4BaN4QyLcEj7jZty/zVCcB6GdnXKguc=
   APP_STORAGE: /tmp
   VIEW_COMPILED_PATH: /tmp
-  CACHE_DRIVER: database
-  SESSION_DRIVER: database
+#  CACHE_DRIVER: database
+  SESSION_DRIVER: cookie
   ## Set these environment variables according to your CloudSQL configuration.
-  DB_DATABASE: apomade
-  DB_USERNAME: root
-  DB_PASSWORD: siswanto123321
-  DB_SOCKET: "/cloudsql/apomade:asia-southeast1:teguhsiswanto87"
+#  DB_DATABASE: apomade
+#  DB_USERNAME: root
+#  DB_PASSWORD: siswanto123321
+#  DB_SOCKET: "/cloudsql/apomade:asia-southeast1:teguhsiswanto87"
