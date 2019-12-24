@@ -5,9 +5,10 @@ env_variables:
   APP_KEY: base64:nluWQHejOcdhkeAN1bY9x9deqOLxHMcN2qNci5qVr7c=
   APP_STORAGE: /tmp
   VIEW_COMPILED_PATH: /tmp
-  SESSION_DRIVER: cookie
-    ## Set these environment variables according to your CloudSQL configuration.
-    DB_DATABASE: apomade
-    DB_USERNAME: root
-    DB_PASSWORD: siswanto123321
-    DB_SOCKET: "/cloudsql/apomade:asia-southeast1:teguhsiswanto87"
+  CACHE_DRIVER: database
+  SESSION_DRIVER: database
+  ## Set these environment variables according to your CloudSQL configuration.
+  DB_DATABASE: apomade
+  DB_USERNAME: root
+  DB_PASSWORD: siswanto123321
+  DB_SOCKET: "/cloudsql/apomade:asia-southeast1:teguhsiswanto87"
