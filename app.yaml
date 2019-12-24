@@ -1,5 +1,8 @@
 runtime: php72
 
+runtime_config:
+  document_root: public
+
 env_variables:
   LOG_CHANNEL: stackdriver
   ## Put production environment variables here.
