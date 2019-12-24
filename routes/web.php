@@ -19,6 +19,18 @@ Route::get('/halaman-kedua', function () {
     return view('halamandua');
 });
 
+// Stackdriver Logging
+Route::get('/log/{message}', function ($message) {
+    Log::info("Hello my log, message: $message");
+    return view('welcome');
+});
+// Stackdriver Error Reporting
+Route::get('/exception/{message}', function ($message) {
+    throw new Exception("Intentional exception, message: $message");
+});
+
+
+
 // login
 Route::get('/dashboard', 'UserController@index');
 Route::get('/login', 'UserController@login');
