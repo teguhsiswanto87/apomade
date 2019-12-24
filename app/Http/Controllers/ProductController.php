@@ -78,4 +78,36 @@ class ProductController extends Controller
         return redirect('product')->with('alert-warning', 'Berhasil menghapus data');
     }
 
+//    API
+
+    public function showAllProducts()
+    {
+        return Product::all();
+    }
+
+    public function showOneProduct($id)
+    {
+        return Product::find($id);
+    }
+
+    public function create(ProductStoreRequest $request)
+    {
+        $product = Product::create($request->all());
+
+        return response()->json($product, 201);
+    }
+
+    public function update(ProductStoreRequest $request, $id)
+    {
+        $product = Product::findOrFail($id);
+        $product->update($request->all());
+
+        return response()->json($product, 200);
+    }
+
+    public function delete($id)
+    {
+        Product::findOrFail($id)->delete();
+        return response('Delete Successfully', 200);
+    }
 }
