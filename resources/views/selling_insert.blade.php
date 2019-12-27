@@ -13,7 +13,7 @@
                 {{--                <form class="ui form" method="POST" action="{{ url('/sellingPostTest')  }}">--}}
                 {{--                    {{ csrf_field()  }}--}}
                 <div class="ui form">
-                    <div class="ui divided relaxed items" id="si_products">
+                    <div class="ui divided items grid" id="si_products">
                         <?php $index = 0; ?>
                         @foreach($products as $product)
                             <input type="hidden" name="capital[]" value="{{ $product->capital }}"
@@ -21,22 +21,25 @@
                             <input type="hidden" name="selling_price[]" value="{{ $product->selling_price }}"
                                    id="selling_price<?php echo $index;?>">
 
-                            <div class="item">
-                                <div class="ui tiny image">
+                            <label class="eight wide column index_si_item" id="index_si_item<?php echo $index;?>"
+                                   for="index<?php echo $index;?>">
+                                <div class="ui tiny image" style="display: none">
                                     <img src="{{ asset('assets') }}/images/image.png">
                                 </div>
                                 <div class="content">
-                                    <a class="header">{{ $product->name }}</a>
+                                    <h3 class="header">{{ $product->name }}
+                                        <div class="ui checkbox" style="float: right; margin-right: 2rem">
+                                            <input type="checkbox" name="products_id[]" value="{{ $product->id }}"
+                                                   id="index<?php echo $index;?>">
+                                            <label></label>
+                                        </div>
+                                    </h3>
                                     <div class="meta">
                                         <span class="price" style="color: #db2828; font-weight: bold">
                                             Rp{{ number_format($product->selling_price,0,',','.') }}</span>
                                         <span class="stay">| Stok: {{ $product->stock }}</span>
-                                        <span class="right floated">
-                                            <div class="ui checkbox header">
-                                                <input type="checkbox" name="products_id[]" value="{{ $product->id }}"
-                                                       id="index<?php echo $index;?>">
-                                                <label></label>
-                                            </div>
+                                        <span class="right aligned" style="margin-left: 2rem">
+
                                         </span>
                                     </div>
                                     <div class="extra">
@@ -51,7 +54,8 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </label>
+
                             <?php $index++;?>
                         @endforeach
                         {{--                    <button class="ui button fluid teal" type="submit">Test</button>--}}

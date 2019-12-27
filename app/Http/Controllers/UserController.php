@@ -28,22 +28,22 @@ class UserController extends Controller
 
     public function loginPost(Request $request)
     {
-        $email = $request->email;
+        $username = $request->username;
         $password = $request->password;
 
-        $data = User::where('email', $email)->first();
+        $data = User::where('username', $username)->first();
         if ($data) { //apakah email ada
             if (Hash::check($password, $data->password)) {
                 Session::put('name', $data->name);
-                Session::put('email', $data->email);
+                Session::put('username', $data->username);
                 Session::put('position', $data->position);
                 Session::put('login', TRUE);
                 return redirect('dashboard')->with('alert-success', 'Selamat datang ' . $data->name);
             } else {
-                return redirect('login')->with('alert', 'Password atau email salah !');
+                return redirect('login')->with('alert', 'Password atau username salah !');
             }
         } else {
-            return redirect('login')->with('alert', 'Email Tidak terdaftar');
+            return redirect('login')->with('alert', 'Username Tidak terdaftar');
         }
     }
 
@@ -62,7 +62,8 @@ class UserController extends Controller
     {
         $data = new User();
         $data->name = $request->name;
-        $data->email = $request->email;
+//        $data->email = $request->email;
+        $data->username = $request->username;
         $data->password = bcrypt($request->password);
         $data->save();
         return redirect('login')->with('alert-success', 'Kamu berhasil mendaftar, silakan login');

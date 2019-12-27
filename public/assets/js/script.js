@@ -89,6 +89,8 @@ $('#si_products, #si_sellings').on('change', function () {
         $('#layout_si_qty' + v).css('display', 'none');
         // set QTY null or ''
         $('#inp_si_qty' + v).val('');
+        // bg inactive
+        $('#index_si_item' + v).css('background-color', '#fff');
     });
     // For Checked
     var total = 0;
@@ -99,9 +101,15 @@ $('#si_products, #si_sellings').on('change', function () {
 
         // set visible QTY
         $('#layout_si_qty' + value).css('display', 'flex');
+        // bg active
+        $('#index_si_item' + value).css('background-color', '#f0f0f0');
+
 
         // add required
         $('#inp_si_qty' + value).prop('required', true);
+        if ($('#inp_si_qty' + value).val() == '') {
+            $('#inp_si_qty' + value).val(1); // min 1 qty
+        }
 
         //value of SELLING_PRICE, CAPITAL
         var capital_string = $('#capital' + value).val();

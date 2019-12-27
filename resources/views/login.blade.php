@@ -37,8 +37,8 @@
                     <form class="ui form" method="POST" action="{{ url('/loginPost') }}">
                         {{ csrf_field() }}
                         <div class="field">
-                            <label>Email</label>
-                            <input type="email" name="email" placeholder="Email">
+                            <label>Username</label>
+                            <input type="text" name="username" placeholder="Username">
                         </div>
                         <div class="field">
                             <label>Password</label>

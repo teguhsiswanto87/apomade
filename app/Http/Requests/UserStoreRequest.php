@@ -25,7 +25,7 @@ class UserStoreRequest extends FormRequest
     {
         return [
             'name' => 'required|min:3',
-            'email' => 'required|email'
+            'username' => 'required|unique'
         ];
     }
 
@@ -33,10 +33,10 @@ class UserStoreRequest extends FormRequest
     {
         return [
             'name.required' => 'nama lengkap tidak boleh kosong',
-            'email.required' => 'email tidak boleh kosong',
+            'username.required' => 'username tidak boleh kosong',
 
             'name.min' => 'nama lengkap minimal 3 karakter',
-            'email.email' => 'email tidak valid'
+            'username.unique' => 'username sudah ada'
         ];
     }
 

@@ -12,6 +12,7 @@
         integrity="sha256-9mbkOfVho3ZPXfM7W8sV2SndrGDuh7wuyLjtsWeTI1Q="
         crossorigin="anonymous"
     />
+    <script src="https://apis.google.com/js/client.js"></script>
 
     {{--  data tables with semantic ui  --}}
     {{--    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css"/>--}}
@@ -25,6 +26,7 @@
     {{--    />--}}
 
     <link rel="stylesheet" href="{{ asset('assets')  }}/css/style.css"/>
+    <link rel="stylesheet" href="{{ asset('assets')  }}/css/app.css"/>
     <link rel="stylesheet" href="{{ asset('assets')  }}/css/calendar.min.css"/>
 
 </head>

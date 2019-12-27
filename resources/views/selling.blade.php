@@ -41,20 +41,20 @@
                 {{--    Detail Produk Terjual    --}}
                 <div class="column" style="margin-bottom: 1.5rem">
                     <div class="ui card fluid">
-                        <div class="content">
-                            <div class="right floated meta">
+                        <div class="content" style="margin-bottom: -1rem;">
+                            <div class="right floated meta" style="margin-top: -0.8rem;">
                                 <a class="ui right ribbon label {{ ($selling->selling_status == 'done')?'green':'orange' }}">
                                     <b>{{ \Carbon\Carbon::parse($selling->purchase_date)->format('D, d M Y') }}</b>
                                 </a>
                             </div>
-                            <img class="ui avatar image"
+                            <img class="ui avatar image" style="margin-top: -1.5rem;"
                                  src="{{ $selling->mp_image_link }}">
-                            <label class="ui left pointing label">{{ $selling->c_name }}</label>
+                            <label class="ui left pointing label" style="top: -.7rem;">{{ $selling->c_name }}</label>
                         </div>
-                        <div class="image" style="background: white">
+                        <div class="image" style="background: white; margin-top: -0.5rem;">
                             <div class="ui grid padded">
 
-                                <div class="row">
+                                <div class="row" style="margin-bottom: -1rem;">
                                     <div class="five wide computer four wide tablet sixteen wide mobile column">
                                         <h3 style="color: #2185d0">{{ $selling->buyers_name }}</h3>
                                     </div>
@@ -79,7 +79,7 @@
                                 </div>
                                 <div class="ui section divider"></div>
 
-                                <div class="row">
+                                <div class="row" style="margin-bottom: -2.5rem;">
                                     <div class="twelve wide computer twelve wide tablet sixteen wide mobile column">
                                         <div class="ui divided items">
                                             @foreach($products->where('s_id', $selling->id) as $product)
@@ -118,7 +118,7 @@
                                                 Rp {{ number_format($products->where('s_id', $selling->id)->sum('turnover')*($selling->shipping_tax/100),0,',','.') }}
                                             </label>
                                         </label>
-                                        <div class="ui divider"></div>
+                                        <div class="ui divider" style="margin-top: .4rem; margin-bottom: 0.2rem"></div>
                                         <label style="font-size: .9rem">Diskon Voucher
                                             <h5>Rp {{ ($selling->voucher_discount)?$selling->voucher_discount:0 }}</h5>
                                         </label>

@@ -18,14 +18,14 @@ class User extends Model
      *
      * @var array
      */
-    protected $fillable = ['nama', 'jabatan', 'email', 'password'];
+    protected $fillable = ['nama', 'jabatan', 'username', 'password'];
 
     /**
      * The attributes that should be hidden for arrays.
      *
      * @var array
      */
-    protected $hidden = ['password', 'remember_token'];
+    protected $hidden = ['password', 'remember_token', 'email'];
 
     /**
      * The attributes that should be cast to native types.

@@ -1,7 +1,7 @@
 @extends('base')
 @section('media')
     <!-- sidebar -->
-    <div class="ui sidebar inverted vertical menu sidebar-menu" id="sidebar">
+    <div class="ui sidebar inverted vertical menu sidebar-menu" id="sidebar" style="font-size: 1.2rem">
         <div class="item">
             <div class="header">General</div>
             <div class="menu">

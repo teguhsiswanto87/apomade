@@ -18,6 +18,7 @@
                             Register failed!
                         </div>
                         <p>Mohon isi kembali ya...</p>
+
                     </div>
                 </div>
             @endif
@@ -36,11 +37,11 @@
                             </label>
                         </div>
                         <div class="field">
-                            <label>Email
-                                <input type="email" name="email" placeholder="Email">
-                                @if($errors->has('email'))
+                            <label>Username
+                                <input type="text" name="username" placeholder="Username">
+                                @if($errors->has('username'))
                                     <div class="ui pointing basic yellow label">
-                                        {{ $errors->first('email') }}
+                                        {{ $errors->first('username') }}
                                     </div>
                                 @endif
                             </label>

@@ -25,7 +25,7 @@ class RegisterStoreRequest extends FormRequest
     {
         return [
             'name' => 'required|min:3',
-            'email' => 'required|email|unique:users',
+            'username' => 'required|unique:users',
             'password' => 'required|min:4',
             'confirmation' => 'required|same:password'
         ];
@@ -35,13 +35,12 @@ class RegisterStoreRequest extends FormRequest
     {
         return [
             'name.required' => 'nama lengkap tidak boleh kosong',
-            'email.required' => 'email tidak boleh kosong',
+            'username.required' => 'username tidak boleh kosong',
             'password.required' => 'password tidak boleh kosong',
             'confirmation.required' => 'confirmation password tidak boleh kosong',
 
             'name.min' => 'nama lengkap minimal 3 karakter',
-            'email.email' => 'email tidak valid',
-            'email.unique' => 'email sudah terdaftar',
+            'username.unique' => 'username sudah terdaftar',
             'password.min' => 'password minimal 4 karakter',
             'confirmation.same' => 'confirmation password tidak sama'
 

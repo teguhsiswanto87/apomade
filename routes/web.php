@@ -29,8 +29,6 @@ Route::get('/exception/{message}', function ($message) {
     throw new Exception("Intentional exception, message: $message");
 });
 
-
-
 // login
 Route::get('/dashboard', 'UserController@index');
 Route::get('/login', 'UserController@login');
