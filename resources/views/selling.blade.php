@@ -84,7 +84,7 @@
                                         <div class="ui divided items">
                                             @foreach($products->where('s_id', $selling->id) as $product)
                                                 <div class="item">
-                                                    <div class="ui tiny image">
+                                                    <div class="ui mini image">
                                                         <img src="https://semantic-ui.com/images/wireframe/image.png">
                                                     </div>
                                                     <div class="content">
