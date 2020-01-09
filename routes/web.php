@@ -71,6 +71,7 @@ Route::get('/selling_table/{marketplace}', 'SellingController@index_table');
 Route::get('selling_table/sellingDelete/{id}', 'SellingController@sellingDelete');
 
 Route::get('/selling/insert', 'SellingController@insert');
+Route::get('/selling/edit/{id}', 'SellingController@edit');
 Route::get('/selling/detail/{id}', 'SellingController@detail');
 Route::post('/sellingPost', 'SellingController@sellingPost'); //with detail product
 Route::get('/selling/changeToDone/{id}&{info}', 'SellingController@sellingChangeToDone');
@@ -78,3 +79,4 @@ Route::get('/sellingDelete/{id}', 'SellingController@sellingDelete');
 
 // Selling Detail
 Route::get('/sellingdetail', 'SellingDetailController@index');
+Route::post('/sellingdetailsPost', 'SellingDetailController@inserts'); //sedang proses penerapan

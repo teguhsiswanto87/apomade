@@ -59,7 +59,7 @@ var countChecked = function () {
     });
 };
 countChecked();
-$('input[type=checkbox]').on('click', countChecked);
+$('#si_products input[type=checkbox]').on('click', countChecked);
 // 2. Tambah Catatan
 $('#btn_si_note').on('click', function () {
     $('#btn_si_note').css('display', 'none');
@@ -83,14 +83,20 @@ $('#si_products, #si_sellings').on('change', function () {
         }
         index++;
     });
+
     // For UnChecked
     $.each(indexsUnChecked, function (i, v) {
         // set Invisible QTY
         $('#layout_si_qty' + v).css('display', 'none');
         // set QTY null or ''
         $('#inp_si_qty' + v).val('');
-        // bg inactive
-        $('#index_si_item' + v).css('background-color', '#fff');
+        // bg inactive & hover
+        $('#index_si_item' + v).mouseover(function () {
+            $(this).css('background-color', '#e8e8e8');
+        }).mouseout(function () {
+            $(this).css('background-color', '#fff');
+        });
+
     });
     // For Checked
     var total = 0;
@@ -101,8 +107,12 @@ $('#si_products, #si_sellings').on('change', function () {
 
         // set visible QTY
         $('#layout_si_qty' + value).css('display', 'flex');
-        // bg active
-        $('#index_si_item' + value).css('background-color', '#f0f0f0');
+        // bg active & hover
+        $('#index_si_item' + value).mouseover(function () {
+            $(this).css('background-color', '#e8e8e8');
+        }).mouseout(function () {
+            $(this).css('background-color', '#f0f0f0');
+        });
 
 
         // add required
@@ -146,3 +156,83 @@ $('#pi_insert, #pi_edit').on('input', function () {
 
     $('#inp_pi_grossprofit').val(gross_profit);
 });
+
+// Selling :: Edit
+//modal insert detail product
+$('#btn_se_insertdetailproduct').on('click', function () {
+    $('#modal_se_insertdetailproduct').modal({
+        onDeny: function () {
+            window.alert('Wait not yet!');
+            return false;
+        },
+        onApprove: function () {
+            $('#okelah').submit();
+        }
+    }).modal('show');
+});
+
+// selling detail insert on change
+$('#se_products').on('change', function () {
+    var index = 0;
+    var indexsChecked = [];
+    var indexsUnChecked = [];
+
+    //put array of index checked
+    $('#se_products input[type=checkbox]').each(function () {
+        if (this.checked) {
+            indexsChecked.push(index);
+        } else {
+            indexsUnChecked.push(index);
+        }
+        index++;
+    });
+
+    // For UnChecked
+    $.each(indexsUnChecked, function (i, v) {
+        // set Invisible QTY
+        $('#layout_se_qty' + v).css('display', 'none');
+        // set QTY null or ''
+        $('#inp_se_qty' + v).val('');
+        // bg inactive & hover
+        $('#index_se_item' + v).mouseover(function () {
+            $(this).css('background-color', '#e8e8e8');
+        }).mouseout(function () {
+            $(this).css('background-color', '#fff');
+        });
+
+    });
+    // For Checked
+    $.each(indexsChecked, function (idx, value) {
+
+        // set visible QTY
+        $('#layout_se_qty' + value).css('display', 'flex');
+        // bg active & hover
+        $('#index_se_item' + value).mouseover(function () {
+            $(this).css('background-color', '#e8e8e8');
+        }).mouseout(function () {
+            $(this).css('background-color', '#f0f0f0');
+        });
+
+        // add required
+        $('#inp_se_qty' + value).prop('required', true);
+        if ($('#inp_se_qty' + value).val() == '') {
+            $('#inp_se_qty' + value).val(1); // min 1 qty
+        }
+
+    });
+});
+// button tambahkan
+var countChecked_2 = function () {
+    var n = $('#se_products :checkbox:checked').length;
+    $('#btn_se_insertdetailproducts_ok').text(function () {
+        if (n >= 1) {
+            $('#btn_se_insertdetailproducts_ok').removeClass('disabled');
+            return 'Tambahkan (' + n + ')';
+        } else {
+            $('#btn_se_insertdetailproducts_ok').addClass('disabled');
+            return 'Tambahkan';
+        }
+    });
+};
+countChecked_2();
+$('#se_products :checkbox').on('click', countChecked_2);

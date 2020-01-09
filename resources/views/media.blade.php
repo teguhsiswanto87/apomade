@@ -48,7 +48,7 @@
             </div>
             <div class="menu">
                 <a href="/selling"
-                   class="item {{ (request()->is('selling')?'active':'') }} {{ (request()->is('selling_table/*')?'active':' ') }}">
+                   class="item {{ (request()->is('selling')?'active':'') }}{{ (request()->is('selling/edit/*')?'active':'') }} {{ (request()->is('selling_table/*')?'active':' ') }}">
                     <div><i class="chart line icon"></i>Transaksi</div>
                 </a>
                 <a href="/selling/insert" class="item {{  (request()->is('selling/insert')? 'active':'') }}">

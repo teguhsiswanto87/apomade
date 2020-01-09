@@ -77,11 +77,13 @@ class SellingController
         if (!Session::get('login')) {
             return redirect('login')->with('alert', 'Kamu Harus Login');
         } else {
-            $products = DB::table('products')->get();
+            $products = DB::table('products')->where('stock', '>', 0)->get();
+            $productsSoldOut = DB::table('products')->where('stock', '<=', 0)->get();
             $couriers = DB::table('couriers')->get()->where('active', 'Y');
             $market_places = DB::table('market_places')->get()->where('active', 'Y');
             return view('selling_insert',
                 ['products' => $products,
+                    'productsSoldOut' => $productsSoldOut,
                     'couriers' => $couriers,
                     'marketplaces' => $market_places]);
         }
@@ -167,6 +169,28 @@ class SellingController
                 ->get();
             return view('selling_detail', ['sellingdetails' => $selling_details]);
         }
+    }
+
+    public function edit($id)
+    {
+        if (!Session::get('login')) {
+            return redirect('login')->with('alert', 'Kamu Harus Login');
+        } else {
+            $sellings = DB::table('sellings')->where('id', $id)->get()->first();
+            $selling_details = DB::table('selling_details')
+                ->join('products', 'selling_details.products_id', '=', 'products.id')
+                ->select('selling_details.*', 'products.name as p_name')
+                ->where('selling_details.sellings_id', $id)->get();
+            $products = DB::table('products')->where('stock', '>', 0)->get();
+            $productsSoldOut = DB::table('products')->where('stock', '<=', 0)->get();
+
+            return view('selling_edit', ['sellings' => $sellings,
+                'selling_details' => $selling_details,
+                'products' => $products,
+                'productsSoldOut' => $productsSoldOut
+            ]);
+        }
+
     }
 
     public function sellingDelete($id)

@@ -61,6 +61,35 @@
                         {{--                    <button class="ui button fluid teal" type="submit">Test</button>--}}
                     </div>
                 </div>
+
+                {{-- Products Sold Out --}}
+                <h5 style="margin-top: 2rem">Produk yang Telah Habis</h5>
+                <div class="ui items">
+                    @foreach($productsSoldOut as $productSoldOut)
+                        <div class="item">
+                            <div class="ui mini image">
+                                <img src="{{ asset('assets') }}/images/image.png">
+                            </div>
+                            <div class="middle aligned content">
+                                <div>{{ $productSoldOut->name }}
+                                    {{-- <div class="circular ui right floated basic primary button">--}}
+                                    {{--     Tambah Stok--}}
+                                    {{-- </div>--}}
+                                </div>
+                                <div class="meta">
+                                    <span class="stay">Stok: {{ $productSoldOut->stock }}</span>
+                                </div>
+                                <div class="description">
+                                    <p></p>
+                                </div>
+                                <div class="extra">
+
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+
                 {{--                </form>--}}
 
             </div>
@@ -229,8 +258,8 @@
                         </div>
                         <div class="field">
                             <a id="btn_si_note" style="cursor: pointer; font-weight: bold">Tambah Catatan</a>
-                            <div class="ui hidden large transparent input" id="inp_si_note" style="display: none">
-                                <input type="text" name="note" placeholder="Catatan Dari Pembeli...">
+                            <div class="ui large input focus" id="inp_si_note" style="display: none">
+                                <input type="text" name="note" placeholder="Catatan Dari Pembeli..." autofocus>
                             </div>
                         </div>
                         <br>

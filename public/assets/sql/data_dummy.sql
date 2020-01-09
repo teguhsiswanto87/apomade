@@ -5,7 +5,14 @@ insert into products(id, name , stock, capital, selling_price) values
 (null, 'pomade Hard', 7, 25000, 40000),
 (null, 'pomade Medium', 10, 30000, 43000),
 (null, 'pomade Easy', 50, 27000, 41000),
-(null, 'kaos polos', 5, 25000, 35000),
+(null, 'Syal', 12, 25000, 35000),
+(null, 'Kupluk Korea', 100, 15000, 25000),
+(null, 'Baju Gamis Arab Hijrah', 90, 75000, 105000),
+(null, 'Handuk ukuran besar', 8, 100000, 150000),
+(null, 'Rok Mini', 17, 90000, 190000),
+(null, 'Jersey PSSleman M', 1, 200000, 260000),
+(null, 'Jersey PSSleman S', 0, 200000, 270000),
+(null, 'paket hemat Pomade + sisir kecil', 29, 75000, 95000),
 (null, 'Jersey GO Timnas', 11, 45000, 60000);
 
 insert into couriers(id, name, active)values

@@ -137,15 +137,20 @@
                                 <i class="trash alternate outline icon"></i>
                                 Hapus
                             </a>
-                            <i class="edit icon"></i>
-                            Edit Detail
+                            @if($selling->selling_status != 'done')
+                                <i class="edit icon"></i>
+                                <a href="{{ url('selling/edit/'.$selling->id) }}">Edit Detail</a>
+                            @endif
                         </div>
                         <div class="extra content">
-                            <div class="ui large transparent left icon input">
-                                <i class="sticky note outline icon"></i>
-                                <input type="text" placeholder="Catatan Dari Pembeli..." value="{{ $selling->note }}"
-                                       readonly>
-                            </div>
+                            @if($selling->note == '')
+                                <div class="ui large transparent left icon input">
+                                    <i class="sticky note outline icon"></i>
+                                    <input type="text" placeholder="Catatan Dari Pembeli..."
+                                           value="{{ $selling->note }}"
+                                           readonly>
+                                </div>
+                            @endif
                             @if($selling->selling_status == 'process')
                                 <a href="selling/changeToDone/{{ $selling->id }}&{{ $selling->buyers_name }}"
                                    onclick="return confirm('Konfirmasi pesanan ini selesai ?')"
