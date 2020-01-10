@@ -32,6 +32,7 @@
             <small>Daftar Produk yang Terjual</small>
 
             <div class="ui centered grid" style="margin-top: 1rem">
+                <?php $index_increaseQty = 0; ?>
                 @foreach($selling_details as $selling_detail)
                     <div class="ten wide computer twelve wide tablet column">
                         <div class="ui items">
@@ -54,13 +55,17 @@
                     </div>
                     <div class="six wide computer four wide tablet column">
                         <div class="ui small basic icon buttons">
-                            <a href="{{ url('selling/edit/'.$selling_detail->sellings_id.'/edit_detail/product/'.$selling_detail->products_id) }}"
-                               class="ui button"><i class="edit blue icon"></i></a>
+                            <button 
+                                id="btn_se_increaseQty<?php echo $index_increaseQty; ?>"
+                               class="ui button" data-tooltip="Tambah Kuantitas" data-inverted>
+                               <i class="plus blue icon"></i>
+                            </button>
                             <a href="{{ url('/sellingdetailDelete/'.$selling_detail->sellings_id.'&'.$selling_detail->products_id) }}"
                                onclick="return confirm(' Hapus produk `{{ $selling_detail->p_name }}` dari penjualan ini ?');"
                                class="ui button"><i class="trash red icon"></i></a>
                         </div>
                     </div>
+                    <?php $index_increaseQty++; ?>
                 @endforeach
                 <div class="five wide computer fourteen wide tablet sixteen wide mobile center aligned column">
                     <button class="ui basic violet button" id="btn_se_insertdetailproduct">Tambah Produk</button>
@@ -258,7 +263,7 @@
         </div>
     </div>
 
-    {{-- Modal --}}
+    {{-- Modal Insert Detail Products --}}
     <div class="ui tiny modal" id="modal_se_insertdetailproduct">
 
         <div class="header">Tambah Produk Terjual</div>
@@ -267,13 +272,12 @@
                 {{ csrf_field()  }}
                 <input type="hidden" name="id" value="{{ $sellings->id }}">
                 <div class="ui items grid" id="se_products">
-                    <?php $index = 0; ?>
+                    <?php $index = 0;?>
                     @foreach($products as $product)
                         <input type="hidden" name="sellings_id[]" value="{{ $sellings->id }}">
 
-                        <label class="sixteen wide column index_si_item" id="index_se_item<?php echo $index;?>"
-                               for="index_se<?php echo $index;?>"
-                               style="background:{{ ($product->stock<1)?'#f0f1f1':'' }}">
+                        <label class="sixteen wide column index_si_item" id="index_se_item<?php echo $index; ?>"
+                               for="index_se<?php echo $index; ?>">
                             <div class="ui mini image" style="float: left; margin-right: 1rem">
                                 <img src="{{ asset('assets') }}/images/image.png">
                             </div>
@@ -288,7 +292,7 @@
                                     @if($product->stock > 0)
                                         <div class="ui checkbox" style="float: right; margin-right: 1rem">
                                             <input type="checkbox" name="products_id[]" value="{{ $product->id }}"
-                                                   id="index_se<?php echo $index;?>">
+                                                   id="index_se<?php echo $index; ?>">
                                             <label></label>
                                         </div>
                                     @endif
@@ -302,10 +306,10 @@
                                     @if($product->stock > 0)
                                         <span class="extra" style="margin-left: 3rem; float: left">
                                             <div class="ui mini right labeled input" style="width: 6rem; display: none"
-                                                 id="layout_se_qty<?php echo $index;?>">
+                                                 id="layout_se_qty<?php echo $index; ?>">
                                                 <input type="number" name="qty[]" value="" placeholder="QTY"
                                                        max="{{ $product->stock }}" min="1"
-                                                       id="inp_se_qty<?php echo $index;?>">
+                                                       id="inp_se_qty<?php echo $index; ?>">
                                                 <div class="ui basic label">
                                                     Produk
                                                 </div>
@@ -347,5 +351,27 @@
             </button>
         </div>
     </div>
+
+    {{-- Modal increase qty of detail product  --}}
+    @foreach($selling_details as $selling_detail)
+    <div class="ui mini active modal" id="modal_se_increaseQty">
+        <div class="header">Tambah Jumlah Produk</div>
+        <div class="content">
+            <form method="POST" action="" class="ui form">
+                {{ csrf_field()  }}
+                <input type="text" name="sellings_id" id="data_se_increaseQty_sellings_id" value="{{ $selling_detail->sellings_id }}">
+                <input type="text" name="products_id" id="data_se_increaseQty_products_id" value="{{ $selling_detail->products_id }}">
+                <input type="text" placeholder="contoh: 4" name="qty">
+            </form>
+        </div>
+        <div class="actions">
+            <div class="ui cancel basic primary button">Batal</div>
+            <div class="ui approve primary button">Tambah</div>
+        </div>
+    </div>
+    <br><br><br>
+    <br><br><br>
+    <br><br><br>
+    @endforeach
 
 @endsection

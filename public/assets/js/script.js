@@ -245,3 +245,8 @@ var countChecked_2 = function () {
 };
 countChecked_2();
 $('#se_products :checkbox').on('click', countChecked_2);
+
+//modal increase qty of detail product
+$('#btn_se_increaseQty').click(function () {
+    $('#modal_se_increaseQty').modal('show');
+});
