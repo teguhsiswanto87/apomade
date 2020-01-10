@@ -158,21 +158,8 @@ $('#pi_insert, #pi_edit').on('input', function () {
 });
 
 // Selling :: Edit
-//modal insert detail product
-$('#btn_se_insertdetailproduct').on('click', function () {
-    $('#modal_se_insertdetailproduct').modal({
-        onDeny: function () {
-            window.alert('Wait not yet!');
-            return false;
-        },
-        onApprove: function () {
-            $('#okelah').submit();
-        }
-    }).modal('show');
-});
-
 // selling detail insert on change
-$('#se_products').on('change', function () {
+var check_se_product = $('#se_products :checkbox').on('change', function () {
     var index = 0;
     var indexsChecked = [];
     var indexsUnChecked = [];
@@ -221,6 +208,27 @@ $('#se_products').on('change', function () {
 
     });
 });
+
+//modal insert detail product
+$('#btn_se_insertdetailproduct').click(function () {
+    $('#modal_se_insertdetailproduct').modal({
+        onDeny: function () {
+            $('#se_products :checkbox:checked').prop('checked', false);
+            // copy from checkbox triggered function
+            $('[id^=layout_se_qty]').css('display', 'none');
+            $('[id^=inp_se_qty]').val('');
+            $('#btn_se_insertdetailproducts_ok').addClass('disabled');
+            $('#btn_se_insertdetailproducts_ok').text('Tambahkan');
+
+            return true;
+        },
+        onApprove: function () {
+            $('#okelah').submit();
+        }
+    }).modal('show');
+});
+
+
 // button tambahkan
 var countChecked_2 = function () {
     var n = $('#se_products :checkbox:checked').length;
