@@ -181,13 +181,20 @@ class SellingController
                 ->join('products', 'selling_details.products_id', '=', 'products.id')
                 ->select('selling_details.*', 'products.name as p_name')
                 ->where('selling_details.sellings_id', $id)->get();
-            $products = DB::table('products')->where('stock', '>', 0)->get();
+            $products = DB::table('products')
+                ->where('stock', '>', 0)
+                ->whereNotIn('id', $selling_details->pluck('products_id'))
+                ->get();
             $productsSoldOut = DB::table('products')->where('stock', '<=', 0)->get();
+            $couriers = DB::table('couriers')->where('active', 'Y')->get();
+            $market_places = DB::table('market_places')->where('active', 'Y')->get();
 
             return view('selling_edit', ['sellings' => $sellings,
                 'selling_details' => $selling_details,
                 'products' => $products,
-                'productsSoldOut' => $productsSoldOut
+                'productsSoldOut' => $productsSoldOut,
+                'couriers' => $couriers,
+                'marketplaces' => $market_places
             ]);
         }
 
@@ -210,5 +217,22 @@ class SellingController
         return redirect('selling')->with('alert-success', 'Pesanan dari "' . $info . '" telah selesai');
     }
 
+//    Purpose for testing everything in this model
+    public function onlyTesting($sellings_id, $products_id)
+    {
+        //find data
+        $data = DB::table('selling_details')
+            ->where([
+                ['sellings_id', '=', $sellings_id],
+                ['products_id', '=', $products_id]
+            ]);
+        $qty = $data->get()->first();
+        //delete
+//        $data->delete();
+        //increase QTY of product
+//        DB::table('products')->where('id', $products_id)->increment($qty);
+
+        return $qty->qty;
+    }
 
 }

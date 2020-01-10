@@ -223,7 +223,8 @@ $('#btn_se_insertdetailproduct').click(function () {
             return true;
         },
         onApprove: function () {
-            $('#okelah').submit();
+            $('#form_se_insertdetailproducts').submit();
+            return false;
         }
     }).modal('show');
 });

@@ -11,6 +11,24 @@
             <h1>
                 Edit Penjualan
             </h1>
+            @if(Session::has('alert-success'))
+                <div class="ui positive small message">
+                    <i class="close icon"></i>
+                    <div class="header">
+                        <i class="check icon"></i>
+                        {{ Session::get('alert-success') }}
+                    </div>
+                </div>
+            @endif
+            @if(Session::has('alert-warning'))
+                <div class="ui warning small message">
+                    <i class="close icon"></i>
+                    <div class="header">
+                        <i class="info circle icon"></i>
+                        {{ Session::get('alert-warning') }}
+                    </div>
+                </div>
+            @endif
             <small>Daftar Produk yang Terjual</small>
 
             <div class="ui centered grid" style="margin-top: 1rem">
@@ -38,7 +56,8 @@
                         <div class="ui small basic icon buttons">
                             <a href="{{ url('selling/edit/'.$selling_detail->sellings_id.'/edit_detail/product/'.$selling_detail->products_id) }}"
                                class="ui button"><i class="edit blue icon"></i></a>
-                            <a href="{{ url('selling/edit/'.$selling_detail->sellings_id.'/edit_detail/product/'.$selling_detail->products_id) }}"
+                            <a href="{{ url('/sellingdetailDelete/'.$selling_detail->sellings_id.'&'.$selling_detail->products_id) }}"
+                               onclick="return confirm(' Hapus produk `{{ $selling_detail->p_name }}` dari penjualan ini ?');"
                                class="ui button"><i class="trash red icon"></i></a>
                         </div>
                     </div>
@@ -54,7 +73,7 @@
                 {{--        Form        --}}
                 <form class="" method="POST" action="{{ url('/sellingPost')  }}">
                     {{ csrf_field()  }}
-                    <div class="ui form" id="si_sellings">
+                    <div class="ui form" id="se_sellings">
                         <input type="hidden" name="sd_capital" value="111">
                         <input type="hidden" name="sd_selling_price" value="222">
                         <input type="hidden" name="sd_qty" value="333">
@@ -131,12 +150,12 @@
                         </div>
                         <div class="field ten wide column">
                             <label>Omzet
-                                {{-- info  --}}
+                                info
                                 <small
                                     data-tooltip="Omzet = (Harga Jual X Jumlah Jual) - (Pajak Ongkir X (Harga Jual X Jumlah Jual)) - Diskon Voucher">
                                     <i class="ui info blue circle icon"></i>
                                 </small>
-                                {{-- Fake Turnover  --}}
+                                Fake Turnover
                                 <div class="ui huge labeled input">
                                     <div class="ui label">Rp</div>
                                     <input type="text" placeholder="Omzet" id="inp_si_omzet_fake" readonly>
@@ -146,14 +165,14 @@
                                         </div>
                                     @endif
                                 </div>
-                                {{-- Real Turnover  --}}
+                                Real Turnover
                                 <input type="hidden" name="turnover" placeholder="Omzet" id="inp_si_omzet">
 
                             </label>
                         </div>
                         <div class="field ten wide column">
                             <label>Untung
-                                {{-- info  --}}
+                                info
                                 <small data-tooltip="Profit = (Omzet - (Harga Beli X Jumlah Jual) - Diskon Voucher)">
                                     <i class="ui info blue circle icon"></i>
                                 </small>
@@ -189,29 +208,29 @@
                         </div>
                         <div class="field">
                             <label>Jasa Kirim</label>
-                            {{--                            <div class="inline fields">--}}
-                            {{--                                @foreach($couriers as $courier)--}}
-                            {{--                                    <div class="field">--}}
-                            {{--                                        <div class="ui radio checkbox">--}}
-                            {{--                                            <input type="radio" name="couriers_id" value="{{ $courier->id }}">--}}
-                            {{--                                            <label>{{ $courier->name }}</label>--}}
-                            {{--                                        </div>--}}
-                            {{--                                    </div>--}}
-                            {{--                                @endforeach--}}
-                            {{--                            </div>--}}
+                            <div class="inline fields">
+                                @foreach($couriers as $courier)
+                                    <div class="field">
+                                        <div class="ui radio checkbox">
+                                            <input type="radio" name="couriers_id" value="{{ $courier->id }}">
+                                            <label>{{ $courier->name }}</label>
+                                        </div>
+                                    </div>
+                                @endforeach
+                            </div>
                         </div>
                         <div class="field">
                             <label>Sumber Transaksi</label>
-                            {{--                            <div class="inline fields">--}}
-                            {{--                                @foreach($marketplaces as $marketplace)--}}
-                            {{--                                    <div class="field">--}}
-                            {{--                                        <div class="ui radio checkbox">--}}
-                            {{--                                            <input type="radio" name="market_places_id" value="{{ $marketplace->id }}">--}}
-                            {{--                                            <label>{{ $marketplace->name }}</label>--}}
-                            {{--                                        </div>--}}
-                            {{--                                    </div>--}}
-                            {{--                                @endforeach--}}
-                            {{--                            </div>--}}
+                            <div class="inline fields">
+                                @foreach($marketplaces as $marketplace)
+                                    <div class="field">
+                                        <div class="ui radio checkbox">
+                                            <input type="radio" name="market_places_id" value="{{ $marketplace->id }}">
+                                            <label>{{ $marketplace->name }}</label>
+                                        </div>
+                                    </div>
+                                @endforeach
+                            </div>
                         </div>
                         <div class="field">
                             <a id="btn_si_note" style="cursor: pointer; font-weight: bold">Tambah Catatan</a>
@@ -224,35 +243,33 @@
                     </div>
                 </form>
 
-                {{--        warning        --}}
-                {{--                @if($errors->any())--}}
-                {{--                    <div class="ui warning message">--}}
-                {{--                        <div class="header">Mohon periksa lagi!</div>--}}
-                {{--                        <i class="close icon"></i>--}}
-                {{--                        <ul class="list">--}}
-                {{--                            @foreach ($errors->all() as $error)--}}
-                {{--                                <li>{{ $error }}</li>--}}
-                {{--                            @endforeach--}}
-                {{--                        </ul>--}}
-                {{--                    </div>--}}
-                {{--                @endif--}}
+                @if($errors->any())
+                    <div class="ui warning message">
+                        <div class="header">Mohon periksa lagi!</div>
+                        <i class="close icon"></i>
+                        <ul class="list">
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
             </div>
         </div>
     </div>
 
     {{-- Modal --}}
-    <form class="" method="POST" action="{{ url('/sellingdetailsPost')  }}" id="okelah">
-        {{ csrf_field()  }}
-        <div class="ui tiny modal" id="modal_se_insertdetailproduct">
-            <div class="header">Tambah Produk Terjual</div>
-            <div class="scrolling content">
+    <div class="ui tiny modal" id="modal_se_insertdetailproduct">
+
+        <div class="header">Tambah Produk Terjual</div>
+        <div class="scrolling content" style="padding-top: 0rem">
+            <form class="" method="POST" action="{{ url('/sellingdetailsPost')  }}" id="form_se_insertdetailproducts">
+                {{ csrf_field()  }}
+                <input type="hidden" name="id" value="{{ $sellings->id }}">
                 <div class="ui items grid" id="se_products">
                     <?php $index = 0; ?>
                     @foreach($products as $product)
-                        <input type="hidden" name="capital[]" value="{{ $product->capital }}"
-                               id="capital<?php echo $index;?>">
-                        <input type="hidden" name="selling_price[]" value="{{ $product->selling_price }}"
-                               id="selling_price<?php echo $index;?>">
+                        <input type="hidden" name="sellings_id[]" value="{{ $sellings->id }}">
 
                         <label class="sixteen wide column index_si_item" id="index_se_item<?php echo $index;?>"
                                for="index_se<?php echo $index;?>"
@@ -321,12 +338,14 @@
                         </label>
                     @endforeach
                 </div>
-            </div>
-            <div class="actions">
-                <button class="ui basic primary cancel button" id="btn_se_insertdetailproducts_cancel">Batal</button>
-                <button class="ui primary approve button" type="submit" id="btn_se_insertdetailproducts_ok">Tambahkan</button>
-            </div>
+            </form>
         </div>
-    </form>
+        <div class="actions">
+            <button class="ui basic primary cancel button" id="btn_se_insertdetailproducts_cancel">Batal</button>
+            <button class="ui primary approve button" type="submit"
+                    id="btn_se_insertdetailproducts_ok">Tambahkan
+            </button>
+        </div>
+    </div>
 
 @endsection
