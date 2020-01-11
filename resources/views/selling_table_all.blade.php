@@ -27,7 +27,7 @@
                 <table class="ui celled striped selectable compact table">
                     <thead>
                     <tr>
-                        <th>ID</th>
+                        <th>No</th>
                         <th>Tanggal Beli</th>
                         <th>Nama Barang</th>
                         <th>Jumlah Jual</th>
@@ -45,9 +45,10 @@
                     </tr>
                     </thead>
                     <tbody>
+                    <?php $no_sellings = 1;?>
                     @foreach($sellings as $selling)
                         <tr>
-                            <td class="collapsing">{{ $selling->id }}</td>
+                            <td class="collapsing"><?php echo $no_sellings;?></td>
                             {{--  Purchase Date  --}}
                             <td class="collapsing">
                                 <h4>
@@ -104,8 +105,9 @@
                             {{--  Couriers  --}}
                             <td class="collapsing">{{ $selling->c_name }}</td>
                             {{--  Selling Status  --}}
-                            <td class="collapsing">
-                                {{ ($selling->selling_status == 'done')?'`<i class="icon checkmark"></i>`':'' }}
+                            <td class="collapsing {{ ($selling->selling_status == 'done')?'positive':'' }}">
+                                <i class="icon {{ ($selling->selling_status == 'done')?'checkmark':'' }}"></i>
+                                {{ $selling->selling_status }}
                             </td>
                             <td class="collapsing">
                                 <a href="edit/{{ $selling->id  }}" style="color: #f2711c;">Edit</a> <br>
@@ -114,6 +116,7 @@
                                    onclick="return confirm(' Hapus penjualan ini ?');">Hapus</a>
                             </td>
                         </tr>
+                        <?php $no_sellings++; ?>
                     @endforeach
 
                     </tbody>
