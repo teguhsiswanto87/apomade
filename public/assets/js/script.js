@@ -12,8 +12,8 @@ $(document).ready(function () {
             .sidebar('toggle');
     });
 
-    //data tables
-    // $('#transaction').DataTable();
+    // data tables
+    $('#table_sellings_details').DataTable();
 
 
 });

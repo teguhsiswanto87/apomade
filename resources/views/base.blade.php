@@ -12,14 +12,15 @@
         integrity="sha256-9mbkOfVho3ZPXfM7W8sV2SndrGDuh7wuyLjtsWeTI1Q="
         crossorigin="anonymous"
     />
+
     {{--  CDN Font : source sans pro  --}}
     <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro' rel='stylesheet' type='text/css'>
 
     <script src="https://apis.google.com/js/client.js"></script>
 
-    {{--  data tables with semantic ui  --}}
-    {{--    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css"/>--}}
-    {{--    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/dataTables.semanticui.min.css"/>--}}
+    {{--  Data Tables CSS + Semantic UI  --}}
+    <link href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css" rel="stylesheet" type="text/css">
+    <link href="https://cdn.datatables.net/1.10.20/css/dataTables.semanticui.min.css" rel="stylesheet" type="text/css">
 
     {{--    <link--}}
     {{--        rel="stylesheet"--}}
@@ -46,14 +47,16 @@
     integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
     crossorigin="anonymous"
 ></script>
+
+{{-- data tables --}}
+<script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.20/js/dataTables.semanticui.min.js"></script>
+
 <script
     src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js"
     integrity="sha256-t8GepnyPmw9t+foMh3mKNvcorqNHamSKtKRxxpUEgFI="
     crossorigin="anonymous"
 ></script>
-
-{{-- data tables --}}
-{{--<script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>--}}
 
 {{-- calendar for semantic ui --}}
 <script type="text/javascript" src="{{ asset('assets')  }}/js/calendar.min.js"></script>

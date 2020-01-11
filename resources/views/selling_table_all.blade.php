@@ -24,7 +24,7 @@
             </div>
 
             @if(count($sellings) > 0)
-                <table class="ui celled striped selectable compact table">
+                <table class="ui celled striped selectable compact table" id="table_sellings_details">
                     <thead>
                     <tr>
                         <th>No</th>
