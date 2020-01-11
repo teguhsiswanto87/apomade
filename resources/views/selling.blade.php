@@ -37,6 +37,12 @@
             @endif
             <br>
             <br>
+            @if(count($sellings) < 1)
+                <img src="{{ asset('assets') }}/images/empty.gif" class="ui centered large image">
+                <div class="ui center aligned grid">
+                    <h2 class="sixteen wide mobile column">Hati boleh kosong,<br> tapi penjualan tidak boleh kosong</h2>
+                </div>
+            @endif
             @foreach($sellings as $selling)
                 {{--    Detail Produk Terjual    --}}
                 <div class="column" style="margin-bottom: 1.5rem">
@@ -120,7 +126,8 @@
                                         </label>
                                         <div class="ui divider" style="margin-top: .4rem; margin-bottom: 0.2rem"></div>
                                         <label style="font-size: .9rem">Diskon Voucher
-                                            <h5>Rp {{ ($selling->voucher_discount)?$selling->voucher_discount:0 }}</h5>
+                                            <h5>
+                                                Rp {{ number_format(($selling->voucher_discount)?$selling->voucher_discount:0, 0,',','.') }}</h5>
                                         </label>
                                     </div>
                                 </div>
@@ -143,7 +150,7 @@
                             @endif
                         </div>
                         <div class="extra content">
-                            @if($selling->note == '')
+                            @if($selling->note <> '')
                                 <div class="ui large transparent left icon input">
                                     <i class="sticky note outline icon"></i>
                                     <input type="text" placeholder="Catatan Dari Pembeli..."

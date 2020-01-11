@@ -9,92 +9,101 @@
                 <h1>
                     Tambah Penjualan
                 </h1>
-                <small>Pilih Produk yang Terjual</small>
-                {{--                <form class="ui form" method="POST" action="{{ url('/sellingPostTest')  }}">--}}
-                {{--                    {{ csrf_field()  }}--}}
-                <div class="ui form">
-                    <div class="ui divided items grid" id="si_products">
-                        <?php $index = 0; ?>
-                        @foreach($products as $product)
-                            <input type="hidden" name="capital[]" value="{{ $product->capital }}"
-                                   id="capital<?php echo $index;?>">
-                            <input type="hidden" name="selling_price[]" value="{{ $product->selling_price }}"
-                                   id="selling_price<?php echo $index;?>">
 
-                            <label class="eight wide column index_si_item" id="index_si_item<?php echo $index;?>"
-                                   for="index<?php echo $index;?>">
-                                <div class="ui tiny image" style="display: none">
-                                    <img src="{{ asset('assets') }}/images/image.png">
-                                </div>
-                                <div class="content">
-                                    <h3 class="header">{{ $product->name }}
-                                        <div class="ui checkbox" style="float: right; margin-right: 2rem">
-                                            <input type="checkbox" name="products_id[]" value="{{ $product->id }}"
-                                                   id="index<?php echo $index;?>">
-                                            <label></label>
-                                        </div>
-                                    </h3>
-                                    <div class="meta">
+                @if(count($products) > 0)
+                    <small>Pilih Produk yang Terjual</small>
+                    <div class="ui form">
+                        <div class="ui divided items grid" id="si_products">
+                            <?php $index = 0; ?>
+                            @foreach($products as $product)
+                                <input type="hidden" name="capital[]" value="{{ $product->capital }}"
+                                       id="capital<?php echo $index;?>">
+                                <input type="hidden" name="selling_price[]" value="{{ $product->selling_price }}"
+                                       id="selling_price<?php echo $index;?>">
+
+                                <label class="eight wide column index_si_item" id="index_si_item<?php echo $index;?>"
+                                       for="index<?php echo $index;?>">
+                                    <div class="ui tiny image" style="display: none">
+                                        <img src="{{ asset('assets') }}/images/image.png">
+                                    </div>
+                                    <div class="content">
+                                        <h3 class="header">{{ $product->name }}
+                                            <div class="ui checkbox" style="float: right; margin-right: 2rem">
+                                                <input type="checkbox" name="products_id[]" value="{{ $product->id }}"
+                                                       id="index<?php echo $index;?>">
+                                                <label></label>
+                                            </div>
+                                        </h3>
+                                        <div class="meta">
                                         <span class="price" style="color: #db2828; font-weight: bold">
                                             Rp{{ number_format($product->selling_price,0,',','.') }}</span>
-                                        <span class="stay">| Stok: {{ $product->stock }}</span>
-                                        <span class="right aligned" style="margin-left: 2rem">
+                                            <span class="stay">| Stok: {{ $product->stock }}</span>
+                                            <span class="right aligned" style="margin-left: 2rem">
 
                                         </span>
-                                    </div>
-                                    <div class="extra">
-                                        <div class="ui mini right labeled input" style="width: 6rem; display: none"
-                                             id="layout_si_qty<?php echo $index;?>">
-                                            <input type="number" name="qty[]" value="" placeholder="QTY"
-                                                   max="{{ $product->stock }}" min="1"
-                                                   id="inp_si_qty<?php echo $index;?>">
-                                            <div class="ui basic label">
-                                                Produk
+                                        </div>
+                                        <div class="extra">
+                                            <div class="ui mini right labeled input" style="width: 6rem; display: none"
+                                                 id="layout_si_qty<?php echo $index;?>">
+                                                <input type="number" name="qty[]" value="" placeholder="QTY"
+                                                       max="{{ $product->stock }}" min="1"
+                                                       id="inp_si_qty<?php echo $index;?>">
+                                                <div class="ui basic label">
+                                                    Produk
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                            </label>
+                                </label>
 
-                            <?php $index++;?>
-                        @endforeach
-                        {{--                    <button class="ui button fluid teal" type="submit">Test</button>--}}
+                                <?php $index++;?>
+                            @endforeach
+                        </div>
                     </div>
-                </div>
+                @else
+                    <img src="{{ asset('assets') }}/images/miracle-box.gif" class="ui centered large image">
+                    <div class="ui center aligned grid">
+                        <h2 class="sixteen wide mobile column">Produk dan Analisis adalah<br> Kunci Penjualan Tetap Lancar
+                        </h2>
+                    </div>
+                @endif
 
                 {{-- Products Sold Out --}}
-                <h5 style="margin-top: 2rem">Produk yang Telah Habis</h5>
-                <div class="ui items">
-                    @foreach($productsSoldOut as $productSoldOut)
-                        <div class="item">
-                            <div class="ui mini image">
-                                <img src="{{ asset('assets') }}/images/image.png">
-                            </div>
-                            <div class="middle aligned content">
-                                <div>{{ $productSoldOut->name }}
-                                    {{-- <div class="circular ui right floated basic primary button">--}}
-                                    {{--     Tambah Stok--}}
-                                    {{-- </div>--}}
+                @if(count($productsSoldOut) > 0)
+                    <h5 style="margin-top: 2rem">Produk yang Telah Habis</h5>
+                    <div class="ui items">
+                        @foreach($productsSoldOut as $productSoldOut)
+                            <div class="item">
+                                <div class="ui mini image">
+                                    <img src="{{ asset('assets') }}/images/image.png">
                                 </div>
-                                <div class="meta">
-                                    <span class="stay">Stok: {{ $productSoldOut->stock }}</span>
-                                </div>
-                                <div class="description">
-                                    <p></p>
-                                </div>
-                                <div class="extra">
+                                <div class="middle aligned content">
+                                    <div>{{ $productSoldOut->name }}
+                                        {{-- <div class="circular ui right floated basic primary button">--}}
+                                        {{--     Tambah Stok--}}
+                                        {{-- </div>--}}
+                                    </div>
+                                    <div class="meta">
+                                        <span class="stay">Stok: {{ $productSoldOut->stock }}</span>
+                                    </div>
+                                    <div class="description">
+                                        <p></p>
+                                    </div>
+                                    <div class="extra">
 
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    @endforeach
-                </div>
+                        @endforeach
+                    </div>
+                @endif
 
                 {{--                </form>--}}
 
             </div>
             {{--    Detail Penjualan    --}}
-            <div class="seven wide computer eight wide tablet sixteen wide mobile column">
+            <div class="seven wide computer eight wide tablet sixteen wide mobile disabled column"
+                 style="{{ (count($products)<1)?'opacity:.2':'' }}">
                 <div class="ui fluid">
                     {{--        Form        --}}
                     <div class="ui form" id="si_sellings">

@@ -140,7 +140,9 @@
                     <label class="item" style="cursor: default">
                         {{ Session::get('name') }}</label>
                     <a href="profile" class="item">
-                        <i class="user icon"></i> Profile</a>
+                        <i class="user icon"></i> Profil</a>
+                    <a href="" class="item">
+                        <i class="setting icon"></i> Pengaturan</a>
                     <a href="/logout" class="item">
                         <i class="sign-out icon"></i>
                         Logout

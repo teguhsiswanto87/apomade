@@ -71,9 +71,10 @@ Route::get('/selling_table/{marketplace}', 'SellingController@index_table');
 Route::get('selling_table/sellingDelete/{id}', 'SellingController@sellingDelete');
 
 Route::get('/selling/insert', 'SellingController@insert');
-Route::get('/selling/edit/{id}', 'SellingController@edit');
-Route::get('/selling/detail/{id}', 'SellingController@detail');
 Route::post('/sellingPost', 'SellingController@sellingPost'); //with detail product
+Route::get('/selling/edit/{id}', 'SellingController@edit');
+Route::post('/sellingUpdate', 'SellingController@sellingUpdate'); //without detail product
+Route::get('/selling/detail/{id}', 'SellingController@detail');
 Route::get('/selling/changeToDone/{id}&{info}', 'SellingController@sellingChangeToDone');
 Route::get('/sellingDelete/{id}', 'SellingController@sellingDelete');
 

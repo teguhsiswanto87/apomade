@@ -12,6 +12,9 @@
         integrity="sha256-9mbkOfVho3ZPXfM7W8sV2SndrGDuh7wuyLjtsWeTI1Q="
         crossorigin="anonymous"
     />
+    {{--  CDN Font : source sans pro  --}}
+    <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro' rel='stylesheet' type='text/css'>
+
     <script src="https://apis.google.com/js/client.js"></script>
 
     {{--  data tables with semantic ui  --}}

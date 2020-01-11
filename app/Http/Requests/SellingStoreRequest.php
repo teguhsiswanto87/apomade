@@ -24,10 +24,12 @@ class SellingStoreRequest extends FormRequest
     public function rules()
     {
         return [
+            'market_places_id' => 'required',
+            'couriers_id' => 'required',
             'purchase_date' => 'required',
             'buyers_name' => 'required',
-            'turnover' => 'required',
-            'profit' => 'required',
+//            'turnover' => 'required',
+//            'profit' => 'required',
             'selling_status' => 'required'
         ];
     }
@@ -35,10 +37,12 @@ class SellingStoreRequest extends FormRequest
     public function messages()
     {
         return [
+            'market_places_id.required' => 'Sumber Transaksi tidak boleh kosong',
+            'couriers_id.required' => 'Jasa Pengiriman tidak boleh kosong',
             'purchase_date.required' => 'tanggal pembelian tidak boleh kosong',
             'buyers_name.required' => 'nama pembeli tidak boleh kosong',
-            'turnover.required' => 'omzet tidak boleh kosong',
-            'profit.required' => 'untung tidak boleh kosong',
+//            'turnover.required' => 'omzet tidak boleh kosong',
+//            'profit.required' => 'untung tidak boleh kosong',
             'selling_status.required' => 'pilih status transaksi'
         ];
     }

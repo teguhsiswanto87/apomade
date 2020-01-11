@@ -26,38 +26,45 @@
                 </div>
             @endif
 
-            <table class="ui celled striped selectable table">
-                <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Nama Market Place</th>
-                    <th>Link Gambar</th>
-                    <th>Link Toko</th>
-                    <th>Aktif</th>
-                    <th>Aksi</th>
-                </tr>
-                </thead>
-                <tbody>
-                @foreach($marketplaces as $marketplace)
+            @if(count($marketplaces) > 0)
+                <table class="ui celled striped selectable table">
+                    <thead>
                     <tr>
-                        <td class="collapsing">{{ $marketplace->id }}</td>
-                        <td>{{ $marketplace->name  }}</td>
-                        <td class="right aligned collapsing">
-                            <img src="{{ $marketplace->image_link }}" class="ui mini image">
-                        </td>
-                        <td class="right aligned collapsing">{{ $marketplace->store_link }}</td>
-                        <td class="collapsing center aligned">{{ $marketplace->active }}</td>
-                        <td class="collapsing">
-                            <a href="marketplace/edit/{{ $marketplace->id  }}">Edit</a> |
-                            <a href="marketplaceDelete/{{ $marketplace->id  }}" style="color:red"
-                               onclick="return confirm(' Hapus {{ $marketplace->name }} ?');">Hapus</a>
-                        </td>
+                        <th>ID</th>
+                        <th>Nama Market Place</th>
+                        <th>Gambar</th>
+                        <th>Link Toko</th>
+                        <th>Aktif</th>
+                        <th>Aksi</th>
                     </tr>
-                @endforeach
+                    </thead>
+                    <tbody>
+                    @foreach($marketplaces as $marketplace)
+                        <tr>
+                            <td class="collapsing">{{ $marketplace->id }}</td>
+                            <td>{{ $marketplace->name  }}</td>
+                            <td class="right aligned collapsing">
+                                <img src="{{ $marketplace->image_link }}" class="ui mini image">
+                            </td>
+                            <td class="right aligned collapsing">{{ $marketplace->store_link }}</td>
+                            <td class="collapsing center aligned">{{ $marketplace->active }}</td>
+                            <td class="collapsing">
+                                <a href="marketplace/edit/{{ $marketplace->id  }}">Edit</a> |
+                                <a href="marketplaceDelete/{{ $marketplace->id  }}" style="color:red"
+                                   onclick="return confirm(' Hapus {{ $marketplace->name }} ?');">Hapus</a>
+                            </td>
+                        </tr>
+                    @endforeach
 
-                </tbody>
-            </table>
-
+                    </tbody>
+                </table>
+            @else
+                <img src="{{ asset('assets') }}/images/paper-emptystates.gif" class="ui centered large image">
+                <div class="ui center aligned grid">
+                    <h2 class="sixteen wide mobile column">Mulai Aja Dulu<br> Urusan Rezeki Udah Ada yang Ngatur
+                    </h2>
+                </div>
+            @endif
 
         </div>
     </div>

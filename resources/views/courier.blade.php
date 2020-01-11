@@ -26,34 +26,42 @@
                 </div>
             @endif
 
-            <table class="ui celled striped selectable table">
-                <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Nama Jasa Pengiriman</th>
-                    <th>Link Gambar</th>
-                    <th>Aktif</th>
-                    <th>Aksi</th>
-                </tr>
-                </thead>
-                <tbody>
-                @foreach($couriers as $courier)
+            @if(count($couriers) > 0)
+                <table class="ui celled striped selectable table">
+                    <thead>
                     <tr>
-                        <td class="collapsing">{{ $courier->id }}</td>
-                        <td>{{ $courier->name  }}</td>
-                        <td class="right aligned collapsing">{{ $courier->image_link }}</td>
-                        <td class="collapsing center aligned">{{ $courier->active }}</td>
-                        <td class="collapsing">
-                            <a href="courier/edit/{{ $courier->id  }}">Edit</a> |
-                            <a href="courierDelete/{{ $courier->id  }}" style="color:red"
-                               onclick="return confirm(' Hapus {{ $courier->name }} ?');">Hapus</a>
-                        </td>
+                        <th>ID</th>
+                        <th>Nama Jasa Pengiriman</th>
+                        <th>Gambar</th>
+                        <th>Aktif</th>
+                        <th>Aksi</th>
                     </tr>
-                @endforeach
+                    </thead>
+                    <tbody>
+                    @foreach($couriers as $courier)
+                        <tr>
+                            <td class="collapsing">{{ $courier->id }}</td>
+                            <td>{{ $courier->name  }}</td>
+                            <td class="right aligned collapsing">
+                                <img src="{{ $courier->image_link }}" class="ui mini image">
+                            </td>
+                            <td class="collapsing center aligned">{{ $courier->active }}</td>
+                            <td class="collapsing">
+                                <a href="courier/edit/{{ $courier->id  }}">Edit</a> |
+                                <a href="courierDelete/{{ $courier->id  }}" style="color:red"
+                                   onclick="return confirm(' Hapus {{ $courier->name }} ?');">Hapus</a>
+                            </td>
+                        </tr>
+                    @endforeach
 
-                </tbody>
-            </table>
-
+                    </tbody>
+                </table>
+            @else
+                <img src="{{ asset('assets') }}/images/person-emptystates.gif" class="ui centered large image">
+                <div class="ui center aligned grid">
+                    <h2 class="sixteen wide mobile column">Sepertinya,<br> Kurir Anda Sedang Berlibur</h2>
+                </div>
+            @endif
 
         </div>
     </div>

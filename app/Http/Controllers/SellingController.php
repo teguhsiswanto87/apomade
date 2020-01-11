@@ -128,7 +128,7 @@ class SellingController
                     ->update(['stock' => $singleRowProduct->stock - $filteredQty[$item]]);
             }
         }
-        return redirect('selling')->with('alert-success', 'Data Penjualan berhasil ditambahakan');
+        return redirect('selling')->with('alert-success', 'Data Penjualan berhasil ditambahkan');
 //        return print_r($request->products_id);
 //        return print_r();
     }
@@ -198,6 +198,24 @@ class SellingController
             ]);
         }
 
+    }
+
+    public function sellingUpdate(SellingStoreRequest $request)
+    {
+        $data = Selling::find($request->id);
+        $data->market_places_id = $request->market_places_id;
+        $data->couriers_id = $request->couriers_id;
+        $data->purchase_date = $request->purchase_date;
+        $data->buyers_name = $request->buyers_name;
+        $data->shipping_tax = $request->shipping_tax;
+        $data->voucher_discount = $request->voucher_discount;
+        $data->selling_status = $request->selling_status;
+        $data->note = $request->note;
+        $data->save();
+
+        return redirect()->action(
+            'SellingController@edit', ['id' => $request->id]
+        )->with('alert-success', 'Data Penjualan Berhasil Diperbarui');
     }
 
     public function sellingDelete($id)

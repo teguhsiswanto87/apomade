@@ -4,9 +4,9 @@
     <div class="ui grid stackable padded">
         {{--    Detail Produk Terjual    --}}
         <div class="nine wide computer eight wide tablet sixteen wide mobile column">
-            <a href="{{ url()->previous() }}" class="ui labeled icon basic button">
+            <a href="{{ url('/selling') }}" class="ui labeled icon basic button">
                 <i class="left chevron icon"></i>
-                Batal
+                Kembali
             </a>
             <h1>
                 Edit Penjualan
@@ -29,7 +29,7 @@
                     </div>
                 </div>
             @endif
-            <small id="wikiw">Daftar Produk yang Terjual ({{ count($selling_details) }})</small>
+            <small>Daftar Produk yang Terjual ({{ count($selling_details) }})</small>
             <input type="hidden" id="data_se_sumProductSold" value="{{ count($selling_details) }}">
 
             <div class="ui centered grid" style="margin-top: 1rem">
@@ -41,6 +41,11 @@
                            id="data_se_products_id<?php echo $index_increaseQty;?>">
                     <input type="hidden" value="{{ $selling_detail->qty }}"
                            id="data_se_qty<?php echo $index_increaseQty;?>">
+
+                    <input type="hidden" value="{{ $selling_detail->capital*$selling_detail->qty }}"
+                           id="data_se_capitalxqty<?php echo $index_increaseQty;?>">
+                    <input type="hidden" value="{{ $selling_detail->selling_price*$selling_detail->qty }}"
+                           id="data_se_sellingricexqty<?php echo $index_increaseQty;?>">
 
                     <div class="ten wide computer twelve wide tablet column"
                          id="items_se_product<?php echo $index_increaseQty?>">
@@ -90,20 +95,29 @@
         <div class="seven wide computer eight wide tablet sixteen wide mobile column">
             <div class="ui fluid">
                 {{--        Form        --}}
-                <form class="" method="POST" action="{{ url('/sellingPost')  }}">
+                <form class="" method="POST" action="{{ url('/sellingUpdate')  }}" id="form_se_edit_sellings">
                     {{ csrf_field()  }}
-                    <div class="ui form" id="se_sellings">
-                        <input type="hidden" name="sd_capital" value="111">
-                        <input type="hidden" name="sd_selling_price" value="222">
-                        <input type="hidden" name="sd_qty" value="333">
+                    <input type="hidden" name="id" value="{{ $sellings->id }}">
 
+                    <div class="ui form" id="se_sellings">
+                        <input type="hidden" id="se_sd_shoppingTotal">
+                        <input type="hidden" id="se_sd_capital">
+                        <input type="hidden" id="se_sd_shippingTax">
+
+                        <div class="field">
+                            <div class="ui floating message">Diperbarui pada: <b>
+                                    {{ \Carbon\Carbon::parse($sellings->updated_at)->format('l, d M Y | H:i') }}
+                                </b>
+                            </div>
+                        </div>
                         <div class="field ten wide column">
                             <label>Tanggal Pembelian
 
                                 <div class="ui calendar" id="example2">
                                     <div class="ui input left icon">
                                         <i class="calendar icon"></i>
-                                        <input type="text" name="purchase_date" placeholder="Tanggal Pembelian">
+                                        <input type="text" name="purchase_date" placeholder="Tanggal Pembelian"
+                                               value="{{ $sellings->purchase_date }}">
                                         @if($errors->has('purchase_date'))
                                             <div class="ui pointing orange label">
                                                 {{ $errors->first('purchase_date') }}
@@ -116,7 +130,8 @@
                         </div>
                         <div class="field">
                             <label>Nama Pembeli
-                                <input type="text" name="buyers_name" placeholder="Nama Pembeli">
+                                <input type="text" name="buyers_name" placeholder="Nama Pembeli"
+                                       value="{{ $sellings->buyers_name }}">
                                 @if($errors->has('buyers_name'))
                                     <div class="ui pointing orange label">
                                         {{ $errors->first('buyers_name') }}
@@ -125,29 +140,33 @@
                             </label>
                         </div>
                         <div class="field ten wide computer sixteen wide mobile column">
-                            <label>Pajak Ongkir ?</label>
+                            <label>Pajak Ongkir ? <span id="span_se_shippingTax" class="ui label"></span></label>
                             <div class="inline fields">
                                 <div class="field">
                                     <div class="ui radio checkbox">
-                                        <input type="radio" name="shipping_tax" value="1">
+                                        <input type="radio" name="shipping_tax"
+                                               value="1" {{ ($sellings->shipping_tax==1)?'checked':'' }}>
                                         <label>1%</label>
                                     </div>
                                 </div>
                                 <div class="field">
                                     <div class="ui radio checkbox">
-                                        <input type="radio" name="shipping_tax" value="2">
+                                        <input type="radio" name="shipping_tax"
+                                               value="2" {{ ($sellings->shipping_tax==2)?'checked':'' }}>
                                         <label>2%</label>
                                     </div>
                                 </div>
                                 <div class="field">
                                     <div class="ui radio checkbox">
-                                        <input type="radio" name="shipping_tax" value="3">
+                                        <input type="radio" name="shipping_tax"
+                                               value="3" {{ ($sellings->shipping_tax==3)?'checked':'' }}>
                                         <label>3%</label>
                                     </div>
                                 </div>
                                 <div class="field">
                                     <div class="ui radio checkbox">
-                                        <input type="radio" name="shipping_tax" value="0" checked>
+                                        <input type="radio" name="shipping_tax"
+                                               value="0" {{ ($sellings->shipping_tax==0)?'checked':'' }}>
                                         <label>Tidak Ada</label>
                                     </div>
                                 </div>
@@ -158,7 +177,8 @@
                             <label>Diskon Voucher
                                 <div class="ui labeled input">
                                     <div class="ui orange label">Rp</div>
-                                    <input type="number" name="voucher_discount" placeholder="Diskon Voucher" min="0">
+                                    <input type="number" name="voucher_discount" placeholder="Diskon Voucher" min="0"
+                                           value="{{ $sellings->voucher_discount }}" id="se_voucher_discount">
                                     @if($errors->has('voucher_discount'))
                                         <div class="ui pointing orange label">
                                             {{ $errors->first('voucher_discount') }}
@@ -169,29 +189,29 @@
                         </div>
                         <div class="field ten wide column">
                             <label>Omzet
-                                info
+                                {{--info--}}
                                 <small
                                     data-tooltip="Omzet = (Harga Jual X Jumlah Jual) - (Pajak Ongkir X (Harga Jual X Jumlah Jual)) - Diskon Voucher">
                                     <i class="ui info blue circle icon"></i>
                                 </small>
-                                Fake Turnover
+                                {{--Fake Turnover--}}
                                 <div class="ui huge labeled input">
                                     <div class="ui label">Rp</div>
-                                    <input type="text" placeholder="Omzet" id="inp_si_omzet_fake" readonly>
+                                    <input type="text" placeholder="Omzet" id="inp_se_omzet_fake" readonly>
                                     @if($errors->has('turnover'))
                                         <div class="ui pointing orange label">
                                             {{ $errors->first('turnover') }}
                                         </div>
                                     @endif
                                 </div>
-                                Real Turnover
-                                <input type="hidden" name="turnover" placeholder="Omzet" id="inp_si_omzet">
+                                {{--Real Turnover--}}
+                                {{--<input type="hidden" name="turnover" placeholder="Omzet" id="inp_se_omzet">--}}
 
                             </label>
                         </div>
                         <div class="field ten wide column">
                             <label>Untung
-                                info
+                                {{--info--}}
                                 <small data-tooltip="Profit = (Omzet - (Harga Beli X Jumlah Jual) - Diskon Voucher)">
                                     <i class="ui info blue circle icon"></i>
                                 </small>
@@ -213,13 +233,15 @@
                             <div class="inline fields">
                                 <div class="field">
                                     <div class="ui radio checkbox">
-                                        <input type="radio" name="selling_status" value="process">
+                                        <input type="radio" name="selling_status"
+                                               value="process" {{ ($sellings->selling_status=='process')?'checked':'' }}>
                                         <label>Dalam proses</label>
                                     </div>
                                 </div>
                                 <div class="field">
                                     <div class="ui radio checkbox">
-                                        <input type="radio" name="selling_status" value="done">
+                                        <input type="radio" name="selling_status"
+                                               value="done" {{ ($sellings->selling_status=='done')?'checked':'' }}>
                                         <label>Beres</label>
                                     </div>
                                 </div>
@@ -231,7 +253,8 @@
                                 @foreach($couriers as $courier)
                                     <div class="field">
                                         <div class="ui radio checkbox">
-                                            <input type="radio" name="couriers_id" value="{{ $courier->id }}">
+                                            <input type="radio" name="couriers_id" value="{{ $courier->id }}"
+                                                {{ ($sellings->couriers_id==$courier->id)?'checked':'' }}>
                                             <label>{{ $courier->name }}</label>
                                         </div>
                                     </div>
@@ -244,7 +267,8 @@
                                 @foreach($marketplaces as $marketplace)
                                     <div class="field">
                                         <div class="ui radio checkbox">
-                                            <input type="radio" name="market_places_id" value="{{ $marketplace->id }}">
+                                            <input type="radio" name="market_places_id" value="{{ $marketplace->id }}"
+                                                {{ ($sellings->market_places_id==$marketplace->id)?'checked':'' }}>
                                             <label>{{ $marketplace->name }}</label>
                                         </div>
                                     </div>
@@ -252,13 +276,16 @@
                             </div>
                         </div>
                         <div class="field">
-                            <a id="btn_si_note" style="cursor: pointer; font-weight: bold">Tambah Catatan</a>
-                            <div class="ui large input focus" id="inp_si_note" style="display: none">
-                                <input type="text" name="note" placeholder="Catatan Dari Pembeli..." autofocus>
-                            </div>
+                            <label>Tambah Catatan
+                                <div class="ui large input focus" id="inp_si_note">
+                                    <input type="text" name="note" placeholder="Catatan Dari Pembeli..."
+                                           value="{{ $sellings->note }}">
+                                </div>
+                            </label>
                         </div>
+
                         <br>
-                        <button class="ui button primary fluid disabled" type="submit" id="btn_si_ok">Perbarui</button>
+                        <button class="ui button primary fluid" type="submit" id="btn_se_ok">Perbarui</button>
                     </div>
                 </form>
 

@@ -139,7 +139,7 @@ $('#si_products, #si_sellings').on('change', function () {
         // (Omzet) = (Harga Jual X Jumlah Jual) - (Pajak Ongkir X (Harga Jual X Jumlah Jual)) - Diskon Voucher
         var turnover = total - shipping_tax - voucher_discount;
         // (Profit) = (Omzet - (Harga Beli X Jumlah Jual) - Diskon Voucher)
-        var profit = turnover - modal - voucher_discount;
+        var profit = turnover - modal;//tanpa dikurangi voucher soalnya sudah di turnover
 
         $("#profit").val(profit);
         $("#inp_si_omzet").val(turnover);
@@ -302,3 +302,37 @@ $.each($btnDecreaseQty, function (index, value) {
         }).modal('show');
     });
 });
+
+//selling edit form
+var form_se_omzet = function () {
+    var se_sellingprice_x_qty = 0;
+    var se_capital_x_qty = 0;
+    for ($i = 0; $i < $('#data_se_sumProductSold').val(); $i++) {
+        //sum shopping total
+        var sellingprice_x_qty_string = $('#data_se_sellingricexqty' + $i).val();
+        se_sellingprice_x_qty += parseInt(sellingprice_x_qty_string);
+        //sum capital
+        var capital_x_qty_string = $('#data_se_capitalxqty' + $i).val();
+        se_capital_x_qty += parseInt(capital_x_qty_string);
+    }
+    // selling price x qty (shopping total)
+    $('#se_sd_shoppingTotal').val(se_sellingprice_x_qty);
+    //capital
+    $('#se_sd_capital').val(se_capital_x_qty);
+    //discount
+    var voucher_discount = parseInt($('#se_voucher_discount').val());
+    //shipping tax
+    var shipping_tax_percent = $("input[name='shipping_tax']:checked").val();
+    var shippingTax = shipping_tax_percent * se_sellingprice_x_qty / 100;
+    $('#se_sd_shippingTax').val(shippingTax);
+    $('#span_se_shippingTax').html(shippingTax);
+    //omzet
+    var omzet = se_sellingprice_x_qty - voucher_discount - shippingTax;
+    $('#inp_se_omzet_fake').val(omzet);
+    //profit
+    var profit = omzet - se_capital_x_qty;
+    $("#form_se_edit_sellings input[name='profit']").val(profit);
+
+};
+form_se_omzet();
+$('#form_se_edit_sellings').on('change', form_se_omzet);
