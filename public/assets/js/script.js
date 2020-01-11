@@ -247,6 +247,58 @@ countChecked_2();
 $('#se_products :checkbox').on('click', countChecked_2);
 
 //modal increase qty of detail product
-$('#btn_se_increaseQty').click(function () {
-    $('#modal_se_increaseQty').modal('show');
+//1. read all modal and his button
+$btnIncreaseQty = [];
+for ($i = 0; $i < $('#data_se_sumProductSold').val(); $i++) {
+    $btnIncreaseQty.push('btn_se_increaseQty' + $i);
+}
+//2. mapping button + modal + form ID
+$.each($btnIncreaseQty, function (index, value) {
+    // index = 1,2,3,...
+    // value = btn_se_increaseQty...
+    $('#' + value).click(function () {
+        $('#modal_se_increaseQty' + index).modal({
+            onDeny: function () {
+                $('#modal_se_increaseQty' + index + ' input[type=number]').val('');
+                return true;
+            },
+            onApprove: function () {
+                $('#form_se_increaseQty' + index).submit();
+                return false;
+            }
+        }).modal('show');
+    });
+});
+
+//modal decrease qty of detail product
+$btnDecreaseQty = [];
+for ($i = 0; $i < $('#data_se_sumProductSold').val(); $i++) {
+    $btnDecreaseQty.push('btn_se_decreaseQty' + $i);
+}
+//2. change value in the form
+$.each($btnDecreaseQty, function (index, value) {
+    // index = 1,2,3,...
+    // value = btn_se_decreaseQty...
+    $('#' + value).click(function () {
+        //replace value
+        $('#modal_se_decreaseQty .header').html('Kurangi Jumlah \"' + $('#items_se_product' + index + ' .header').text() + '\"');
+        $('#data_se_decreaseQty_sellings_id').val($('#data_se_sellings_id' + index).val());
+        $('#data_se_decreaseQty_products_id').val($('#data_se_products_id' + index).val());
+        $('#data_se_decreaseQty_qty').attr({
+            'max': ($('#data_se_qty' + index).val() - 1)
+        });
+        $('#data_se_decreaseQty_qtyNow').html('Jumlah saat ini: ' + $('#data_se_qty' + index).val());
+
+        //modal options
+        $('#modal_se_decreaseQty').modal({
+            onDeny: function () {
+                $('#modal_se_decreaseQty input[type=number]').val('');
+                return true;
+            },
+            onApprove: function () {
+                $('#form_se_decreaseQty').submit();
+                return false;
+            }
+        }).modal('show');
+    });
 });

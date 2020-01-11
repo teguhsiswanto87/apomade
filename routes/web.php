@@ -79,8 +79,10 @@ Route::get('/sellingDelete/{id}', 'SellingController@sellingDelete');
 
 // Selling Detail
 Route::get('/sellingdetail', 'SellingDetailController@index');
-Route::post('/sellingdetailsPost', 'SellingDetailController@insertsPost'); //sedang proses penerapan
+Route::post('/sellingdetailsPost', 'SellingDetailController@insertsPost');
 Route::get('/sellingdetailDelete/{sellings_id}&{products_id}', 'SellingDetailController@sellingDetailDelete');
+Route::post('/sellingdetailProductQtyIncrease', 'SellingDetailController@increaseProductQty');
+Route::post('/sellingdetailProductQtyDecrease', 'SellingDetailController@decreaseProductQty');
 
 // ONLY TESTING
 //Route::get('/onlyTesting/{selings_id}&{products_id}', 'SellingController@onlyTesting');

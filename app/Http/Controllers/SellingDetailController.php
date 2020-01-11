@@ -76,4 +76,46 @@ class SellingDetailController extends Controller
         )->with('alert-warning', 'Produk berhasil dihapus');
     }
 
+    public function increaseProductQty(Request $request)
+    {
+        //find
+        $data = DB::table('selling_details')
+            ->where([
+                ['sellings_id', '=', $request->sellings_id],
+                ['products_id', '=', $request->products_id]
+            ]);
+        //update increase qty
+        $data->increment('qty', $request->qty);
+
+        //decrease product qty from products
+        $product = DB::table('products')->where('id', $request->products_id);
+        $product_data = $product->get()->first(); //get product data first
+        $product->decrement('stock', $request->qty);
+
+        return redirect()->action(
+            'SellingController@edit', ['id' => $request->sellings_id]
+        )->with('alert-success', $request->qty . ' `' . $product_data->name . '` ditambahkan');
+    }
+
+    public function decreaseProductQty(Request $request)
+    {
+        //find
+        $data = DB::table('selling_details')
+            ->where([
+                ['sellings_id', '=', $request->sellings_id],
+                ['products_id', '=', $request->products_id]
+            ]);
+        //update decrease qty
+        $data->decrement('qty', $request->qty);
+
+        //increase product qty from products
+        $product = DB::table('products')->where('id', $request->products_id);
+        $product_data = $product->get()->first(); //get product data first
+        $product->increment('stock', $request->qty);
+
+        return redirect()->action(
+            'SellingController@edit', ['id' => $request->sellings_id]
+        )->with('alert-warning', $request->qty . ' `' . $product_data->name . '` dikurangi');
+    }
+
 }

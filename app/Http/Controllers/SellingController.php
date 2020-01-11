@@ -179,7 +179,7 @@ class SellingController
             $sellings = DB::table('sellings')->where('id', $id)->get()->first();
             $selling_details = DB::table('selling_details')
                 ->join('products', 'selling_details.products_id', '=', 'products.id')
-                ->select('selling_details.*', 'products.name as p_name')
+                ->select('selling_details.*', 'products.name as p_name', 'products.stock as p_stock')
                 ->where('selling_details.sellings_id', $id)->get();
             $products = DB::table('products')
                 ->where('stock', '>', 0)

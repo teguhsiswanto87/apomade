@@ -29,12 +29,21 @@
                     </div>
                 </div>
             @endif
-            <small>Daftar Produk yang Terjual</small>
+            <small id="wikiw">Daftar Produk yang Terjual ({{ count($selling_details) }})</small>
+            <input type="hidden" id="data_se_sumProductSold" value="{{ count($selling_details) }}">
 
             <div class="ui centered grid" style="margin-top: 1rem">
                 <?php $index_increaseQty = 0; ?>
                 @foreach($selling_details as $selling_detail)
-                    <div class="ten wide computer twelve wide tablet column">
+                    <input type="hidden" value="{{ $selling_detail->sellings_id }}"
+                           id="data_se_sellings_id<?php echo $index_increaseQty;?>">
+                    <input type="hidden" value="{{ $selling_detail->products_id }}"
+                           id="data_se_products_id<?php echo $index_increaseQty;?>">
+                    <input type="hidden" value="{{ $selling_detail->qty }}"
+                           id="data_se_qty<?php echo $index_increaseQty;?>">
+
+                    <div class="ten wide computer twelve wide tablet column"
+                         id="items_se_product<?php echo $index_increaseQty?>">
                         <div class="ui items">
                             <div class="item">
                                 <div class="ui mini image">
@@ -55,10 +64,15 @@
                     </div>
                     <div class="six wide computer four wide tablet column">
                         <div class="ui small basic icon buttons">
-                            <button 
+                            <button
                                 id="btn_se_increaseQty<?php echo $index_increaseQty; ?>"
-                               class="ui button" data-tooltip="Tambah Kuantitas" data-inverted>
-                               <i class="plus blue icon"></i>
+                                class="ui button {{ ($selling_detail->p_stock < 1)?'disabled':'' }}">
+                                <i class="plus blue icon"></i>
+                            </button>
+                            <button
+                                id="btn_se_decreaseQty<?php echo $index_increaseQty; ?>"
+                                class="ui button {{ ($selling_detail->qty < 2)?'disabled':'' }}">
+                                <i class="minus orange icon"></i>
                             </button>
                             <a href="{{ url('/sellingdetailDelete/'.$selling_detail->sellings_id.'&'.$selling_detail->products_id) }}"
                                onclick="return confirm(' Hapus produk `{{ $selling_detail->p_name }}` dari penjualan ini ?');"
@@ -68,7 +82,7 @@
                     <?php $index_increaseQty++; ?>
                 @endforeach
                 <div class="five wide computer fourteen wide tablet sixteen wide mobile center aligned column">
-                    <button class="ui basic violet button" id="btn_se_insertdetailproduct">Tambah Produk</button>
+                    <button class="ui basic teal button" id="btn_se_insertdetailproduct">Tambah Produk</button>
                 </div>
             </div>
         </div>
@@ -353,25 +367,49 @@
     </div>
 
     {{-- Modal increase qty of detail product  --}}
+    <?php $index_increaseQty_modal = 0;?>
     @foreach($selling_details as $selling_detail)
-    <div class="ui mini active modal" id="modal_se_increaseQty">
-        <div class="header">Tambah Jumlah Produk</div>
+        <div class="ui mini modal" id="modal_se_increaseQty<?php echo $index_increaseQty_modal;?>">
+            <div class="header">Tambah Jumlah "{{ $selling_detail->p_name }}"</div>
+            <div class="content">
+                <form method="POST" action="{{ url('/sellingdetailProductQtyIncrease') }}" class="ui form"
+                      id="form_se_increaseQty<?php echo $index_increaseQty_modal?>">
+                    {{ csrf_field()  }}
+                    <span>Tersedia: {{ $selling_detail->p_stock }}</span>
+                    <input type="hidden" name="sellings_id"
+                           value="{{ $selling_detail->sellings_id }}">
+                    <input type="hidden" name="products_id"
+                           value="{{ $selling_detail->products_id }}">
+                    <input type="number" placeholder="Mau nambah berapa?" name="qty" min="1"
+                           max="{{ $selling_detail->p_stock }}">
+                </form>
+            </div>
+            <div class="actions">
+                <div class="ui cancel basic primary button">Batal</div>
+                <div class="ui approve primary button">Tambah</div>
+            </div>
+        </div>
+        <?php $index_increaseQty_modal++;?>
+    @endforeach
+
+    {{-- Modal decrease qty of detail product  --}}
+    <div class="ui mini modal" id="modal_se_decreaseQty">
+        <div class="header">Kurangi Jumlah</div>
         <div class="content">
-            <form method="POST" action="" class="ui form">
+            <form method="POST" action="{{ url('/sellingdetailProductQtyDecrease') }}" class="ui form"
+                  id="form_se_decreaseQty">
                 {{ csrf_field()  }}
-                <input type="text" name="sellings_id" id="data_se_increaseQty_sellings_id" value="{{ $selling_detail->sellings_id }}">
-                <input type="text" name="products_id" id="data_se_increaseQty_products_id" value="{{ $selling_detail->products_id }}">
-                <input type="text" placeholder="contoh: 4" name="qty">
+                <span id="data_se_decreaseQty_qtyNow">Jumlah sekarang: </span>
+                <input type="hidden" name="sellings_id" id="data_se_decreaseQty_sellings_id">
+                <input type="hidden" name="products_id" id="data_se_decreaseQty_products_id">
+                <input type="number" placeholder="Mau dikurangi berapa?" name="qty" min="1"
+                       id="data_se_decreaseQty_qty">
             </form>
         </div>
         <div class="actions">
-            <div class="ui cancel basic primary button">Batal</div>
-            <div class="ui approve primary button">Tambah</div>
+            <div class="ui cancel primary button">Batal</div>
+            <div class="ui approve basic orange button">Oke, Kurangi</div>
         </div>
     </div>
-    <br><br><br>
-    <br><br><br>
-    <br><br><br>
-    @endforeach
 
 @endsection
