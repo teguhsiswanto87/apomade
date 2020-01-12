@@ -321,6 +321,7 @@ var form_se_omzet = function () {
     $('#se_sd_capital').val(se_capital_x_qty);
     //discount
     var voucher_discount = parseInt($('#se_voucher_discount').val());
+    voucher_discount = (voucher_discount > 0) ? voucher_discount : 0;
     //shipping tax
     var shipping_tax_percent = $("input[name='shipping_tax']:checked").val();
     var shippingTax = shipping_tax_percent * se_sellingprice_x_qty / 100;

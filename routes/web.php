@@ -67,12 +67,16 @@ Route::get('/marketplaceDelete/{id}', 'MarketPlaceController@marketplaceDelete')
 
 // Selling
 Route::get('/selling', 'SellingController@index');
-Route::get('/selling_table/{marketplace}', 'SellingController@index_table');
+Route::get('/selling_table/{id_market_place}', 'SellingController@index_table');
 Route::get('selling_table/sellingDelete/{id}', 'SellingController@sellingDelete');
 
 Route::get('/selling/insert', 'SellingController@insert');
 Route::post('/sellingPost', 'SellingController@sellingPost'); //with detail product
-Route::get('/selling/edit/{id}', 'SellingController@edit');
+
+// id_come_from => 1 from /selling , 2 from /selling_table => 27 2[no] => id market places
+Route::get('/selling/edit/{id}/{come_from?}', 'SellingController@edit');
+//Route::get('/selling/edit/{id}', 'SellingController@edit');
+
 Route::post('/sellingUpdate', 'SellingController@sellingUpdate'); //without detail product
 Route::get('/selling/detail/{id}', 'SellingController@detail');
 Route::get('/selling/changeToDone/{id}&{info}', 'SellingController@sellingChangeToDone');
@@ -81,7 +85,7 @@ Route::get('/sellingDelete/{id}', 'SellingController@sellingDelete');
 // Selling Detail
 Route::get('/sellingdetail', 'SellingDetailController@index');
 Route::post('/sellingdetailsPost', 'SellingDetailController@insertsPost');
-Route::get('/sellingdetailDelete/{sellings_id}&{products_id}', 'SellingDetailController@sellingDetailDelete');
+Route::get('/sellingdetailDelete/{sellings_id}&{products_id}/{come_from?}', 'SellingDetailController@sellingDetailDelete');
 Route::post('/sellingdetailProductQtyIncrease', 'SellingDetailController@increaseProductQty');
 Route::post('/sellingdetailProductQtyDecrease', 'SellingDetailController@decreaseProductQty');
 

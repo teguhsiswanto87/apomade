@@ -53,7 +53,7 @@
                             <label>Aktif</label>
                             <div class="ui toggle checkbox">
                                 <input type="checkbox" name="active" value="Y" {{ ($mp->active == 'Y')?'checked':'' }}>
-                                <label>Tampil di input penjualan</label>
+                                <label><i>Tampil di Input Penjualan & Transaksi</i></label>
                             </div>
                         </div>
                         <br>

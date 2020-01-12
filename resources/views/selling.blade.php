@@ -146,7 +146,8 @@
                             </a>
                             @if($selling->selling_status != 'done')
                                 <i class="edit icon"></i>
-                                <a href="{{ url('selling/edit/'.$selling->id) }}">Edit Detail</a>
+                                <a href="{{ url('selling/edit/'.$selling->id) }}">
+                                    Edit Detail</a>
                             @endif
                         </div>
                         <div class="extra content">

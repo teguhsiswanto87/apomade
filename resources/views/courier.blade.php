@@ -27,7 +27,7 @@
             @endif
 
             @if(count($couriers) > 0)
-                <table class="ui celled striped selectable table">
+                <table class="ui celled striped selectable table" style="width: 50%">
                     <thead>
                     <tr>
                         <th>ID</th>

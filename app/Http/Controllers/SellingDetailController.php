@@ -53,11 +53,11 @@ class SellingDetailController extends Controller
 
         }
         return redirect()->action(
-            'SellingController@edit', ['id' => $request->id]
+            'SellingController@edit', ['id' => $request->id, 'come_from' => $request->come_from]
         )->with('alert-success', $number_of_products . ' Jenis Produk berhasil ditambahkan');
     }
 
-    public function sellingDetailDelete($sellings_id, $products_id)
+    public function sellingDetailDelete($sellings_id, $products_id, $come_from = null)
     {
         //find data
         $data = DB::table('selling_details')
@@ -72,7 +72,7 @@ class SellingDetailController extends Controller
         DB::table('products')->where('id', $products_id)->increment('stock', $singleRowData->qty);
 
         return redirect()->action(
-            'SellingController@edit', ['id' => $sellings_id]
+            'SellingController@edit', ['id' => $sellings_id, 'come_from' => $come_from]
         )->with('alert-warning', 'Produk berhasil dihapus');
     }
 
@@ -93,8 +93,8 @@ class SellingDetailController extends Controller
         $product->decrement('stock', $request->qty);
 
         return redirect()->action(
-            'SellingController@edit', ['id' => $request->sellings_id]
-        )->with('alert-success', $request->qty . ' `' . $product_data->name . '` ditambahkan');
+            'SellingController@edit', ['id' => $request->sellings_id, 'come_from' => $request->come_from]
+        )->with('alert-success', $request->qty . ' "' . $product_data->name . '" ditambahkan');
     }
 
     public function decreaseProductQty(Request $request)
@@ -114,8 +114,8 @@ class SellingDetailController extends Controller
         $product->increment('stock', $request->qty);
 
         return redirect()->action(
-            'SellingController@edit', ['id' => $request->sellings_id]
-        )->with('alert-warning', $request->qty . ' `' . $product_data->name . '` dikurangi');
+            'SellingController@edit', ['id' => $request->sellings_id, 'come_from' => $request->come_from]
+        )->with('alert-warning', $request->qty . ' "' . $product_data->name . '" dikurangi');
     }
 
 }

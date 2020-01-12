@@ -7,6 +7,7 @@ use App\Selling;
 use App\SellingDetail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
 
 class SellingController
@@ -40,7 +41,7 @@ class SellingController
         }
     }
 
-    public function index_table($marketplace)
+    public function index_table($id_market_place)
     {
         if (!Session::get('login')) {
             return redirect('login')->with('alert', 'Kamu Harus Login');
@@ -57,17 +58,36 @@ class SellingController
                 ->addSelect(DB::raw('(selling_details.qty*selling_details.capital) as capitals'))
                 ->get();
 
-            $sellings = DB::table('sellings')
-                ->join('market_places', 'sellings.market_places_id', '=', 'market_places.id')
-                ->join('couriers', 'sellings.couriers_id', '=', 'couriers.id')
-                ->select('sellings.*',
-                    'market_places.name as mp_name',
-                    'market_places.image_link as mp_image_link',
-                    'couriers.name as c_name')
-                ->orderBy('sellings.created_at', 'desc')
-                ->get();
+            if ($id_market_place == 'all') {
+                $sellings = DB::table('sellings')
+                    ->join('market_places', 'sellings.market_places_id', '=', 'market_places.id')
+                    ->join('couriers', 'sellings.couriers_id', '=', 'couriers.id')
+                    ->select('sellings.*',
+                        'market_places.name as mp_name',
+                        'market_places.image_link as mp_image_link',
+                        'couriers.name as c_name')
+                    ->orderBy('sellings.created_at', 'desc')
+                    ->get();
+            } else {
+                $sellings = DB::table('sellings')
+                    ->join('market_places', 'sellings.market_places_id', '=', 'market_places.id')
+                    ->join('couriers', 'sellings.couriers_id', '=', 'couriers.id')
+                    ->select('sellings.*',
+                        'market_places.name as mp_name',
+                        'market_places.image_link as mp_image_link',
+                        'couriers.name as c_name')
+                    ->orderBy('sellings.created_at', 'desc')
+                    ->get()->where('market_places_id', $id_market_place);
+            }
+            // filter button market place
+            $marketplaces = DB::table('market_places')->where('active', 'Y')->get();
 
-            return view('selling_table' . '_' . $marketplace, ['sellings' => $sellings, 'products' => $products_sold]);
+            return view('selling_table',
+                [
+                    'sellings' => $sellings,
+                    'products' => $products_sold,
+                    'marketplaces' => $marketplaces
+                ]);
 
         }
     }
@@ -171,7 +191,7 @@ class SellingController
         }
     }
 
-    public function edit($id)
+    public function edit($id, $come_from = null)
     {
         if (!Session::get('login')) {
             return redirect('login')->with('alert', 'Kamu Harus Login');
@@ -194,7 +214,11 @@ class SellingController
                 'products' => $products,
                 'productsSoldOut' => $productsSoldOut,
                 'couriers' => $couriers,
-                'marketplaces' => $market_places
+                'marketplaces' => $market_places,
+                // from previous page (selling OR selling_table)
+                'come_from' => $come_from
+//                'id_come_from' => $id_come_from,
+//                'id_market_place' => $id_market_place
             ]);
         }
 
@@ -214,7 +238,10 @@ class SellingController
         $data->save();
 
         return redirect()->action(
-            'SellingController@edit', ['id' => $request->id]
+            'SellingController@edit', [
+                'id' => $request->id,
+                'come_from' => $request->come_from
+            ]
         )->with('alert-success', 'Data Penjualan Berhasil Diperbarui');
     }
 
@@ -224,7 +251,7 @@ class SellingController
         $data->delete();
         Selling::query('delete from sellings')->where('id', $id)->delete();
 
-        return redirect('selling')->with('alert-warning', 'Berhasil menghapus data');
+        return Redirect::back()->with('alert-warning', 'Berhasil menghapus data');
     }
 
     public function sellingChangeToDone($id, $info)

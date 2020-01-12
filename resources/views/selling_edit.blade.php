@@ -4,10 +4,21 @@
     <div class="ui grid stackable padded">
         {{--    Detail Produk Terjual    --}}
         <div class="nine wide computer eight wide tablet sixteen wide mobile column">
-            <a href="{{ url('/selling') }}" class="ui labeled icon basic button">
-                <i class="left chevron icon"></i>
-                Kembali
-            </a>
+            @if($come_from == null)
+                <a href="{{ url('/selling') }}" class="ui labeled icon basic button">
+                    <i class="left chevron icon"></i>Kembali
+                </a>
+            @elseif($come_from == '0')
+                <a href="{{ url('/selling_table/all') }}" class="ui labeled icon basic button">
+                    <i class="left chevron icon"></i>Kembali
+                </a>
+            @else
+                <a href="{{ url('/selling_table/'.$come_from) }}" class="ui labeled icon basic button">
+                    <i class="left chevron icon"></i>Kembali
+                </a>
+            @endif
+
+
             <h1>
                 Edit Penjualan
             </h1>
@@ -79,9 +90,11 @@
                                 class="ui button {{ ($selling_detail->qty < 2)?'disabled':'' }}">
                                 <i class="minus orange icon"></i>
                             </button>
-                            <a href="{{ url('/sellingdetailDelete/'.$selling_detail->sellings_id.'&'.$selling_detail->products_id) }}"
+                            <a href="{{ url('/sellingdetailDelete/'.$selling_detail->sellings_id.'&'.$selling_detail->products_id.'/'.$come_from) }}"
                                onclick="return confirm(' Hapus produk `{{ $selling_detail->p_name }}` dari penjualan ini ?');"
-                               class="ui button"><i class="trash red icon"></i></a>
+                               class="ui button {{ (count($selling_details) < 2)?'disabled':'' }}">
+                                <i class="trash red icon"></i>
+                            </a>
                         </div>
                     </div>
                     <?php $index_increaseQty++; ?>
@@ -98,6 +111,9 @@
                 <form class="" method="POST" action="{{ url('/sellingUpdate')  }}" id="form_se_edit_sellings">
                     {{ csrf_field()  }}
                     <input type="hidden" name="id" value="{{ $sellings->id }}">
+                    <input type="hidden" name="come_from" value="{{ $come_from }}">
+                    {{--                    <input type="hidden" name="id_come_from" value="{{ $id_come_from }}">--}}
+                    {{--                    <input type="hidden" name="id_market_place" value="{{ $id_market_place }}">--}}
 
                     <div class="ui form" id="se_sellings">
                         <input type="hidden" id="se_sd_shoppingTotal">
@@ -105,7 +121,7 @@
                         <input type="hidden" id="se_sd_shippingTax">
 
                         <div class="field">
-                            <div class="ui floating message">Diperbarui pada: <b>
+                            <div class="ui floating message">Terakhir Diperbarui: <b>
                                     {{ \Carbon\Carbon::parse($sellings->updated_at)->format('l, d M Y | H:i') }}
                                 </b>
                             </div>
@@ -312,6 +328,8 @@
             <form class="" method="POST" action="{{ url('/sellingdetailsPost')  }}" id="form_se_insertdetailproducts">
                 {{ csrf_field()  }}
                 <input type="hidden" name="id" value="{{ $sellings->id }}">
+                <input type="hidden" name="come_from" value="{{ $come_from }}">
+
                 <div class="ui items grid" id="se_products">
                     <?php $index = 0;?>
                     @foreach($products as $product)
@@ -402,6 +420,8 @@
                 <form method="POST" action="{{ url('/sellingdetailProductQtyIncrease') }}" class="ui form"
                       id="form_se_increaseQty<?php echo $index_increaseQty_modal?>">
                     {{ csrf_field()  }}
+                    <input type="hidden" name="come_from" value="{{ $come_from }}">
+
                     <span>Tersedia: {{ $selling_detail->p_stock }}</span>
                     <input type="hidden" name="sellings_id"
                            value="{{ $selling_detail->sellings_id }}">
@@ -426,6 +446,8 @@
             <form method="POST" action="{{ url('/sellingdetailProductQtyDecrease') }}" class="ui form"
                   id="form_se_decreaseQty">
                 {{ csrf_field()  }}
+                <input type="hidden" name="come_from" value="{{ $come_from }}">
+
                 <span id="data_se_decreaseQty_qtyNow">Jumlah sekarang: </span>
                 <input type="hidden" name="sellings_id" id="data_se_decreaseQty_sellings_id">
                 <input type="hidden" name="products_id" id="data_se_decreaseQty_products_id">

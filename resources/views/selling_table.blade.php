@@ -18,10 +18,33 @@
             </div>
             {{-- market place? --}}
             <div class="ui buttons right floated" style="margin-right: 1rem">
-                <a href="all" class="ui button grey">Semua</a>
-                <a href="bukalapak" class="ui button">Bukalapak</a>
-                <a href="shopee" class="ui button">Shopee</a>
+                <a href="all" class="ui button {{ (request()->is('selling_table/all')?'grey':'') }}">Semua</a>
+                @foreach($marketplaces as $marketplace)
+                    <a href="{{ url('selling_table/'.$marketplace->id) }}"
+                       class="ui button {{
+                            (request()->is('selling_table/'.$marketplace->id)?'grey':'')
+                            }}">{{ $marketplace->name }}</a>
+                @endforeach
             </div>
+
+            @if(Session::has('alert-success'))
+                <div class="ui positive small message">
+                    <i class="close icon"></i>
+                    <div class="header">
+                        <i class="check icon"></i>
+                        {{ Session::get('alert-success') }}
+                    </div>
+                </div>
+            @endif
+            @if(Session::has('alert-warning'))
+                <div class="ui warning small message">
+                    <i class="close icon"></i>
+                    <div class="header">
+                        <i class="info circle icon"></i>
+                        {{ Session::get('alert-warning') }}
+                    </div>
+                </div>
+            @endif
 
             @if(count($sellings) > 0)
                 <table class="ui celled striped selectable compact table" id="table_sellings_details">
@@ -39,7 +62,7 @@
                         <th>Untung</th>
                         <th>Pembeli</th>
 
-                        <th>Kurir</th>
+                        <th>MP | Kurir</th>
                         <th>Status</th>
                         <th>Aksi</th>
                     </tr>
@@ -103,16 +126,18 @@
                             {{--  Buyers Name  --}}
                             <td>{{ $selling->buyers_name }}</td>
                             {{--  Couriers  --}}
-                            <td class="collapsing">{{ $selling->c_name }}</td>
+                            <td class="collapsing"><label class="ui label">{{ $selling->mp_name }}</label>
+                                <br>{{ $selling->c_name }}</td>
                             {{--  Selling Status  --}}
                             <td class="collapsing {{ ($selling->selling_status == 'done')?'positive':'' }}">
                                 <i class="icon {{ ($selling->selling_status == 'done')?'checkmark':'' }}"></i>
                                 {{ $selling->selling_status }}
                             </td>
                             <td class="collapsing">
-                                <a href="edit/{{ $selling->id  }}" style="color: #f2711c;">Edit</a> <br>
+                                <a href="{{ url('selling/edit/'.$selling->id.'/'.(request()->is('selling_table/all')?'0':$selling->market_places_id)) }}"
+                                   style="color: #f2711c;">Edit</a> <br>
                                 <a>Detail</a><br>
-                                <a href="sellingDelete/{{ $selling->id  }}" style="color:red"
+                                <a href="{{ url('sellingDelete/'.$selling->id ) }}" style="color:red"
                                    onclick="return confirm(' Hapus penjualan ini ?');">Hapus</a>
                             </td>
                         </tr>

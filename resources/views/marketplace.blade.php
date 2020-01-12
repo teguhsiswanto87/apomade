@@ -27,10 +27,10 @@
             @endif
 
             @if(count($marketplaces) > 0)
-                <table class="ui celled striped selectable table">
+                <table class="ui celled striped selectable table" style="width: 70%">
                     <thead>
                     <tr>
-                        <th>ID</th>
+                        <th>No</th>
                         <th>Nama Market Place</th>
                         <th>Gambar</th>
                         <th>Link Toko</th>
@@ -39,9 +39,10 @@
                     </tr>
                     </thead>
                     <tbody>
+                    @php $no_marketplaces=1 @endphp
                     @foreach($marketplaces as $marketplace)
                         <tr>
-                            <td class="collapsing">{{ $marketplace->id }}</td>
+                            <td class="collapsing">@php echo $no_marketplaces @endphp</td>
                             <td>{{ $marketplace->name  }}</td>
                             <td class="right aligned collapsing">
                                 <img src="{{ $marketplace->image_link }}" class="ui mini image">
@@ -54,6 +55,7 @@
                                    onclick="return confirm(' Hapus {{ $marketplace->name }} ?');">Hapus</a>
                             </td>
                         </tr>
+                        @php $no_marketplaces++ @endphp
                     @endforeach
 
                     </tbody>
