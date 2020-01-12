@@ -92,7 +92,7 @@ class SellingController
         }
     }
 
-    public function insert()
+    public function insert($come_from = null)
     {
         if (!Session::get('login')) {
             return redirect('login')->with('alert', 'Kamu Harus Login');
@@ -102,16 +102,19 @@ class SellingController
             $couriers = DB::table('couriers')->get()->where('active', 'Y');
             $market_places = DB::table('market_places')->get()->where('active', 'Y');
             return view('selling_insert',
-                ['products' => $products,
+                [
+                    'products' => $products,
                     'productsSoldOut' => $productsSoldOut,
                     'couriers' => $couriers,
-                    'marketplaces' => $market_places]);
+                    'marketplaces' => $market_places,
+                    'come_from' => $come_from
+                ]);
         }
 
     }
 
     // insert with detail products
-    public function sellingPost(SellingStoreRequest $request)
+    public function sellingPost(SellingStoreRequest $request, $come_from = null)
     {
         $data = new Selling();
         $data->market_places_id = $request->market_places_id;
@@ -148,7 +151,11 @@ class SellingController
                     ->update(['stock' => $singleRowProduct->stock - $filteredQty[$item]]);
             }
         }
-        return redirect('selling')->with('alert-success', 'Data Penjualan berhasil ditambahkan');
+        if ($come_from) {
+            return redirect('selling_table/' . $come_from)->with('alert-success', 'Data Penjualan berhasil ditambahkan');
+        } else {
+            return redirect('selling')->with('alert-success', 'Data Penjualan berhasil ditambahkan');
+        }
 //        return print_r($request->products_id);
 //        return print_r();
     }

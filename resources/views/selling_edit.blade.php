@@ -112,6 +112,7 @@
                     {{ csrf_field()  }}
                     <input type="hidden" name="id" value="{{ $sellings->id }}">
                     <input type="hidden" name="come_from" value="{{ $come_from }}">
+
                     {{--                    <input type="hidden" name="id_come_from" value="{{ $id_come_from }}">--}}
                     {{--                    <input type="hidden" name="id_market_place" value="{{ $id_market_place }}">--}}
 

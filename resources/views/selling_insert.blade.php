@@ -1,8 +1,10 @@
 @extends('media')
 @section('content')
 
-    <form class="" method="POST" action="{{ url('/sellingPost')  }}">
+    <form class="" method="POST" action="{{ url('/sellingPost/'.$come_from)  }}">
         {{ csrf_field()  }}
+        <input type="hidden" name="come_from" value="{{ $come_from }}">
+
         <div class="ui grid stackable padded">
             {{--    Detail Produk Terjual    --}}
             <div class="nine wide computer eight wide tablet sixteen wide mobile column">
@@ -63,7 +65,8 @@
                 @else
                     <img src="{{ asset('assets') }}/images/miracle-box.gif" class="ui centered large image">
                     <div class="ui center aligned grid">
-                        <h2 class="sixteen wide mobile column">Produk dan Analisis adalah<br> Kunci Penjualan Tetap Lancar
+                        <h2 class="sixteen wide mobile column">Produk dan Analisis adalah<br> Kunci Penjualan Tetap
+                            Lancar
                         </h2>
                     </div>
                 @endif

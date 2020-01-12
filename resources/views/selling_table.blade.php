@@ -3,7 +3,7 @@
 
     <div class="ui grid stackable padded">
         <div class="sixteen wide computer sixteen wide tablet sixteen wide mobile column">
-            <a href="{{ url('/selling/insert')  }}" class="ui basic button">
+            <a href="{{ url('/selling/insert/'.(basename(url()->current())))  }}" class="ui basic button">
                 <i class="icon plus"></i>
                 Tambah
             </a>
