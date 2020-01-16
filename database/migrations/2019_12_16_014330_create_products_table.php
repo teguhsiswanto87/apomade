@@ -19,6 +19,7 @@ class CreateProductsTable extends Migration
             $table->integer('stock');
             $table->bigInteger('capital');
             $table->bigInteger('selling_price')->nullable(true);
+            $table->enum('active', ['Y', 'N'])->default('Y');
 //            $table->bigInteger('gross_profit')->nullable(true);
             $table->timestamps();
         });

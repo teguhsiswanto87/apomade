@@ -73,32 +73,42 @@
 
                 {{-- Products Sold Out --}}
                 @if(count($productsSoldOut) > 0)
-                    <h5 style="margin-top: 2rem">Produk yang Telah Habis</h5>
-                    <div class="ui items">
-                        @foreach($productsSoldOut as $productSoldOut)
-                            <div class="item">
-                                <div class="ui mini image">
-                                    <img src="{{ asset('assets') }}/images/image.png">
-                                </div>
-                                <div class="middle aligned content">
-                                    <div>{{ $productSoldOut->name }}
-                                        {{-- <div class="circular ui right floated basic primary button">--}}
-                                        {{--     Tambah Stok--}}
-                                        {{-- </div>--}}
-                                    </div>
-                                    <div class="meta">
-                                        <span class="stay">Stok: {{ $productSoldOut->stock }}</span>
-                                    </div>
-                                    <div class="description">
-                                        <p></p>
-                                    </div>
-                                    <div class="extra">
 
+                    <div class="ui styled fluid accordion" style="margin-top: 2rem">
+                        <div class="title">
+                            <i class="dropdown icon"></i>
+                            Produk yang Telah Habis
+                        </div>
+                        <div class="content">
+                            <div class="ui items" style="display: block !important;">
+                                @foreach($productsSoldOut as $productSoldOut)
+                                    <div class="item">
+                                        <div class="ui mini image mobile hidden">
+                                            <img src="{{ asset('assets') }}/images/image.png" class="mobile hidden">
+                                        </div>
+                                        <div class="content">
+                                            <div>{{ $productSoldOut->name }}
+                                                {{-- <div class="circular ui right floated basic primary button">--}}
+                                                {{--     Tambah Stok--}}
+                                                {{-- </div>--}}
+                                            </div>
+                                            <div class="meta">
+                                                <span class="stay">Stok: {{ $productSoldOut->stock }}</span>
+                                            </div>
+                                            <div class="description">
+                                                <p></p>
+                                            </div>
+                                            <div class="extra">
+
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
+                                @endforeach
                             </div>
-                        @endforeach
+                        </div>
                     </div>
+
+
                 @endif
 
                 {{--                </form>--}}
@@ -171,7 +181,7 @@
                             </div>
 
                         </div>
-                        <div class="field six wide column">
+                        <div class="field nine wide column">
                             <label>Diskon Voucher
                                 <div class="ui labeled input">
                                     <div class="ui orange label">Rp</div>
@@ -257,7 +267,7 @@
                         </div>
                         <div class="field">
                             <label>Sumber Transaksi</label>
-                            <div class="inline fields">
+                            <div class="{{ (count($marketplaces) <= 5)?'inline':'grouped' }} fields">
                                 @foreach($marketplaces as $marketplace)
                                     <div class="field">
                                         <div class="ui radio checkbox">

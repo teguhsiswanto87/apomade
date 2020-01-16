@@ -14,7 +14,7 @@ class CourierController extends Controller
         if (!Session::get('login')) {
             return redirect('login')->with('alert', 'Kamu harus login');
         } else {
-            $couriers = DB::table('couriers')->get();
+            $couriers = DB::table('couriers')->orderBy('active')->get();
             return view('courier', ['couriers' => $couriers]);
         }
     }
@@ -70,6 +70,15 @@ class CourierController extends Controller
         $data->delete();
 
         return redirect('courier')->with('alert-warning', 'Berhasil menghapus data');
+    }
+
+    public function courierActivate($id)
+    {
+        $data = DB::table('couriers')->where('id', $id);
+        $nama = $data->pluck('name')->first();
+        $data->update(['active' => 'Y']);
+
+        return redirect('courier')->with('alert-success', $nama . ' telah diaktifkan');
     }
 
 

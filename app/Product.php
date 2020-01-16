@@ -8,7 +8,7 @@ class Product extends Model
 {
     protected $table = 'products';
 
-    protected $fillable = ['name', 'stock', 'capital', 'selling_price'];
+    protected $fillable = ['name', 'stock', 'capital', 'selling_price', 'active'];
 
     protected $hidden = ['created_at', 'updated_at'];
 

@@ -190,7 +190,7 @@
                             </div>
 
                         </div>
-                        <div class="field six wide column">
+                        <div class="field nine wide column">
                             <label>Diskon Voucher
                                 <div class="ui labeled input">
                                     <div class="ui orange label">Rp</div>

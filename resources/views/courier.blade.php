@@ -2,7 +2,7 @@
 @section('content')
 
     <div class="ui grid stackable padded">
-        <div class="column">
+        <div class="eight wide computer twelve wide tablet sixteen wide mobile column">
             <a href="{{ url('/courier/insert')  }}" class="ui basic button">
                 <i class="icon plus"></i>
                 Tambah
@@ -26,11 +26,12 @@
                 </div>
             @endif
 
+            @php $no_couriers=1 @endphp
             @if(count($couriers) > 0)
-                <table class="ui celled striped selectable table" style="width: 50%">
+                <table class="ui celled selectable table">
                     <thead>
                     <tr>
-                        <th>ID</th>
+                        <th>No</th>
                         <th>Nama Jasa Pengiriman</th>
                         <th>Gambar</th>
                         <th>Aktif</th>
@@ -39,8 +40,8 @@
                     </thead>
                     <tbody>
                     @foreach($couriers as $courier)
-                        <tr>
-                            <td class="collapsing">{{ $courier->id }}</td>
+                        <tr class="{{ ($courier->active == 'N')?'warning':'' }}">
+                            <td class="collapsing">{{ $no_couriers }}</td>
                             <td>{{ $courier->name  }}</td>
                             <td class="right aligned collapsing">
                                 <img src="{{ $courier->image_link }}" class="ui mini image">
@@ -48,10 +49,18 @@
                             <td class="collapsing center aligned">{{ $courier->active }}</td>
                             <td class="collapsing">
                                 <a href="courier/edit/{{ $courier->id  }}">Edit</a> |
-                                <a href="courierDelete/{{ $courier->id  }}" style="color:red"
-                                   onclick="return confirm(' Hapus {{ $courier->name }} ?');">Hapus</a>
+
+                                @if($courier->active == 'N')
+                                    <a href="courierActivate/{{ $courier->id  }}" style="color:green"
+                                       onclick="return confirm(' Aktifkan {{ $courier->name }} ?');">Aktifkan</a>
+                                @endif
+
+                                {{--                                <a href="courierDelete/{{ $courier->id  }}" style="color:red"--}}
+                                {{--                                   onclick="return confirm(' Hapus {{ $courier->name }} ?');">Hapus</a>--}}
+
                             </td>
                         </tr>
+                        @php $no_couriers++ @endphp
                     @endforeach
 
                     </tbody>

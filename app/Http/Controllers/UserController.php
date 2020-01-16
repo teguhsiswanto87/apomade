@@ -75,22 +75,25 @@ class UserController extends Controller
         if (!Session::get('login')) {
             return redirect('login')->with('alert', 'Kamu Harus Login');
         } else {
-            $user = DB::table('users')->where('email', Session::get('email'))->get();
-            return view('profile', ['user' => $user]);
+            $user = DB::table('users')->where('username', Session::get('username'))->get()->first();
+            return view('profile_edit', ['user' => $user]);
         }
     }
 
     public function profileUpdate(UserStoreRequest $request)
     {
-        $data = User::find($request->id);
-        $data->name = $request->name;
-        $data->position = $request->position;
-        $data->email = $request->email;
-        $data->gender = $request->gender;
-        $data->gender = $request->gender;
-        $data->save();
+        $data = DB::table('users')->where([
+            ['id', '=', $request->id],
+            ['username', '=', $request->username]
+        ]);
+        $data->update([
+            'name' => $request->name,
+            'email' => $request->email,
+            'gender' => $request->gender
+        ]);
 
-        return redirect('profile')->with('alert-success', 'Profil berhasil diperbarui');
+//        return $data;
+        return redirect('profile/edit')->with('alert-success', 'Profil berhasil diperbarui');
 
     }
 

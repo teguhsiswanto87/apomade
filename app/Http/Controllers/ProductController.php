@@ -16,7 +16,7 @@ class ProductController extends Controller
         if (!Session::get('login')) {
             return redirect('login')->with('alert', 'Kamu Harus Login');
         } else {
-            $products = DB::table('products')->get();
+            $products = DB::table('products')->where('active', 'Y')->get();
             return view('product', ['products' => $products]);
         }
     }
@@ -76,6 +76,17 @@ class ProductController extends Controller
         $data->delete();
 
         return redirect('product')->with('alert-warning', 'Berhasil menghapus data');
+    }
+
+    // MANIPULASI => HAPUS PRODUK, TAPI TAK MERUSAK PENJUALAN YG BERELASI DENGAN PRODUK INI
+    public function productDeactivate($id)
+    {
+        $data = DB::table('products')->where('id', $id);
+        $name = $data->pluck('name')->first();
+        $data->update(['active' => 'N']);
+
+        // KATA-KATA MUNAFIK
+        return redirect('product')->with('alert-warning', $name . ' dihapus dari produk dijual');
     }
 
 //    API

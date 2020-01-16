@@ -15,7 +15,7 @@ class MarketPlaceController extends Controller
         if (!Session::get('login')) {
             return redirect('login')->with('alert', 'Kamu harus login');
         } else {
-            $marketplaces = DB::table('market_places')->get();
+            $marketplaces = DB::table('market_places')->orderByDesc('active')->get();
             return view('marketplace', ['marketplaces' => $marketplaces]);
         }
     }
@@ -73,6 +73,15 @@ class MarketPlaceController extends Controller
         $data->delete();
 
         return redirect('marketplace')->with('alert-warning', 'Berhasil menghapus data');
+    }
+
+    public function marketplaceActivate($id)
+    {
+        $data = DB::table('market_places')->where('id', $id);
+        $name = $data->pluck('name')->first();
+        $data->update(['active' => 'Y']);
+
+        return redirect('marketplace')->with('alert-success', $name . ' telah diaktifkan');
     }
 
 }

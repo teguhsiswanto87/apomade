@@ -2,7 +2,7 @@
 @section('content')
 
     <div class="ui grid stackable padded">
-        <div class="column">
+        <div class="ten wide computer twelve wide tablet sixteen wide mobile column">
             <a href="{{ url('/marketplace/insert')  }}" class="ui basic button">
                 <i class="icon plus"></i>
                 Tambah
@@ -27,7 +27,7 @@
             @endif
 
             @if(count($marketplaces) > 0)
-                <table class="ui celled striped selectable table" style="width: 70%">
+                <table class="ui celled selectable table">
                     <thead>
                     <tr>
                         <th>No</th>
@@ -41,7 +41,7 @@
                     <tbody>
                     @php $no_marketplaces=1 @endphp
                     @foreach($marketplaces as $marketplace)
-                        <tr>
+                        <tr class="{{ ($marketplace->active == 'N')?'warning':'' }}">
                             <td class="collapsing">@php echo $no_marketplaces @endphp</td>
                             <td>{{ $marketplace->name  }}</td>
                             <td class="right aligned collapsing">
@@ -51,8 +51,15 @@
                             <td class="collapsing center aligned">{{ $marketplace->active }}</td>
                             <td class="collapsing">
                                 <a href="marketplace/edit/{{ $marketplace->id  }}">Edit</a> |
-                                <a href="marketplaceDelete/{{ $marketplace->id  }}" style="color:red"
-                                   onclick="return confirm(' Hapus {{ $marketplace->name }} ?');">Hapus</a>
+
+                                @if($marketplace->active == 'N')
+                                    <a href="marketplaceActivate/{{ $marketplace->id  }}" style="color: green"
+                                       onclick="return confirm(' Aktifkan {{ $marketplace->name }} ?');">Aktifkan</a>
+                                @endif
+
+                                {{--                                <a href="marketplaceDelete/{{ $marketplace->id  }}" style="color:red"--}}
+                                {{--                                   onclick="return confirm(' Hapus {{ $marketplace->name }} ?');">Hapus</a>--}}
+
                             </td>
                         </tr>
                         @php $no_marketplaces++ @endphp

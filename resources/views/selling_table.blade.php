@@ -7,6 +7,7 @@
                 <i class="icon plus"></i>
                 Tambah
             </a>
+
             {{-- mode? --}}
             <div class="ui icon buttons right floated">
                 <a href="all" class="ui {{ (request()->is('selling_table/*')?'grey':'') }} button">
@@ -16,8 +17,27 @@
                     <i class="list alternate outline icon"></i>
                 </a>
             </div>
+
+            {{-- filter? --}}
+            <div class="ui floating mini labeled icon dropdown right floated button mobile only tablet only"
+                 style="margin-right: .5rem">
+                <i class="filter icon"></i>
+                <span class="text">
+                    {{ (basename(url()->current()) <> 'all')?$marketplaces->where('id', basename(url()->current()))->pluck('name')->first():'Semua' }}
+                </span>
+                <div class="menu">
+                    <div class="header">
+                        Filter by market place
+                    </div>
+                    <div class="divider"></div>
+                    @foreach($marketplaces as $marketplace)
+                        <a href="{{ url('selling_table/'.$marketplace->id) }}" class="item">{{ $marketplace->name }}</a>
+                    @endforeach
+                </div>
+            </div>
+
             {{-- market place? --}}
-            <div class="ui buttons right floated" style="margin-right: 1rem">
+            <div class="ui buttons right floated tablet hidden mobile hidden" style="margin-right: 1rem">
                 <a href="all" class="ui button {{ (request()->is('selling_table/all')?'grey':'') }}">Semua</a>
                 @foreach($marketplaces as $marketplace)
                     <a href="{{ url('selling_table/'.$marketplace->id) }}"

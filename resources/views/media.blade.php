@@ -137,10 +137,8 @@
             <div class="ui dropdown item">
                 <i class="user cirlce icon"></i>
                 <div class="menu">
-                    <label class="item" style="cursor: default">
-                        {{ Session::get('name') }}</label>
-                    <a href="profile" class="item">
-                        <i class="user icon"></i> Profil</a>
+                    <a href="{{ url('/profile/edit') }}" class="item">
+                        <i class="user icon"></i> {{ Session::get('name') }}</a>
                     <a href="" class="item">
                         <i class="setting icon"></i> Pengaturan</a>
                     <a href="/logout" class="item">

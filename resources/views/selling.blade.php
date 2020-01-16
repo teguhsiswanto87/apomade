@@ -46,7 +46,7 @@
             @foreach($sellings as $selling)
                 {{--    Detail Produk Terjual    --}}
                 <div class="column" style="margin-bottom: 1.5rem">
-                    <div class="ui card fluid">
+                    <div class="ui inverted card fluid">
                         <div class="content" style="margin-bottom: -1rem;">
                             <div class="right floated meta" style="margin-top: -0.8rem;">
                                 <a class="ui right ribbon label {{ ($selling->selling_status == 'done')?'green':'orange' }}">
@@ -54,7 +54,7 @@
                                 </a>
                             </div>
                             <img class="ui avatar image" style="margin-top: -1.5rem;"
-                                 src="{{ $selling->mp_image_link }}">
+                                 src="{{ $selling->mp_image_link }}" alt="{{ $selling->mp_name }}">
                             <label class="ui left pointing label" style="top: -.7rem;">{{ $selling->c_name }}</label>
                         </div>
                         <div class="image" style="background: white; margin-top: -0.5rem;">

@@ -15,10 +15,6 @@ Route::get('/', function () {
     return view('login');
 });
 
-Route::get('/halaman-kedua', function () {
-    return view('halamandua');
-});
-
 // Stackdriver Logging
 Route::get('/log/{message}', function ($message) {
     Log::info("Hello my log, message: $message");
@@ -38,7 +34,7 @@ Route::post('/registerPost', 'UserController@registerPost');
 Route::get('/logout', 'UserController@logout');
 
 // Profile
-Route::get('/profile', 'UserController@profile');
+Route::get('/profile/edit', 'UserController@profile');
 Route::post('/profileUpdate', 'UserController@profileUpdate');
 
 // Product
@@ -48,6 +44,7 @@ Route::post('/productPost', 'ProductController@productPost');
 Route::get('/product/edit/{id}', 'ProductController@edit');
 Route::post('/productUpdate', 'ProductController@productUpdate');
 Route::get('/productDelete/{id}', 'ProductController@productDelete');
+Route::get('/productDeactivate/{id}', 'ProductController@productDeactivate');
 
 // Courier
 Route::get('/courier', 'CourierController@index');
@@ -56,6 +53,7 @@ Route::post('/courierPost', 'CourierController@courierPost');
 Route::get('/courier/edit/{id}', 'CourierController@edit');
 Route::post('/courierUpdate', 'CourierController@courierUpdate');
 Route::get('/courierDelete/{id}', 'CourierController@courierDelete');
+Route::get('/courierActivate/{id}', 'CourierController@courierActivate');
 
 // Market Place
 Route::get('/marketplace', 'MarketPlaceController@index');
@@ -64,6 +62,7 @@ Route::post('/marketplacePost', 'MarketPlaceController@marketplacePost');
 Route::get('/marketplace/edit/{id}', 'MarketPlaceController@edit');
 Route::post('/marketplaceUpdate', 'MarketPlaceController@marketplaceUpdate');
 Route::get('/marketplaceDelete/{id}', 'MarketPlaceController@marketplaceDelete');
+Route::get('/marketplaceActivate/{id}', 'MarketPlaceController@marketplaceActivate');
 
 // Selling
 Route::get('/selling', 'SellingController@index');

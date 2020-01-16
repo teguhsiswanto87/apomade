@@ -3,7 +3,7 @@
 
     <div class="ui grid stackable padded">
         <div class="column">
-            <a href="{{ url('/product/insert')  }}" class="ui basic button">
+            <a href="{{ url('/product/insert')  }}" class="ui basic button" style="margin-bottom: .5rem">
                 <i class="icon plus"></i>
                 Tambah
             </a>
@@ -27,10 +27,10 @@
             @endif
 
             @if(count($products)>0)
-                <table class="ui celled selectable table">
+                <table class="ui celled selectable table" id="table_products" data-page-length='25'>
                     <thead>
                     <tr>
-                        <th>ID</th>
+                        <th>No</th>
                         <th>Nama Produk</th>
                         <th>Stok</th>
                         <th>Modal</th>
@@ -40,9 +40,10 @@
                     </tr>
                     </thead>
                     <tbody>
+                    @php $no_products=1 @endphp
                     @foreach($products as $product)
                         <tr>
-                            <td class="collapsing">{{ $product->id }}</td>
+                            <td class="collapsing">{{ $no_products }}</td>
                             <td>{{ $product->name  }}</td>
                             <td class="right aligned collapsing {{ ($product->stock<1)?'negative':'' }}">{{ $product->stock }}</td>
                             <td class="right aligned">{{ number_format($product->capital, 0, ',','.') }}</td>
@@ -50,10 +51,18 @@
                             <td class="right aligned">{{ number_format(($product->selling_price-$product->capital),0,',','.') }}</td>
                             <td class="collapsing">
                                 <a href="product/edit/{{ $product->id  }}">Edit</a> |
-                                <a href="productDelete/{{ $product->id  }}" style="color:red"
-                                   onclick="return confirm(' Hapus {{ $product->name }} ?');">Hapus</a>
+
+                                @if($product->active == 'Y')
+                                    <a href="productDeactivate/{{ $product->id  }}" style="color:red"
+                                       onclick="return confirm(' Hapus {{ $product->name }} ?');">Hapus</a>
+                                @endif
+
+                                {{--                                <a href="productDelete/{{ $product->id  }}" style="color:red"--}}
+                                {{--                                   onclick="return confirm(' Hapus {{ $product->name }} ?');">Hapus</a>--}}
+
                             </td>
                         </tr>
+                        @php $no_products++ @endphp
                     @endforeach
 
                     </tbody>

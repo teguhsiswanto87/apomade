@@ -14,6 +14,7 @@ $(document).ready(function () {
 
     // data tables
     $('#table_sellings_details').DataTable();
+    // $('#table_products').DataTable();
 
 
 });
