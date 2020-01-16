@@ -23,10 +23,15 @@
                 </div>
             @endif
 
+            <a href="{{ url('/profile') }}" class="ui labeled icon basic button">
+                <i class="left chevron icon"></i>
+                Kembali
+            </a>
+
             <div class="ui fluid segment">
                 {{--        Title Header        --}}
                 <h1 class="ui header">
-                    Profil Saya
+                    Edit Profil
                 </h1>
                 {{--        Form        --}}
 
@@ -36,7 +41,7 @@
                     <input type="hidden" name="username" value="{{ Session::get('username') }}">
                     <div class="field">
                         <label>Nama Lengkap
-                            <input type="text" name="name" placeholder="Nama Lengkap" value="{{ $user->name }}">
+                            <input type="text" name="name" placeholder="{{ $user->name }}" value="{{ $user->name }}">
                             @if($errors->has('name'))
                                 <div class="ui pointing orange label">
                                     {{ $errors->first('name') }}
@@ -63,9 +68,10 @@
                             </div>
                         </div>
                     </div>
-                    <div class="field ten wide column">
+                    {{--  Email HIDDEN --}}
+                    <div class="field ten wide column" style="display: none;">
                         <label>Email
-                            <input type="email" name="email" placeholder="Email" value="{{ $user->email }}">
+                            <input type="hidden" name="email" placeholder="Email" value="{{ $user->email }}">
                             <small style="color: #f2711c">
                                 {{ ($user->email_verified_at != '')?'verified':'Not Verified' }}
                             </small>
@@ -76,9 +82,10 @@
                             @endif
                         </label>
                     </div>
-                    <div class="field ten wide column">
+                    {{--  POsition HIDDEN --}}
+                    <div class="field ten wide column" style="display: none;">
                         <label>Jabatan
-                            <input type="text" name="position" placeholder="Jabatan" value="{{ $user->position }}">
+                            <input type="hidden" name="position" placeholder="Jabatan" value="{{ $user->position }}">
                             @if($errors->has('position'))
                                 <div class="ui pointing orange label">
                                     {{ $errors->first('position') }}
@@ -90,17 +97,17 @@
                     <button class="ui button primary fluid" type="submit">Simpan</button>
                 </form>
 
-                                @if($errors->any())
-                                    <div class="ui warning message">
-                                        <div class="header">Mohon periksa lagi!</div>
-                                        <i class="close icon"></i>
-                                        <ul class="list">
-                                            @foreach ($errors->all() as $error)
-                                                <li>{{ $error }}</li>
-                                            @endforeach
-                                        </ul>
-                                    </div>
-                                @endif
+                                {{-- @if($errors->any()) --}}
+                                    {{-- <div class="ui warning message"> --}}
+                                        {{-- <div class="header">Mohon periksa lagi!</div> --}}
+                                        {{-- <i class="close icon"></i> --}}
+                                        {{-- <ul class="list"> --}}
+                                            {{-- @foreach ($errors->all() as $error) --}}
+                                                {{-- <li>{{ $error }}</li> --}}
+                                            {{-- @endforeach --}}
+                                        {{-- </ul> --}}
+                                    {{-- </div> --}}
+                                {{-- @endif --}}
 
             </div>
         </div>

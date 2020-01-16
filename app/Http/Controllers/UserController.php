@@ -80,6 +80,7 @@ class UserController extends Controller
         }
     }
 
+    //only update name & gender
     public function profileUpdate(UserStoreRequest $request)
     {
         $data = DB::table('users')->where([
@@ -88,11 +89,12 @@ class UserController extends Controller
         ]);
         $data->update([
             'name' => $request->name,
-            'email' => $request->email,
             'gender' => $request->gender
         ]);
 
-//        return $data;
+        // update session data -> name
+        $request->session()->put('name', $request->name);
+
         return redirect('profile/edit')->with('alert-success', 'Profil berhasil diperbarui');
 
     }
