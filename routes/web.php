@@ -34,8 +34,12 @@ Route::post('/registerPost', 'UserController@registerPost');
 Route::get('/logout', 'UserController@logout');
 
 // Profile
-Route::get('/profile/edit', 'UserController@profile');
+Route::get('/profile', 'UserController@profile');
+Route::get('/profile/edit', 'UserController@edit_profile');
 Route::post('/profileUpdate', 'UserController@profileUpdate');
+Route::post('/profileInsertEmail', 'UserController@profileInsertEmail');
+Route::post('/profileChangeEmail', 'UserController@profileChangeEmail');
+Route::get('/profileDeleteEmail', 'UserController@profileDeleteEmail');
 
 // Product
 Route::get('/product', 'ProductController@index');

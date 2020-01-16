@@ -76,6 +76,16 @@ class UserController extends Controller
             return redirect('login')->with('alert', 'Kamu Harus Login');
         } else {
             $user = DB::table('users')->where('username', Session::get('username'))->get()->first();
+            return view('profile', ['user' => $user]);
+        }
+    }
+
+    public function edit_profile()
+    {
+        if (!Session::get('login')) {
+            return redirect('login')->with('alert', 'Kamu Harus Login');
+        } else {
+            $user = DB::table('users')->where('username', Session::get('username'))->get()->first();
             return view('profile_edit', ['user' => $user]);
         }
     }
@@ -97,6 +107,27 @@ class UserController extends Controller
 
         return redirect('profile/edit')->with('alert-success', 'Profil berhasil diperbarui');
 
+    }
+
+    public function profileInsertEmail(Request $request){
+        $data = DB::table('users')->where('username', Session::get('username'));
+        $data->update(['email' => $request->email]);
+        return redirect()->action('UserController@profile')
+            ->with('alert-success','Berhasil menambahkan Email');
+    }
+
+    public function profileChangeEmail(Request $request){
+        $data = DB::table('users')->where('username', Session::get('username'));
+        $data->update(['email' => $request->email]);
+        return redirect()->action('UserController@profile')
+            ->with('alert-success','Email telah diperbarui');
+    }
+
+    public function profileDeleteEmail(){
+        $data = DB::table('users')->where('username', Session::get('username'));
+        $data->update(['email' => null]);
+        return redirect()->action('UserController@profile')
+            ->with('alert-warning','Berhasil menghapus email');
     }
 
 }

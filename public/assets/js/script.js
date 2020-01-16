@@ -338,3 +338,24 @@ var form_se_omzet = function () {
 };
 form_se_omzet();
 $('#form_se_edit_sellings').on('change', form_se_omzet);
+
+//Profile :: ADD EMAIL
+$('#btn_profile_addemail').click(function(){
+    $('#modal_profile_addemail').modal({
+        onDeny: function () {
+            $('#modal_profile_addemail input[type=email]').val('');
+            return true;
+        }
+        // onApprove -> user in form
+    }).modal('show');
+});
+//Profile :: CHANGE EMAIL
+$('#btn_profile_changeemail').click(function () {
+    $('#modal_profile_changeemail').modal({
+        onDeny: function () {
+            $('#modal_profile_changeemail input[type=email]').val('');
+            return true;
+        }
+        // onApprove -> user in form
+    }).modal('show');
+});
