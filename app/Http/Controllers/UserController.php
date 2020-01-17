@@ -105,7 +105,7 @@ class UserController extends Controller
         // update session data -> name
         $request->session()->put('name', $request->name);
 
-        return redirect('profile/edit')->with('alert-success', 'Profil berhasil diperbarui');
+        return redirect('profile')->with('alert-success', 'Profil berhasil diperbarui');
 
     }
 
