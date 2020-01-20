@@ -37,6 +37,14 @@
             @endif
             <br>
             <br>
+            <div class="ui pagination menu">
+                <a class="item {{ ($sellings->previousPageUrl() == '')?'disabled':'' }}"
+                   href="{{ $sellings->previousPageUrl() }}">Sebelumnya </a>
+                <a class="item {{ ($sellings->nextPageUrl() == '')?'disabled':'' }}"
+                   href="{{ $sellings->nextPageUrl() }}">Selanjutnya</a>
+            </div>
+            <br>
+            <br>
             @if(count($sellings) < 1)
                 <img src="{{ asset('assets') }}/images/empty.gif" class="ui centered large image">
                 <div class="ui center aligned grid">
@@ -169,6 +177,7 @@
                     </div>
                 </div>
             @endforeach
+
             {{--    Detail Penjualan    --}}
             <div class="seven wide computer eight wide tablet sixteen wide mobile column">
 

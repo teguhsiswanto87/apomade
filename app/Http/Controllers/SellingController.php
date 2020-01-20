@@ -36,7 +36,7 @@ class SellingController
                     'market_places.image_link as mp_image_link',
                     'couriers.name as c_name')
                 ->orderBy('sellings.created_at', 'desc')
-                ->get();
+                ->simplePaginate(5);
             return view('selling', ['sellings' => $sellings, 'products' => $products_sold]);
         }
     }
