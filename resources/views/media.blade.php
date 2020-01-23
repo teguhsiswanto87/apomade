@@ -30,7 +30,7 @@
             <div class="header">Outcome
             </div>
             <div class="menu">
-                <a class="item">
+                <a class="item {{ request()->is('shopping*')?'active':'' }}" href="{{ url('shopping') }}">
                     <div><i class="shopping bag icon"></i>Belanja</div>
                 </a>
                 <a class="item">
