@@ -36,7 +36,7 @@
                 <a class="item">
                     <div><i class="chart pie icon"></i>Produksi</div>
                 </a>
-                <a class="item">
+                <a class="item {{ (request()->is('ad*')?'active':'') }}" href="{{ url('ad') }}">
                     <div><i class="bullhorn icon"></i>Iklan</div>
                 </a>
             </div>

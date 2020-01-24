@@ -139,7 +139,7 @@
             <form method="POST" action="{{ url('/profileChangeEmail') }}" class="ui form" id="form_profile_changeemail">
                 {{ csrf_field()  }}
                 <label>Sebelumnya : <b>{{ $user->email }}</b>
-                    <input type="email" placeholder="{{ $user->email }}" name="email" required>
+                    <input type="email" placeholder="masukkan email baru" name="email" required>
                 </label>
             </form>
         </div>

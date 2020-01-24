@@ -89,6 +89,12 @@ Route::get('/sellingdetailDelete/{sellings_id}&{products_id}/{come_from?}', 'Sel
 Route::post('/sellingdetailProductQtyIncrease', 'SellingDetailController@increaseProductQty');
 Route::post('/sellingdetailProductQtyDecrease', 'SellingDetailController@decreaseProductQty');
 
+// Ad = Advertisement
+Route::prefix('ad')->group(function () {
+    Route::get('', 'AdController@index');
+});
+
+
 // Shopping
 //Route::prefix('shopping')->group(function () {
 //    Route::get('', 'ShoppingController@index');
