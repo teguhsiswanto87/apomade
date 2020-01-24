@@ -10,7 +10,7 @@
             <div class="ui fluid segment">
                 {{--        Title Header        --}}
                 <h1 class="ui header">
-                    Tambah Market Place
+                    Example Tambah Belanja
                 </h1>
                 {{--        Form        --}}
                 <form class="ui form" method="POST" action="{{ url('/marketplacePost')  }}">

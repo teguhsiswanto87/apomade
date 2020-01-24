@@ -11,8 +11,6 @@
 |
 */
 
-Auth::routes();
-
 Route::get('/', function () {
     return view('login');
 });
@@ -92,14 +90,14 @@ Route::post('/sellingdetailProductQtyIncrease', 'SellingDetailController@increas
 Route::post('/sellingdetailProductQtyDecrease', 'SellingDetailController@decreaseProductQty');
 
 // Shopping
-Route::group(['middleware' => 'auth'], function () {
-    Route::get('shopping', 'ShoppingController@index');
-    Route::get('shopping/insert', 'ShoppingController@insert');
-    Route::get('shopping/edit', 'ShoppingController@edit');
-    Route::get('shopping/shoppingPost', 'ShoppingController@shoppingPost');
-    Route::get('shopping/shoppingUpdate', 'ShoppingController@shoppingUpdate');
-    Route::get('shopping/shoppingDelete', 'ShoppingController@shoppingDelete');
-});
+//Route::prefix('shopping')->group(function () {
+//    Route::get('', 'ShoppingController@index');
+//    Route::get('/insert', 'ShoppingController@insert');
+//    Route::get('/edit', 'ShoppingController@edit');
+//    Route::get('/shoppingPost', 'ShoppingController@shoppingPost');
+//    Route::get('/shoppingUpdate', 'ShoppingController@shoppingUpdate');
+//    Route::get('/shoppingDelete', 'ShoppingController@shoppingDelete');
+//});
 
 // ONLY TESTING
 //Route::get('/onlyTesting/{selings_id}&{products_id}', 'SellingController@onlyTesting');

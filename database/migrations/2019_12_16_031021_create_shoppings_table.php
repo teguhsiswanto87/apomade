@@ -19,7 +19,7 @@ class CreateShoppingsTable extends Migration
             $table->foreign('users_id')->references('id')->on('users');
 
             $table->date('shopping_date');
-            $table->bigInteger('total_price');
+//            $table->bigInteger('total_price');
             $table->timestamps();
         });
     }
