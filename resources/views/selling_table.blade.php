@@ -75,7 +75,7 @@
                         <th>Nama Barang</th>
                         <th>Jumlah Jual</th>
                         <th>Harga Jual</th>
-                        <th>Pajak</th>
+                        <th>Pajak & DV</th>
                         <th>Omzet</th>
 
                         <th>Modal</th>
@@ -121,7 +121,8 @@
                             </td>
                             {{--  Shipping Tax  --}}
                             <td class="right aligned collapsing">
-                                {{ $selling->shipping_tax }}%
+                                {{ $selling->shipping_tax }}% <br>
+                                <label class="ui tiny label">{{ number_format($selling->voucher_discount,0,',','.') }}</label>
                             </td>
                             {{--  Turnover  --}}
                             <td class="right aligned collapsing">

@@ -94,6 +94,13 @@ Route::prefix('ad')->group(function () {
     Route::get('', 'AdController@index');
 });
 
+// Finance
+Route::prefix('finance')->group(function () {
+    Route::get('', 'FinanceController@index');
+    Route::get('/mutation', 'FinanceController@mutation');
+    Route::post('/addBalance', 'FinanceController@addBalance');
+    Route::post('/subtactBalance', 'FinanceController@subtactBalance');
+});
 
 // Shopping
 //Route::prefix('shopping')->group(function () {

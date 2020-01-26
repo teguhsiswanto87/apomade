@@ -31,7 +31,7 @@ $('.ui.accordion')
     .accordion();
 
 // date picker for Semantic UI
-$('#example2').calendar({
+$('#example2, #example3').calendar({
     type: 'date',
     monthFirst: false,
     formatter: {

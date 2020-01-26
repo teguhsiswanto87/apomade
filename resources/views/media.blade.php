@@ -17,7 +17,7 @@
                         Produk
                     </div>
                 </a>
-                <a class="item {{ (request()->is('keuangan')) ? 'active' : ''  }}" href="">
+                <a class="item {{ (request()->is('finance')) ? 'active' : ''  }}" href="{{ url('finance') }}">
                     <div>
                         <i class="icon money bill alternate"></i>
                         Keuangan
